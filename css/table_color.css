@@ -35,3 +35,7 @@ td#pinned{
 td#not_pinned{
   background: lightgray;
 }
+
+td#select{
+  background: white;
+}

@@ -43,6 +43,7 @@
       a{
         text-decoration: inherit;
         color:inherit;
+        cursor: pointer;
       }
       div#table_container{
         width: 100%;
@@ -110,14 +111,13 @@
         color: #6f6f6f;
         font-weight: bold;
         border-radius: 8px;
-
       }
     </style>
   </head>
   <body>
     <nav id="topnav">
       <div id="topnav_div" style="float:left;width:360px;height:36px;padding:8px;color:#ffffff;font-size:20px;">
-        <a href="../ticket/">좌석선택</a> > 정보입력 > <span>예매완료</span>
+        <a onclick="document.getElementById('cancel').submit();">좌석선택</a> > 정보입력 > <span>예매완료</span>
       </div>
     </nav>
     <div id="body_wrap">

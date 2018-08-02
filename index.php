@@ -224,7 +224,7 @@
     <div id="MMC_desc">
       <p class="MMC_desc_1 hidden">movie</p>
       <?php
-      echo '<p class="MMC_desc_2 hidden">m<span onclick="location.replace(\''.$toROOT.'admin.php\')">a<span>nufactur<span onclick="singMode()">i</span>ng</p>';
+      echo '<p class="MMC_desc_2 hidden">m<span onclick="location.replace(\''.$toROOT.'admin/\')">a<span>nufactur<span onclick="singMode()">i</span>ng</p>';
       ?>
       <p class="MMC_desc_3 hidden">club</p>
     </div>

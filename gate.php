@@ -5,7 +5,7 @@
     <meta charset="utf-8">
   	<meta name="author" content="hepheir">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>예매하기에 앞서서</title>
+    <title>서브 메인페이지</title>
     <style media="screen">
       html, body{
         width: 100%;
@@ -67,7 +67,7 @@
   <body>
     <nav id="topnav">
       <div id="topnav_div" style="float:left;width:360px;height:36px;padding:8px;color:#ffffff;font-size:20px;">
-        후후후.. 여기에 뭘 적어야하나
+        게이트웨이
       </div>
     </nav>
     <div id="body_wrap">
@@ -92,9 +92,12 @@
       <br>
       <h2 style="margin:0;">내가 예매한 좌석 확인하기</h2>
       <hr>
+      <p>
+        참고로 예매취소는 여기서 할 수 있다.
+      </p>
       <br>
       <p>
-        <input type="button" value="조회하기" onclick="window.location.replace('./ticket/check/')">
+        <input type="button" value="취소 / 조회하기" onclick="window.location.replace('./ticket/check/')">
       </p>
       <br>
       <br>
