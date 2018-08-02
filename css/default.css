@@ -11,6 +11,7 @@ body{
   margin: 0;
 }
 a{
+  margin: 0;
   text-decoration: none;
   color:inherit;
 }
@@ -24,4 +25,7 @@ p{
 }
 .inline_b{
   display: inline-block;
+}
+.bold{
+  font-weight: bold;
 }

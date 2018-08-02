@@ -19,7 +19,7 @@
   <script src="http://code.jquery.com/jquery-latest.js"></script>
   <title>UNIT &amp; MMC</title>
   <script>
-  var delayTime = 720; // 요소들이 나타나는데에 걸리는 시간 (단위: ms = 1/1000 second)
+  var delayTime = 640; // 요소들이 나타나는데에 걸리는 시간 (단위: ms = 1/1000 second)
 
 	var status = 0;
 	function setStatus(){ // 애니매이션이 끝났는지 아닌지의 상태

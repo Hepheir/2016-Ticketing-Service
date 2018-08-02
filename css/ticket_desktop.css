@@ -128,7 +128,7 @@ input[type=radio]:checked+label.cell{
   color: #ffffff;
 	/* ================= */
 }
-div.footer{
+nav.footer{
   width: 100%;
   height: 48px;
   background-color: #ffffff;
