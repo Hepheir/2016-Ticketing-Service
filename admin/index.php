@@ -9,6 +9,7 @@
     <meta charset="utf-8">
     <meta name="author" content="hepheir@gmail.com">
     <link rel="stylesheet" href="../css/table_color.css">
+    <link rel="shortcut icon" href="../favicon.ico">
     <?php
       session_start();
       include './members.php';

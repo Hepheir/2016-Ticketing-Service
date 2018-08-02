@@ -5,6 +5,7 @@
     <meta charset="utf-8">
   	<meta name="author" content="hepheir">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./favicon.ico">
     <title>서브 메인페이지</title>
     <style media="screen">
       html, body{

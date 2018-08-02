@@ -112,10 +112,9 @@
     <li class="pointer" onclick="window.location.replace('?opt=13')">- 홍보페이지</li>
     <hr>
     <li><h3>기타기능</h3></li>
-    <li class="pointer" onclick="window.location.replace('?opt=20')">- 디버그</li>
-    <li class="pointer" onclick="window.location.replace('?opt=22')">- 개발자 정보</li>
-    <li class="pointer" onclick="window.location.replace('?opt=21')">- 좌석표 오류</li>
-    <li class="pointer" onclick="window.location.replace('?opt=23')">- 기타</li>
+    <li class="pointer" onclick="window.location.replace('?opt=20')">- 개발자 정보</li>
+    <hr>
+    <li><h3><a href="../" style="text-decoration:none;color:inherit;" onmouseover="this.innerHTML = '잠깐! 기다려봐'" onmouseout="this.innerHTML = '메인으로'" on title="보안을 위해서 되도록 로그아웃 기능을 이용해주세요">메인으로</a></h3></li>
   </ul>
 </nav>
 <?php
@@ -186,6 +185,30 @@
         echo '<p style="margin-left:32px;display:inline-block">- 예매자 관리</p><hr></div>';
         include './show/ticket_list.php';
         break;
+
+      case '13':
+        echo '</form>';
+        echo '<form action="./apply.php" method="post" enctype="multipart/form-data">';
+        echo '<div class="opt_name">';
+        echo '<h1 style="margin-left:16px;display:inline-block;letter-spacing:2px;">공연정보</h1>';
+        echo '<p style="margin-left:32px;display:inline-block">- 홍보페이지</p><hr></div>';
+        echo '<div class="container" style="padding-left: 8px;">';
+        echo '<p>주의 : 이 기능은 좀 위험하면서 중요한 작업을 담당합니다.</p>';
+        echo '<p>>> intro/ 디렉토리 안에 파일을 업로드 합니다. (예 : index.html)</p>';
+        echo '<input type="file" name="file_upload" id="file_upload" style="width:auto;"><br><br>';
+        echo '<input id="reset" type="radio" name="upload_mode" value="0" style="position:relative;top:4px;width:16px;height:16px;"><label for="reset">초기화</label><br>';
+        echo '<input id="add" type="radio" name="upload_mode" value="1" style="position:relative;top:4px;width:16px;height:16px;" checked=""><label for="add">추가</label><br>';
+        echo '<br><br><input type="submit" value="업로드">';
+        echo '</div>';
+        break;
+
+      case '20':
+        echo '<div class="opt_name">';
+        echo '<h1 style="margin-left:16px;display:inline-block;letter-spacing:2px;">기타기능</h1>';
+        echo '<p style="margin-left:32px;display:inline-block">- 개발자 정보</p><hr></div>';
+        echo '<div class="container" style="padding-left: 8px;">';
+        include $toROOT.'data/developer.html';
+        echo '</div>';
 
       default:
         break;

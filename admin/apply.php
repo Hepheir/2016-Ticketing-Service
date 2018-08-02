@@ -66,6 +66,20 @@
         }
         break;
 
+      case '13':
+        $target_directory = $toROOT.'intro/';
+        $target_file = $target_directory.basename($_FILES['file_upload']['name']);
+        $file_type = pathinfo($target_file,PATHINFO_EXTENSION);
+        if ($_POST['upload_mode'] == 0){
+          $files = glob($target_directory.'*'); // get all file names
+          foreach($files as $file){ // iterate files
+            if(is_file($file))
+              unlink($file); // delete file
+          }
+        }
+        move_uploaded_file($_FILES['file_upload']['tmp_name'], $target_file);
+        break;
+
       default:
         echo 'you dirty hacker';
         break;
