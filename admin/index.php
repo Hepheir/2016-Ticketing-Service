@@ -49,8 +49,8 @@ else {
         <div class="option_desc">
           <p>가로 칸 개수 : <input id="opt1_col" type="number" min="1" max="999" placeholder="Column" value="<?php echo str_replace(chr(13).chr(10), '', file('../data/table_setting')[0]); ?>"></p>
           <p>세로 줄 개수 : <input id="opt1_row" type="number" min="1" max="999" placeholder="Row" value="<?php echo str_replace(chr(13).chr(10), '', file('../data/table_setting')[1]); ?>"></p>
+          <button class="option_apply" onclick="B('code=1&col='+document.querySelector('#opt1_col').value+'&row='+document.querySelector('#opt1_row').value);">적용</button>
         </div>
-        <button class="option_apply" onclick="B('code=1&col='+document.querySelector('#opt1_col').value+'&row='+document.querySelector('#opt1_row').value);">적용</button>
       </li>
       <li class="card opt2">
         <p class="card-title" onclick="A(2)">
@@ -62,21 +62,60 @@ else {
         <div class="option_info">공연 횟수를 설정.<br>예매 화면에서 몇 부까지 예매가 가능하게 할 것인지 지정하는 기능이다.</div>
         <div class="option_desc">
           <p>공연 횟수 : <input id="opt2_part" type="number" min="1" max="999" placeholder="Part" value="<?php echo str_replace(chr(13).chr(10), '', file('../data/part_available')[0]); ?>"></p>
+          <button class="option_apply" onclick="B('code=2&part='+document.querySelector('#opt2_part').value)">적용</button>
         </div>
-        <button class="option_apply" onclick="B('code=2&part='+document.querySelector('#opt2_part').value')">적용</button>
       </li>
       <li class="card opt3">
         <p class="card-title" onclick="A(3)">
           <icon class="card-title__icon">crop_free</icon>
-          <span class="card-title__text">좌석표 빈칸 배치</span>
+          <span class="card-title__text">좌석표 빈 칸 배치</span>
           <icon class="card-title__toggle">arrow_drop_down</icon>
         </p>
         <hr>
-        <div class="option_info">빈 칸으로 표시할 영역을 지정.<br>공연 장소의 여건에 따라 모양을 맞출 수 있음. (예: 복도 표현)</div>
         <div class="option_desc">
-          <p>공연 횟수 : <input id="opt3_part" type="number" min="1" max="999" placeholder="Part" value="<?php echo str_replace(chr(13).chr(10), '', file('../data/part_available')[0]); ?>"></p>
+          <div class="option_info">빈 칸으로 표시할 영역을 지정.
+            <br>공연 장소의 여건에 따라 모양을 맞출 수 있음. (예: 복도 표현)
+            <br>한 열의 좌석을 출력 할 때, 빈 좌석이 있으면 해당 좌석번호를 그 다음칸에 출력함. (예 : A4 A5 A6 -[A5 위치에 빈 칸 추가]-> A4 [빈칸] A5)
+          </div>
+          <div class="table_wrap">
+            <?php
+              // ini_set('display_errors','off');
+              $TABLE_SETTING = file('../data/table_setting');
+
+              for ($row = 1; $row <= $TABLE_SETTING[1]; $row++) {
+                $row_chr = chr($row+64);
+
+                echo '<ul class="emtpy__row">';
+                echo '<li class="emtpy__row-chr">'.$row_chr.'</li>';
+
+                for ($col = 1; $col <= $TABLE_SETTING[0]; $col++) {
+                  if (file_exists('../data/empty_cell/'.$row_chr.$col)) {
+                    // 1이면 빈 칸이다.
+                    echo '<li class="emtpy__col"><input class="empty__checkbox" type="checkbox" name="'.$row_chr.$col.'" checked></li>';
+                    continue;
+                  }
+
+                  echo '<li class="emtpy__col"><input class="empty__checkbox" type="checkbox" name="'.$row_chr.$col.'"></li>';
+                }
+                echo '</ul>';
+                echo '<br>';
+              }
+            ?>
+          </div>
+          <button class="option_apply" onclick="B('code=3&seats='+C())">적용</button>
         </div>
-        <button class="option_apply" onclick="B('code=3&part='+document.querySelector('#opt2_part').value')">적용</button>
+        <script type="text/javascript" role="count checked seats">
+          function C () {
+            var ckd = document.getElementsByClassName('empty__checkbox');
+            var ept_seats = '';
+            for (var i = 0; i < ckd.length; i++) {
+              if (ckd[i].checked) {
+                ept_seats += ckd[i].name+',';
+              }
+            }
+            return ept_seats;
+          }
+        </script>
       </li>
       <li class="card opt4">
         <p class="card-title" onclick="A(4)">
@@ -85,44 +124,11 @@ else {
           <icon class="card-title__toggle">arrow_drop_down</icon>
         </p>
         <hr>
-        <div class="option_info">선택 할 수 없는 좌석을 지정.<br>VIP석이나 오프라인 예매 전용석은 이 기능으로 지정하면 된다.</div>
+
         <div class="option_desc">
-          <?php
-            // ini_set('display_errors','off');
-            $TABLE_SETTING = file('../data/table_setting');
-
-            for ($row = 1; $row <= $TABLE_SETTING[1]; $row++) {
-              $row_chr = chr($row+64);
-              // col_shift : 빈 칸에 의해 밀린 칸 수 만큼 col을 Shift하기 위한 변수
-              $col_shift = 0;
-
-              $EMPTY_CELL = file('./data/empty_cell/'.$row_chr);
-
-              echo '<ul class="emtpy__row">';
-              echo '<li class="emtpy__row-chr">'.$row_chr.'</li>';
-
-              for ($col = 1; $col <= $TABLE_SETTING[0]; $col++) {
-                if ($EMPTY_CELL[$col] == 1) {
-                  // 1이면 빈 칸이다.
-                  echo '<li class="emtpy__col"><input type="checkbox" name="'.$row_chr.$col.'" checked></li>';
-                  $col_shift++;
-                  continue;
-                }
-                // 빈 칸에 의해 밀려버린 col를 한 루프동안 원래대로 shifting 함.
-
-                echo '<li class="emtpy__col">'.$row_chr.($col - $col_shift).'</li>';
-              }
-              echo '</ul>';
-              echo '<br>';
-            }
-            echo '<br>';
-            echo '<br>';
-            echo '<br>';
-            echo '<br>';
-            echo '<hidden class="js-saved-seat">'.$SAVED_SEAT.'</hidden>';
-          ?>
+          <div class="option_info">선택 할 수 없는 좌석을 지정.<br>VIP석이나 오프라인 예매 전용석은 이 기능으로 지정하면 된다.</div>
         </div>
-        <button class="option_apply" onclick="B('code=4&part='+document.querySelector('#opt2_part').value')">적용</button>
+        <button class="option_apply" onclick="B('code=4&part='+document.querySelector('#opt2_part').value)">적용</button>
       </li>
 
       <!-- <li class="card opt0">

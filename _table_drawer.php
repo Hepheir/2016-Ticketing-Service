@@ -15,13 +15,11 @@ for ($row = 1; $row <= $TABLE_SETTING[1]; $row++) {
   // col_shift : 빈 칸에 의해 밀린 칸 수 만큼 col을 Shift하기 위한 변수
   $col_shift = 0;
 
-  $EMPTY_CELL = file('./data/empty_cell/'.$row_chr);
-
   echo '<ul class="row">';
   echo '<li class="row-chr">'.$row_chr.'</li>';
 
   for ($col = 1; $col <= $TABLE_SETTING[0]; $col++) {
-    if ($EMPTY_CELL[$col] == 1) {
+    if (file_exists('./data/empty_cell/'.$row_chr.$col)) {
       // 1이면 빈 칸이다.
       echo '<li class="col-empty"></li>';
       $col_shift++;
@@ -40,7 +38,7 @@ for ($row = 1; $row <= $TABLE_SETTING[1]; $row++) {
 
     elseif ($SEAT_STATUS == 2) {
       if ($row_chr.$col == $SAVED_SEAT)
-        echo '<li class="col selected" seat="'.$row_chr.$col.'" onclick="SelectSeat(\''.$row_chr.$col.'\')">'.$row_chr.$col.'</li>';
+        echo '<li class="col" seat="'.$row_chr.$col.'" onclick="SelectSeat(\''.$row_chr.$col.'\')">'.$row_chr.$col.'</li>';
       else
         echo '<li class="col-booked" seat="'.$row_chr.$col.'">'.$row_chr.$col.'</li>';
     }

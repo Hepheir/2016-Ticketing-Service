@@ -75,7 +75,7 @@ hr {
   transition: box-shadow .2s cubic-bezier(0,0,.3,1);
   transition: max-height .15s cubic-bezier(0,0,.3,1);
 }
-.card.opened { max-height:100%;overflow-y:auto; }
+.card.opened { max-height:100%; }
 .card:hover { box-shadow: 0 2px 12px rgba(0, 0, 0, 0.5); }
 .card-title {
   width: 100%;
@@ -110,16 +110,18 @@ span.card-title__text { display:block;width:auto;height:32px;font-size:20px;line
 
 .option_desc {
   width: 100%;
-  height: auto;
+  height: calc(100% - 64px);
   margin-bottom: 16px;
+  overflow-y: auto;
 }
 
 .option_apply {
   width: auto;
   height: 32px;
   float: right;
+  margin-top: 24px;
   margin-right: 8px;
-  margin-bottom: 16px;
+  margin-bottom: 24px;
   padding: 8px 16px;
   border-radius: 3px;
   font-size: 16px;
@@ -133,3 +135,68 @@ span.card-title__text { display:block;width:auto;height:32px;font-size:20px;line
   transition: box-shadow .2s cubic-bezier(0,0,.3,1);
 }
 .option_apply:hover { box-shadow: 0 2px 12px rgba(0, 0, 0, 0.5); }
+
+
+.table {
+  width: 104%;
+  height: calc(100% - 24px);
+  padding: 0 2%;
+  margin-left: -2%;
+  overflow: auto;
+  text-align: center;
+}
+
+.emtpy__row-chr, .emtpy__col, .caption {
+  padding: 8px 0;
+  text-align: center;
+  font-size: 16px;
+  line-height: 16px;
+}
+
+.caption {
+  width: 100%;
+  max-width: 672px;
+  height: 32px;
+  margin-bottom: 8px;
+  background: #FFF;
+  border-radius: 3px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  display: inline-block;
+}
+
+.emtpy__row {
+  width: auto;
+  height: 40px;
+  padding: 4px 0;
+  list-style: none;
+
+  display: inline-flex;
+  flex-direction: row;
+}
+
+.emtpy__row-chr {
+  width: 28px;
+  height: 32px;
+  min-width: 28px;
+  margin: 0 2px;
+  border-top: 2px solid gray;
+}
+
+/* Basic Cell Layout */
+
+.emtpy__col {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  margin-left: 8px;
+  border-radius: 3px;
+}
+
+.emtpy__col {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  background-color: #FFF;
+
+  transition: box-shadow .3s cubic-bezier(0,0,.3,1);
+}
+.emtpy__col:hover { box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); }

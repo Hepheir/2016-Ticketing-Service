@@ -22,6 +22,7 @@ html, body, div.page {
   top: 16px;
   right: 16px;
   z-index: 10;
+  visibility: hidden;
 }
 
 .form-wrap {
@@ -114,6 +115,7 @@ html, body, div.page {
 .form__login button {
   width: auto;
   height: 36px;
+  margin-top: 8px;
   padding: 8px 16px;
   font-size: 20px;
   line-height: 20px;

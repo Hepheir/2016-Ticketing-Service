@@ -76,7 +76,7 @@
         <span id="name" class="js-form-name"></span>
       </hidden>
     </div>
-      <script type="text/javascript" role="detect IE (from http://www.jquerybyexample.net/2014/06/how-to-detect-ie-11-using-javascript-jquery.html)">
+      <!-- <script type="text/javascript" role="detect IE (from http://www.jquerybyexample.net/2014/06/how-to-detect-ie-11-using-javascript-jquery.html)"> -->
         function GetIEVersion() {
           var sAgent = window.navigator.userAgent;
           var Idx = sAgent.indexOf("MSIE");
@@ -98,6 +98,15 @@
           window.close();
         }
       </script>
+    <script type="text/javascript" role="Detect Chrome browser">
+      var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+      if (!isChrome) {
+        alert('본 사이트는 HTML5/CSS3를 적극 사용하여 디자인, 제작 되었습니다.');
+        alert('IE나 안드로이드 기본 브라우져 등 아직 HTML5와 CSS를 지원하지 않는 브라우져에서는 작동하지 않는 기능이 있을 수 있습니다. 되도록 구글 크롬을 사용해 주세요.');
+        window.close();
+        // document.querySelector('.page').style.display = 'none';
+      }
+    </script>
     <script type="text/javascript" role="login and user detection">
       var id = document.querySelector('.js-form-id').innerHTML;
       var name = document.querySelector('.js-form-name').innerHTML;
@@ -148,10 +157,22 @@
     <script type="text/javascript" role="Seat Selector">
       function SelectSeat (selected_seat) {
         var seats = document.getElementsByClassName('col');
+        var seat_panel = document.getElementsByClassName('js-selected_seat');
         for (var i = 0; i < seats.length; i++) {
           if (seats[i].getAttribute('seat') == selected_seat) {
+            // 좌석 선택 취소 모드
+            if (seats[i].classList[1] == 'selected') {
+              seats[i].classList.remove('selected');
+              for (var j = 0; j < seat_panel.length; j++) {
+                seat_panel[j].innerHTML = '선택하신 좌석이 없습니다.';
+              }
+              document.querySelector('.js-form-seat').innerHTML = 'cancel';
+              document.querySelector('.js-save-btn').classList.add('activated');
+
+              console.log('cancel sequence on : '+selected_seat);
+              continue;
+            }
             seats[i].classList.add('selected');
-            var seat_panel = document.getElementsByClassName('js-selected_seat');
             for (var j = 0; j < seat_panel.length; j++) {
               seat_panel[j].innerHTML = '선택하신 좌석은 '+selected_seat+'입니다.';
             }

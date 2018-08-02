@@ -1,1 +1,2 @@
-added IE dectector
+16-08-11 : Added Cancelation mode (이미 선택된 좌석 선택을 해제하고 저장 할 경우 예매를 취소시킴.)
+Added Admin Option - Blank Seat (빈 좌석 배치)
