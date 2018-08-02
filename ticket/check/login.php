@@ -100,7 +100,7 @@
       <form method="post">
         <label for="id">학번을 입력하시오</label>
         <br>
-        <input style="margin-top:8px" type="number" name="id" id="id">
+        <input style="margin-top:8px" type="number" min="10101" max="31449" name="id" id="id">
         <br>
         <br>
         <label for="pw">비밀번호도 입력하시오</label>

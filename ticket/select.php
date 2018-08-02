@@ -104,19 +104,31 @@
         echo '<form id="part_refresh" method="post">';
         echo '<h2 style="margin:0">';
         echo '<select id="part_select" name="part" style="width:64px;height:32px;font-size:18px;border:2px solid gray;border-radius:8px;">';
+        $table_info_fi = file($toROOT.'data/config/seat_table/table_info');
+        $part_set = str_replace(chr(13).chr(10), '',$table_info_fi[3]);
         if (isset($_POST['part'])){
           if ($_POST['part'] == 1) {echo'<option value="1" selected>1부</option>';}
           else {echo'<option value="1">1부</option>';}
-          if ($_POST['part'] == 2) {echo'<option value="2" selected>2부</option>';}
-          else {echo'<option value="2">2부</option>';}
-          if ($_POST['part'] == 3) {echo'<option value="3" selected>3부</option>';}
-          else {echo'<option value="3">3부</option>';}
+          if ($part_set <= 2) {
+            if ($_POST['part'] == 2) {echo'<option value="2" selected>2부</option>';}
+            else {echo'<option value="2">2부</option>';}
+          }
+          elseif ($part_set <= 3) {
+            if ($_POST['part'] == 3) {echo'<option value="3" selected>3부</option>';}
+            else {echo'<option value="3">3부</option>';}
+          }
         }
         else{
           echo '<option value="0">선택</option>';
           echo '<option value="1">1부</option>';
-          echo '<option value="2">2부</option>';
-          echo '<option value="3">3부</option>';
+          if ($part_set <= 2) {
+            if ($_POST['part'] == 2) {echo'<option value="2" selected>2부</option>';}
+            else {echo'<option value="2">2부</option>';}
+          }
+          elseif ($part_set <= 3) {
+            if ($_POST['part'] == 3) {echo'<option value="3" selected>3부</option>';}
+            else {echo'<option value="3">3부</option>';}
+          }
         }
         echo '</select>';
         echo ' 좌석표 입니다.';

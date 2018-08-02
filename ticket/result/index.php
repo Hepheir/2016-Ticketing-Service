@@ -6,7 +6,12 @@
   elseif (!isset($_POST['part'])){echo '<script>alert("you dirty hacker");window.history.back();</script>';}
   elseif (!isset($_POST['seat'])){echo '<script>alert("you dirty hacker");window.history.back();</script>';}
   elseif (file_exists($toROOT.'data/p_info/'.$_POST['id'])){
-    echo '<script>alert("동일 학번으로 중복하여 예매할 수 없습니다.");window.location.replace("'.$toROOT.'ticket/");</script>';
+    echo '<form id="cancel" action="'.$toROOT.'ticket/" method="post">';
+    echo '<input type="hidden" name="cancel" value="1">';
+    echo '<input type="hidden" name="part" value="'.$_POST['part'].'">';
+    echo '<input type="hidden" name="seat" value="'.$_POST['seat'].'">';
+    echo '</form>';
+    echo '<script>alert("동일 학번으로 중복하여 예매할 수 없습니다.");document.getElementById("cancel").submit();</script>';
   }
   else {
     if ($seat_file = fopen($toROOT.'data/config/seat_table/part_'.$_POST['part'].'/booked\/'.$_POST['seat'],'x')) {

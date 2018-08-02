@@ -138,7 +138,7 @@
         <div id="inform">
           <label for="id">학번</label>
           <br>
-          <input id="id" type="text" name="id">
+          <input id="id" type="number" min="10101" max="31449" name="id">
           <br>
           <br>
           <label for="name">이름</label>
