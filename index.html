@@ -7,202 +7,45 @@
 * site designed by
 *   dfc7936@naver.com & hepheir@gmail.com
 *
+* :: MAIN ::
 -->
 <head>
   <meta charset="utf-8">
 	<meta name="author" content="hepheir">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./css/main.css" media="screen">
   <link rel="shortcut icon" href="./favicon.ico">
-  <meta http-equiv="X-UA-Compatible" content="IE=8">
-  <style media="screen">
-    @charset "UTF-8";
-    html, body{
-      width: 100%;
-      height: 100%;
-      margin: 0;
-      padding: 0;
-      font-family: arial;
-      background-color: black;
-    }
-    p{
-      margin:0;
-      padding: 0;
-      line-height: 1.2em;
-    }
-    a{
-      margin: 0;
-      text-decoration: none;
-      color:white;
-    }
-    .hidden{
-      display: none;
-    }
-    p.menu_text{
-      text-transform: uppercase;
-      letter-spacing: -0.1em;
-    }
-    #background{
-      width: 100%;
-      height: 100%;
-      margin: 0;
-      position: fixed;
-      background-image: url('./data/images/Background.jpg');
-      filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(
-        src='./data/images/Background.jpg',
-        sizingMethod='scale');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      opacity: 0.7;
-      -webkit-filter: blur(3px);
-    }
-    #bodyWrap{
-      margin: 0 0 0 calc(100% * 2 / 27);
-      width: calc(100% * 23 / 25);
-      height:100%;
-      position: fixed;
-      color: white;
-    	overflow: auto;
-    }
-    div.bodyClearfix{
-      height: calc(90% - 6em);
-      min-height: 110px;
-    	margin-right: calc(100% * 2 / 25);
-    }
-    div.MMC_logo{
-      width: 36px;
-      height: 36px;
-      padding: 32px calc(50% - 18px) 12px calc(50% - 18px);
-      background-image: url('./data/images/MMC_logo.png');
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-origin: content-box;
-    }
-    .menu{
-      width: 100%;
-    }
-    td.menu_td{
-      width: calc(100% * 9 / 23);
-      text-align: center;
-    }
-    td.menu_Ltd{
-      width: calc(100% * 7 / 23);
-      text-align: left;
-    }
-    td.menu_Rtd{
-      width: calc(100% * 7 / 23);
-      text-align: right;
-    }
-    #MMC_desc{
-      text-transform: uppercase;
-      min-height: 100px;
-      font-size: 1.8em;
-      font-weight: 600;
-    }
-    #lyricWrap{
-    	padding-top: 48px;
-    	width:100%;
-    	height: 900px;
-    	font-size: 16px;
-    }
-    span.titleCap{
-    	font-size: 0.7em;
-    }
-  </style>
-  <script src="http://code.jquery.com/jquery-latest.js"></script>
-  <title>UNIT &amp; MMC</title>
-  <script>
-    var delayTime = 640; // 요소들이 나타나는데에 걸리는 시간 (단위: ms = 1/1000 second)
-
-  	var status = 0;
-  	function setStatus(){ // 애니매이션이 끝났는지 아닌지의 상태
-  		status = 1;
-  	}
-    function performance(){
-      $('div.MMC_logo').delay(delayTime).fadeIn(delayTime);
-      $('p.menu_1').delay(delayTime * 2).fadeIn(delayTime);
-      $('p.menu_2').delay(delayTime * 3).fadeIn(delayTime);
-      $('p.menu_3').delay(delayTime * 4).fadeIn(delayTime);
-      $('p.MMC_desc_1').delay(delayTime * 5).fadeIn(delayTime * 2);
-      $('p.MMC_desc_2').delay(delayTime * 5).fadeIn(delayTime * 2);
-      $('p.MMC_desc_3').delay(delayTime * 5).fadeIn(delayTime * 2);
-     	setTimeout(setStatus,delayTime * 6); // 모든 애니메이션이 실행 된 후 div.sketch가 나타날 수 있게 끔 설정
-    }
-		function guide(){
-      if(status==0){ //애니메이션 보기 싫을 때 빠른 스킵
-        $('div.MMC_logo').show();
-        $('p.menu_1').show();
-        $('p.menu_2').show();
-        $('p.menu_3').show();
-        $('p.MMC_desc_1').show();
-        $('p.MMC_desc_2').show();
-        $('p.MMC_desc_3').show();
-        setTimeout(setStatus,delayTime);
-      }
-		}
-
-		//창 크기에 따른 폰트 사이즈 조절
-		var w = window.innerWidth;
-    if (w < 350){
-      document.write('<style>body{font-size:18px;}.variable{display:none;}</style>');
-    }
-    else if (w < 400){
-      document.write('<style>body{font-size:16px;}</style>');
-    }
-		else if(w < 560){
-			document.write('<style>body{font-size:18px;}</style>');
-		}
-    else if(w < 610){
-      document.write('<style>body{font-size:18px;}</style>');
-    }
-		else if (w < 710){
-			document.write('<style>body{font-size:20px;}</style>');
-    }
-    else{
-      document.write('<style>body{font-size:24px;}</style>');
-    };
-  </script>
 </head>
 <body>
-  <!--[if lt IE 7]>
-    <script type="text/javascript">alert("오우.. 이런, 인터넷 브라우저로 익스플로러를 사용하고 계시는 군요.");
-      alert("익스플로러는 개발자들이 좀 거지같이 만들어 놓아서 제대로 작동하는 코드가 드물기에 디자인이 이상하게 표시되는 경우가 잦습니다.");
-      alert("참고로 본 사이트는 구글 크롬에 최적화된 디자인을 사용하고 있습니다.");
-    </script>
-  <![endif]-->
-  <!--[if lt IE 8]>
-    <script type="text/javascript">alert("오우.. 이런, 인터넷 브라우저로 익스플로러를 사용하고 계시는 군요.");
-      alert("익스플로러는 개발자들이 좀 거지같이 만들어 놓아서 제대로 작동하는 코드가 드물기에 디자인이 이상하게 표시되는 경우가 잦습니다.");
-      alert("참고로 본 사이트는 구글 크롬에 최적화된 디자인을 사용하고 있습니다.");
-    </script>
-  <![endif]-->
-  <div id="background">
-  </div>
-  <div id="bodyWrap" onclick="guide();">
-    <div class="bodyClearfix">
-      <div class="MMC_logo hidden" onclick="window.location.replace('http://www.facebook.com/bojeongmmc/')"></div>
-      <nav class="menu">
-        <table class="menu">
-          <td class="menu_Ltd"><a title="예매하기" href="./gate.php">
-            <p class="menu_text menu_1 hidden">tickets</p>
-          </a></td>
-          <td class="menu_td"><a title="상영작/연극 소개" href="./intro/">
-            <p class="menu_text menu_2 hidden">introduction</p>
-          </a></td>
-          <td class="menu_Rtd"><a title="비트랑 클라우드와는 클라스가 다른 보정 최강 자율동아리" href="http://project-unit.tistory.com" target="_blank">
-            <p class="menu_text menu_3 hidden"><span class="variable">team </span>unit</p>
-          </a></td>
-        </table>
-      </nav>
-    </div>
-    <div id="MMC_desc">
-      <p class="MMC_desc_1 hidden">movie</p>
-      <p class="MMC_desc_2 hidden">manuf<a href="./admin/" style="cursor: normal;">a</a>cturing</p>
-      <p class="MMC_desc_3 hidden">club</p>
+  <img id="BGimg" width="100%" height="100%"class="fixed" src="./asset/img/main-background.jpg" alt="" />
+  <div class="LayoutWrapClearfix">
+    <div class="LayoutWrap absolute">
+      <div class="ContentWrap">
+        <div class="Header">
+          <div class="LogoWrap">
+            <img class="Logo" src="./asset/img/main-mmc_logo.png" alt="" />
+          </div>
+          <nav class="topMenu">
+            <div class="topMenuLeft"><a href="./ticketing/">TICKETING</a></div>
+            <div class="topMenuCenter"><a href="./ticketing/">INTRODUCE</a></div>
+            <div class="topMenuRight"><a target="_blank" href="http://project-unit.tistory.com/">TEAM UNIT</a></div>
+          </nav>
+        </div>
+        <div class="Content absolute">
+          MOVIE<br>MANUFACTURING<br>CLUB
+        </div>
+      </div>
     </div>
   </div>
-  <script>
-  performance();
+  <script type="text/javascript">
+    if (2*window.innerWidth >= 3*window.innerHeight){
+      document.getElementById('BGimg').style.width = window.innerWidth+'px';
+      document.getElementById('BGimg').style.height = 2/3*window.innerWidth+'px';
+    }
+    else{
+      document.getElementById('BGimg').style.width = 3/2*window.innerHeight+'px';
+      document.getElementById('BGimg').style.height = window.innerHeight+'px';
+    }
   </script>
 </body>
 </html>
