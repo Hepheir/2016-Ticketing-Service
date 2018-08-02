@@ -1,3 +1,5 @@
+body{
+}
 #Header, #topMenuIcon, #topTitle, #topMenuText, #topMenuText>a{
   background: gray;
   color: white;
@@ -16,11 +18,26 @@
   color: gray;
   border-color: gray;
 }
-#Content{
-  background: #eeeeee;
-}
 /* "다음" 버튼 */
 #seatFormButton{
   background: lightgray;
+  color: gray;
+}
+/* TICKETING_SELECT */
+#partSelect{
+
+}
+.part{
+  background: lightgray;
+  color: white;
+}
+.part:hover{
+  color: gray;
+}
+.selectedPart{
+  background: transparent;
+  color: gray;
+}
+#seatTableCaption, .exampleWrap{
   color: gray;
 }
