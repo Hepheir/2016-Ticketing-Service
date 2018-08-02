@@ -14,7 +14,9 @@
   <meta charset="utf-8">
 	<meta name="author" content="hepheir">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--<meta name="theme-color" content="#8983F5">-->
   <link rel="stylesheet" href="../css/ticketing/select.css" media="screen">
+  <link rel="stylesheet" href="../data/setting/style/ticketing/ticketing.css" media="screen">
   <link rel="stylesheet" href="../css/support.css" media="screen">
   <link rel="stylesheet" href="../css/table_color.css" media="screen">
   <script src="../js/ticketing/select.js" charset="utf-8"></script>
@@ -24,9 +26,9 @@
   <div id="topHidden" class="hidden">
     수정/조회하기 페이지로 이동합니다
     <br>
-    <input type="button" value="수정/조회하기" onclick="location.replace('./check/')"></input>
+    <input id="topHiddenButton" type="button" value="수정/조회하기" onclick="location.replace('./check/')"></input>
   </div>
-  <div class="Header">
+  <div id="Header">
 <!--[if (gt IE 9)|!(IE)]><!-->
     <div id="topIcon" class="topIcon fl" onclick="topDrawer(drawerToggle)">
       <img width="100%" height="100%" src="../asset/icons/white_hamburger_64.png" alt="Menu" />
@@ -68,17 +70,18 @@
         ?>
       </tr>
     </table>
-    <div class="TableContainer">
+    <div id="TableContainer">
       <?php
       include $toRoot.'php/table_drawer.php';
       default_table($_GET['part']);
       echo '<script>var cols = '.$TABLE_SIZE[0].'; var rows = '.$TABLE_SIZE[1].'; var part = '.$_GET['part'].';</script>';
       ?>
     </div>
-    <div id="nextWrap">
-      <div class="toNext fr" onclick="seatForm()">다음</div>
-    </div>
   </form>
+  <div id="nextWrap">
+    <div id="toNext" class="fr" onclick="seatForm()">다음</div>
+  </div>
+  <br><br><br>
   <script type="text/javascript">
     var drawerToggle = 0; //작은 화면에서 나타나는 햄버거 매뉴버튼을 눌렀을때 div#topHidden의 토글러 매개변수
     tableResize(cols, rows);

@@ -15,71 +15,69 @@
 /* Hides from IE-mac \*/
 * html .clearfix{height:1%}
 
-body,html,div,nav{
+body, html{
   font-family: 'Hanna', "맑은 고딕", serif;
   font-size: 20px;
-  color: white;
   overflow: hidden;
+}
+body{
+  overflow-y: auto;
 }
 input[type=button]{
   padding: 6px;
-  background: white;
-  border: 3px solid gray;
-  color: gray;
+  border: 3px solid;
   font-family: inherit;
   font-size: 1em;
   cursor: pointer;
   border-radius: 8px;
 }
 #topHidden{
-  background: lightgray;
+  width: 100%;
   height: 84px;
   text-align: center;
   line-height: 1.8em;
   padding: 8px;
 }
-.Header{
+#Header{
   height: 42px;
-  background: gray;
   letter-spacing: 1px;
+  overflow: hidden;
 }
-.toHome{
+#toHome{
   height: 1em;
   width: 58px;
   padding: 11px;
-  background: lightgray;
   text-align: center;
   cursor: pointer;
-  color: gray;
 }
-.topIcon{
+#topIcon{
   width: 22px;
   height: 22px;
   padding: 10px 0 10px 10px;
   cursor: pointer;
+  float: left;
 }
-.topText{
+#topText{
   height: 1em;
   width: 180px;
   padding: 11px;
 }
-.topMenu{
+#topMenu{
   height: 1em;
   width: 120px;
   padding: 11px;
   cursor: pointer;
 }
-.TableContainer{
-  color: gray;
+#TableContainer{
+  height: 384px;
   text-align: center;
+  margin: 12px auto;
 }
 div#pinnedTableWrap{
-  color: gray;
   max-width: 412px;
   margin: 0 auto;
 }
 table.pinned{
-  color: inherit;
   width: 100%;
   width: 100%;
   border-spacing: 4px;
@@ -88,16 +86,25 @@ td.pinned{
   width: 18px;
   height: 18px;
 }
+#UserInformation{
+  margin: 0 auto;
+}
 #nextWrap{
   margin: 0 auto;
 }
-.toNext{
-  width: 48px;
+#toNext{
+  width: 96px;
   height: 1em;
   padding: 6px;
   margin-right: 4px;
   font-size: 24px;
-  background: lightgray;
   cursor: pointer;
   text-align: center;
+}
+.fillInput{
+  width: 80px;
+  padding: 4px;
+  font-family: inherit;
+  border: 3px solid;
+  border-radius: 6px;
 }
