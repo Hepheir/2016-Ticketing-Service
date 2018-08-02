@@ -10,8 +10,8 @@
 * :: TICKETING_FILL ::
 -->
 <?php
-$toRoot = '../'; $toSetting = $toRoot.'data/setting/'; $toSeats = $toRoot.'data/seats/';
-$PROTECTION = file($toSetting.'protection');
+$toRoot = '../';
+$PROTECTION = file($toRoot.'data/setting/protection');
 #timezone
 date_default_timezone_set("Asia/Seoul");
 if (date('a') == 'am'){
@@ -26,7 +26,7 @@ else {$record_time = date('m').date('d').(date('h') + 12).date('i');}
 
 
 if (isset($_GET['cancel'])) {
-  unlink($toSeats.'selected/'.$_GET['part'].'/'.$_GET['seat']);
+  unlink($toRoot.'data/seats/selected/'.$_GET['part'].'/'.$_GET['seat']);
   if ($_GET['cancel'] == 'check')
     echo '<script>alert("좌석 보호가 취소되었습니다.");window.location.replace("./check/")</script>';
   else
@@ -42,20 +42,20 @@ else {
 
 #create seat protection
 
-if (file_exists($toSeats.'selected/'.$_POST['part'].'/'.$_POST['seat'])){
-  if ($record_time - file($toSeats.'selected/'.$_POST['part'].'/'.$_POST['seat'])[0] > $PROTECTION[0]) {
-    unlink($toSeats.'selected/'.$_POST['part'].'/'.$_POST['seat']);
-    $SELECTED = fopen($toSeats.'selected/'.$_POST['part'].'/'.$_POST['seat'], 'x');
+if (file_exists($toRoot.'data/seats/selected/'.$_POST['part'].'/'.$_POST['seat'])){
+  if ($record_time - file($toRoot.'data/seats/selected/'.$_POST['part'].'/'.$_POST['seat'])[0] > $PROTECTION[0]) {
+    unlink($toRoot.'data/seats/selected/'.$_POST['part'].'/'.$_POST['seat']);
+    $SELECTED = fopen($toRoot.'data/seats/selected/'.$_POST['part'].'/'.$_POST['seat'], 'x');
 
     fwrite($SELECTED, $record_time);
     echo "<script>alert('선택하신 좌석은 ".$PROTECTION[0]."분간 보호됩니다.');</script>";
   }
 }
-else if (file_exists($toSeats.'booked/'.$_POST['part'].'/'.$_POST['seat'])){
+else if (file_exists($toRoot.'data/seats/booked/'.$_POST['part'].'/'.$_POST['seat'])){
   echo '<script>alert("좌석 보호 지속시간이 끝난사이 다른 누군가에게 예매 되어버린 모양입니다.\n유감입니다.");window.location.replace("./")</script>';
 }
 else{
-  $SELECTED = fopen($toSeats.'selected/'.$_POST['part'].'/'.$_POST['seat'], 'x');
+  $SELECTED = fopen($toRoot.'data/seats/selected/'.$_POST['part'].'/'.$_POST['seat'], 'x');
 
   fwrite($SELECTED, $record_time);
   echo "<script>alert('선택하신 좌석은 ".$PROTECTION[0]."분간 보호됩니다.');</script>";
@@ -65,66 +65,45 @@ else{
   <meta charset="utf-8">
 	<meta name="author" content="hepheir">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../css/support.css" media="screen">
-  <link rel="stylesheet" href="../css/ticketing/fill.css" media="screen"><link rel="stylesheet" href="../data/setting/style/ticketing/ticketing.css" media="screen">
+  <!--<meta name="theme-color" content="#8983F5">-->
+  <link rel="stylesheet" href="../css/ticketing/layout.css" media="screen">
+  <link rel="stylesheet" href="../css/ticketing/color.css" media="screen">
   <link rel="stylesheet" href="../css/table_color.css" media="screen">
-  <script src="../js/ticketing/fill.js" charset="utf-8"></script>
-  <title>정보 입력</title>
+  <script src="../js/ticketing/Header.js" charset="utf-8"></script>
+  <title>좌석을 선택하세요</title>
 </head>
-<body onresize="tableResize(cols, rows)">
+<body onresize="topMenuToggle()">
   <div id="topHidden" class="hidden">
     수정/조회하기 페이지로 이동합니다
     <br>
-    <input id="topHiddenButton" type="button" value="수정/조회하기" onclick="location.replace('./fill.php?<?php echo 'part='.$_POST['part'].'&#38;seat='.$_POST['seat'];?>&#38;cancel=check')"></input>
+    <input id="topHiddenButton" type="button" value="수정/조회하기" onclick="location.replace('./check/')"></input>
   </div>
   <div id="Header">
 <!--[if (gt IE 9)|!(IE)]><!-->
-    <div id="topIcon" onclick="topDrawer(drawerToggle)">
+    <div id="topMenuIcon" onclick="topHiddenToggle(drawerToggle)">
       <img width="100%" height="100%" src="../asset/icons/white_hamburger_64.png" alt="Menu" />
     </div>
 <!--<![endif]-->
-    <div id="topText" class="fl">
+    <div id="topTitle">
       정보를 입력하세요
     </div>
-    <div id="toHome" class="fr" onclick="window.location.replace('./fill.php?<?php echo 'part='.$_POST['part'].'&#38;seat='.$_POST['seat'];?>&#38;cancel=')">
+    <div id="topBack" onclick="window.location.replace('../')">
       뒤로
     </div>
-    <div id="topMenu" class="fr">
-      <a onclick="window.location.replace('./fill.php?<?php echo 'part='.$_POST['part'].'&#38;seat='.$_POST['seat'];?>&#38;cancel=')">수정/조회하기</a>
+    <div id="topMenuText">
+      <a href="./check/">수정/조회하기</a>
     </div>
   </div>
-  <div id="TableContainer" class="TableContainer">
-    <?php
-    include $toRoot.'php/table_drawer.php';
-    pinned_table($_POST['seat']);
-    ?>
+  <div id="Content">
+    <form id="seatForm" action=".html" method="post">
+      <input id="seatFormButton" type="button" value="다음">
+      <br>
+      <br>
+    </form>
   </div>
-  <form id="confirmForm" action="./confirm.php" method="post">
-    <div id="UserInformation">
-      <?php
-      echo '<script>var cols = '.$TABLE_SIZE[0].'; var rows = '.$TABLE_SIZE[1].';</script>';
-      echo '<input type="hidden" name="part" value="'.$_POST['part'].'"/>';
-      echo '<input type="hidden" name="seat" value="'.$_POST['seat'].'"/>';
-      ?>
-      <label for="id">학&nbsp;&nbsp;번 : &nbsp;&nbsp;&nbsp;</label>
-      <input id="id" class="fillInput" type="number" min="10101" max="31440" name="id" value="">
-      <br>
-      <br>
-      <label for="name">이&nbsp;&nbsp;&nbsp;름 : &nbsp;&nbsp;</label>
-      <input id="name" class="fillInput" type="text" name="name" value="">
-      <br>
-      <br>
-      <label for="password">비밀번호 : </label>
-      <input id="password" class="fillInput" type="password" name="password" value="">
-    </div>
-    <div id="nextWrap">
-      <div id="toNext" class="fr" onclick="document.getElementById('confirmForm').submit()">예매하기</div>
-    </div>
-  </form>
-  <br><br><br>
   <script type="text/javascript">
-    var drawerToggle = 0; //작은 화면에서 나타나는 햄버거 매뉴버튼을 눌렀을때 div#topHidden의 토글러 매개변수
-    tableResize(cols, rows);
+    var drawerToggle = 0;
+    topMenuToggle();
   </script>
 </body>
 </html>

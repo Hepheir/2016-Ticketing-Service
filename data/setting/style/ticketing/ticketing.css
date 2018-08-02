@@ -1,5 +1,5 @@
 body{
-  background: #F0FFFF;
+  background: #
 }
 #topHidden, #toHome{
   /* light sky #AAD8E3 */
@@ -22,13 +22,13 @@ body{
   color: white;
 }
 td.choosePart{
-  border-color: transparent;
   /* pastel light blue #C4CAF5 */
   background: #C4CAF5;
   color: white;
+  border-color: white;
 }
 td.choosePart:hover, td.selectedPart{
-  background: transparent;
+  background: white;
   color: #8795F5;
 }
 caption{

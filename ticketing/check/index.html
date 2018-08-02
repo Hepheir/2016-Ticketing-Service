@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/2014/REC-html5-20141028/">
+<html>
+<!-- Author information
+* html, php, css, javascript
+*   written by hepheir@gmail.com
+*
+* page designed by
+*   hepheir@gmail.com - 김동주 & pseudonym0405@naver.com - 이현오 & ljhappy1201@naver.com - 이진호
+*
+* :: TICKETING_CHECK ::
+-->
+<head>
+  <meta charset="utf-8">
+	<meta name="author" content="hepheir">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--<meta name="theme-color" content="#8983F5">-->
+  <link rel="stylesheet" href="../../css/ticketing/layout.css" media="screen">
+  <link rel="stylesheet" href="../../css/ticketing/color.css" media="screen">
+  <link rel="stylesheet" href="../../css/table_color.css" media="screen">
+  <title>수정/조회하기</title>
+</head>
+<body>
+  <div id="Header">
+    <div id="topTitle">
+      &nbsp;로그인
+    </div>
+    <div id="topBack" onclick="window.location.replace('../')">
+      뒤로
+    </div>
+  </div>
+  <div id="Content">
+    <div id="Login">
+      <table id="LoginTable">
+        <tr>
+          <td>학번 :</td>
+          <td><input type="number" min="10101" max="31240" name="id" value=""></td>
+          <td rowspan="2"><input type="submit" value="로그인"></td>
+        </tr>
+        <tr>
+          <td>비밀번호 :</td>
+          <td>
+            <input id="passwordInput" type="password" name="id" value="">
+            <input type="checkbox" value="show" onclick="showPassword()">
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <script type="text/javascript">
+    function showPassword(){
+      if(document.getElementById('passwordInput').type == 'password')
+        document.getElementById('passwordInput').type = 'text';
+      else
+        document.getElementById('passwordInput').type = 'password';
+    }
+  </script>
+</body>
+</html>

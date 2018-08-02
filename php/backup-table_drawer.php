@@ -76,7 +76,7 @@ function default_table($PART){
   }
   echo '</table>'.chr(13).chr(10);
   echo '</div>'.chr(13).chr(10);
-  echo '<div id="default_exampleContainer"><i class="default_exampleWrap"><div class="default_example default_default"></div>일반석&nbsp;&nbsp;&nbsp;</i><i class="default_exampleWrap"><div class="default_example default_broken"></div>고장</td>&nbsp;&nbsp;&nbsp;</i><i class="default_exampleWrap"><div class="default_example default_vip"></div>VIP석</td>&nbsp;&nbsp;&nbsp;</i><i class="default_exampleWrap"><div class="default_example default_booked"></div>예매됨</td>&nbsp;&nbsp;&nbsp;</i><i class="default_exampleWrap"><div class="default_example default_selected"></div>예매중</td>&nbsp;&nbsp;&nbsp;</i>'.chr(13).chr(10);
+  echo '<div id="default_exampleContainer"><i class="default_exampleWrap"><div class="default_example default_default"></div>일반석&nbsp;&nbsp;&nbsp;</i><i class="default_exampleWrap"><div class="default_example default_broken"></div>고장</td>&nbsp;&nbsp;&nbsp;</i><i class="default_exampleWrap"><div class="default_example default_vip"></div>VIP석</td>&nbsp;&nbsp;&nbsp;</i><i class="default_exampleWrap"><div class="default_example default_booked"></div>예매됨</td>&nbsp;&nbsp;&nbsp;</i><i class="default_exampleWrap"><div class="default_example default_selected"></div>예매중</td>&nbsp;&nbsp;&nbsp;</i><i class="default_exampleWrap"><div class="default_example default_offline"></div>오프라인 예매 전용석</div></i>'.chr(13).chr(10);
   echo '<div id="hiddenSeatForm" style="display:none"></div>'.chr(13).chr(10);
 }
 function pinned_table($SEAT){

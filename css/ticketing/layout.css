@@ -1,0 +1,101 @@
+@charset "UTF-8";
+@font-face {
+  font-family: 'Hanna';
+  font-style: normal;
+  font-weight: 400;
+  src: url(../../asset/fonts/BM-HANNA.eot);
+  src: url(../../asset/fonts/BM-HANNA.eot?#iefix) format('embedded-opentype'),
+       url(../../asset/fonts/BM-HANNA.woff2) format('woff2'),
+       url(../../asset/fonts/BM-HANNA.woff) format('woff'),
+       url(../../asset/fonts/BM-HANNA.ttf) format('truetype');
+}
+html, body{
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+body{
+  font-family: 'Hanna', "맑은 고딕", serif;
+  font-size: 20px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+#topHidden{
+  width: 100%;
+  height: 84px;
+  text-align: center;
+  line-height: 1.8em;
+  padding: 8px;
+}
+#topHiddenButton{
+  padding: 6px;
+  border: 3px solid;
+  font-family: inherit;
+  font-size: 1em;
+  cursor: pointer;
+  border-radius: 8px;
+}
+#Header{
+  width: 100%;
+  height: 42px;
+  letter-spacing: 1px;
+  overflow: hidden;
+}
+#topMenuIcon{
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  padding: 10px 0 10px 10px;
+  cursor: pointer;
+  float: left;
+}
+#topTitle{
+  display: inline-block;
+  width: auto;
+  height: 20px;
+  padding: 11px;
+  float: left;
+}
+#topMenuText{
+  display: inline-block;
+  width: 120px;
+  height: 20px;
+  padding: 11px;
+  cursor: pointer;
+  float: right;
+}
+#topBack{
+  display: inline-block;
+  width: 58px;
+  height: 20px;
+  padding: 11px;
+  text-align: center;
+  cursor: pointer;
+  float: right;
+}
+#Content{
+  width: auto;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 8px;
+}
+#seatFormButton{
+  padding: 8px 12px;
+  border: none;
+  font-family: 'Hanna', "맑은 고딕", serif;
+  font-size: 1em;
+  letter-spacing: 1px;
+  cursor: pointer;
+  float: right;
+}
+#partSelect{
+ width: 100%;
+ border-style: none;
+}
+.part{
+ text-align: center;
+}
+.hidden{
+  display: none;
+}

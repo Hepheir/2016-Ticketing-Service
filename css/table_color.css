@@ -5,13 +5,14 @@
 .default_broken{
   background: #7E8096;
   cursor: not-allowed;
+  opacity: .5;
 }
 .default_vip{
   background: #DA96F5;
   cursor: not-allowed;
 }
 .default_offline{
-  background: #33C79F;
+  background: #8983F5;
   cursor: not-allowed;
 }
 .default_booked{
@@ -19,7 +20,7 @@
   cursor: not-allowed;
 }
 .default_selected{
-  background: #F59241;
+  background: #286BB2;
   cursor: not-allowed;
 }
 .hall, .empty{

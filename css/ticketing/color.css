@@ -1,0 +1,26 @@
+#Header, #topMenuIcon, #topTitle, #topMenuText, #topMenuText>a{
+  background: gray;
+  color: white;
+  text-decoration: none;
+}
+#topBack{
+  background: lightgray;
+  color: gray;
+}
+#topHidden{
+  background: lightgray;
+  color: white;
+}
+#topHiddenButton{
+  background: white;
+  color: gray;
+  border-color: gray;
+}
+#Content{
+  background: #eeeeee;
+}
+/* "다음" 버튼 */
+#seatFormButton{
+  background: lightgray;
+  color: gray;
+}

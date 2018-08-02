@@ -17,7 +17,6 @@
   <link rel="stylesheet" href="./css/support.css" media="screen">
   <link rel="shortcut icon" href="./favicon.ico">
   <title>티켓팅 사이트 제작 프로젝트 :: UNIT</title>
-  <script src="./js/windowResize.js" charset="utf-8"></script>
 </head>
 <body onresize="windowResize(3,2)">
   <img id="background" width="100%" height="100%" class="fixed" src="./asset/img/main-background.jpg" alt="" />
@@ -44,6 +43,17 @@
     </div>
   </div>
   <script type="text/javascript">
+    function windowResize(horizontal,vertical){
+      if (vertical*window.innerWidth >= horizontal*window.innerHeight){
+        document.getElementById('background').style.width = '100%';
+        document.getElementById('background').style.height = vertical/horizontal*window.innerWidth+'px';
+      }
+      else{
+        document.getElementById('background').style.width = horizontal/vertical*window.innerHeight+'px';
+        document.getElementById('background').style.height = '100%';
+      }
+    }
+
    windowResize(3,2);
   </script>
 </body>

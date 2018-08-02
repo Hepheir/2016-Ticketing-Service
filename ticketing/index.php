@@ -5,24 +5,22 @@
 *   written by hepheir@gmail.com
 *
 * page designed by
-*   hepheir@gmail.com - 김동주 & ljhappy1201@naver.com - 이진호
+*   hepheir@gmail.com - 김동주 & pseudonym0405@naver.com - 이현오 & ljhappy1201@naver.com - 이진호
 *
 * :: TICKETING_SELECT ::
 -->
-<?php $toRoot = '../'; ?>
 <head>
   <meta charset="utf-8">
 	<meta name="author" content="hepheir">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!--<meta name="theme-color" content="#8983F5">-->
-  <link rel="stylesheet" href="../css/ticketing/select.css" media="screen">
-  <link rel="stylesheet" href="../data/setting/style/ticketing/ticketing.css" media="screen">
-  <link rel="stylesheet" href="../css/support.css" media="screen">
+  <link rel="stylesheet" href="../css/ticketing/layout.css" media="screen">
+  <link rel="stylesheet" href="../css/ticketing/color.css" media="screen">
   <link rel="stylesheet" href="../css/table_color.css" media="screen">
-  <script src="../js/ticketing/select.js" charset="utf-8"></script>
+  <script src="../js/ticketing/Header.js" charset="utf-8"></script>
   <title>좌석을 선택하세요</title>
 </head>
-<body onresize="tableResize(cols, rows)">
+<body onresize="topMenuToggle()">
   <div id="topHidden" class="hidden">
     수정/조회하기 페이지로 이동합니다
     <br>
@@ -30,61 +28,38 @@
   </div>
   <div id="Header">
 <!--[if (gt IE 9)|!(IE)]><!-->
-    <div id="topIcon" class="topIcon fl" onclick="topDrawer(drawerToggle)">
+    <div id="topMenuIcon" onclick="topHiddenToggle(drawerToggle)">
       <img width="100%" height="100%" src="../asset/icons/white_hamburger_64.png" alt="Menu" />
     </div>
 <!--<![endif]-->
-    <div id="topText" class="topText fl">
+    <div id="topTitle">
       좌석을 선택하세요
     </div>
-    <div id="toHome" class="toHome fr" onclick="window.location.replace('../')">
+    <div id="topBack" onclick="window.location.replace('../')">
       뒤로
     </div>
-    <div class="topMenu fr">
+    <div id="topMenuText">
       <a href="./check/">수정/조회하기</a>
     </div>
   </div>
-  <form id="seatForm" action="./fill.php" method="post">
-    <?php
-    $PART_AVAILABLE = file($toRoot.'data/setting/part_available');
-    if (!isset($_GET['part'])) {
-      header('Location: ?part=1');
-      end();
-    }
-    else
-      echo '<input type="hidden" name="part" value="'.$_GET['part'].'">';
-
-    if (str_replace(chr(13).chr(10), '',$PART_AVAILABLE[0]) == 1)
-      echo '<table class="choosePart hidden">';
-    else
-      echo '<table class="choosePart">';
-    ?>
-      <tr>
-        <?php
-        for ($i=1; $i <= str_replace(chr(13).chr(10), '',$PART_AVAILABLE[0]); $i++) {
-          if ($_GET['part'] == $i)
-            echo '<td id="part_'.$i.'" class="choosePart selectedPart" onclick="window.location.replace(\'?part='.$i.'\')">'.$i.'부</td>';
-          else
-            echo '<td id="part_'.$i.'" class="choosePart" onclick="window.location.replace(\'?part='.$i.'\')">'.$i.'부</td>';
-        }
-        ?>
-      </tr>
-    </table>
-    <div id="TableContainer">
+  <table id="partSelect">
+    <tr>
       <?php
-      include $toRoot.'php/table_drawer.php';
-      default_table($_GET['part']);
-      echo '<script>var cols = '.$TABLE_SIZE[0].'; var rows = '.$TABLE_SIZE[1].'; var part = '.$_GET['part'].';</script>';
+      for ($i=1; $i <= str_replace(chr(13).chr(10),'',file('../data/setting/part_available')[0]); $i++)
+        echo '<td class="part">'.$i.'부</td>';
       ?>
-    </div>
-  </form>
-  <div id="nextWrap">
-    <div id="toNext" class="fr" onclick="seatForm()">다음</div>
+    </tr>
+  </table>
+  <div id="Content">
+    <form id="seatForm" action="fill.php" method="post">
+      <input id="seatFormButton" type="button" value="다음">
+      <br>
+      <br>
+    </form>
   </div>
-  <br><br><br>
   <script type="text/javascript">
-    var drawerToggle = 0; //작은 화면에서 나타나는 햄버거 매뉴버튼을 눌렀을때 div#topHidden의 토글러 매개변수
-    tableResize(cols, rows);
+    var drawerToggle = 0;
+    topMenuToggle();
   </script>
 </body>
 </html>
