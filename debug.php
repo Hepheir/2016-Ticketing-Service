@@ -1,5 +1,6 @@
 <?php
   $error_code = $_GET['code'];
+  $squence_code = $_POST['code'];
   // error_code == 1, 좌석 예매중 오류로 선택불가능한 좌석 발생
   if ($error_code == 1) {
     for ($p=1; $p <= 2; $p++) {
@@ -30,6 +31,58 @@
           if (fgets(fopen('data/p_info/'.$i.$j.$n)) == "") {
             unlink('data/p_info/'.$i.$j.$n);
   }}}}}
+
+  //ADMIN 옵션
+
+  # 행, 열, 복도 설정
+  if ($squence_code == 1000) {
+    if (!fwrite(fopen('data/config/seat_table', 'w'), $_POST['cols'].chr(13).chr(10).$_POST['rows'].chr(13).chr(10).$_POST['hall'].chr(13).chr(10))){
+      echo '<script>alert("에러 발생")</script>';
+    }
+    else{
+      echo '<script>alert("수정이 완료되었습니다.");window.location.replace("admin.php")</script>';
+    }
+  }
+  # 사용 불가석 지정
+  if ($squence_code == 1001) {
+    $seat_table = file('data/config/seat_table');
+    $cols = str_replace(chr(13).chr(10), '',$seat_table[0]);
+    $rows = str_replace(chr(13).chr(10), '',$seat_table[1]);
+    $hall = str_replace(chr(13).chr(10), '',$seat_table[2]);
+
+    for($i = 0; $i < $rows; $j=1){
+      $c= chr(++$i+64);
+      for ($j = 1; $j <= $cols; $j++) {
+        if (empty($_POST[$c.$j])) {
+          unlink('data/seat/unusable/'.$c.$j);
+        }
+        else {
+          fopen('data/seat/unusable/'.$c.$j,'w');
+        }
+      }
+    }
+    echo '<script>alert("수정이 완료되었습니다.");window.location.replace("admin.php")</script>';
+  }
+  # vip석 지정
+  if ($squence_code == 1002) {
+    $seat_table = file('data/config/seat_table');
+    $cols = str_replace(chr(13).chr(10), '',$seat_table[0]);
+    $rows = str_replace(chr(13).chr(10), '',$seat_table[1]);
+    $hall = str_replace(chr(13).chr(10), '',$seat_table[2]);
+
+    for($i = 0; $i < $rows; $j=1){
+      $c= chr(++$i+64);
+      for ($j = 1; $j <= $cols; $j++) {
+        if (empty($_POST[$c.$j])) {
+          unlink('data/seat/vip/'.$c.$j);
+        }
+        else {
+          fopen('data/seat/vip/'.$c.$j,'w');
+        }
+      }
+    }
+    echo '<script>alert("수정이 완료되었습니다.");window.location.replace("admin.php")</script>';
+  }
 ?>
 <!DOCTYPE html>
 <html>

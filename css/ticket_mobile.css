@@ -13,7 +13,7 @@ html{
   background-color: #444444;
   color: #ffffff;
   width: calc(100% * 30 / 32);
-  max-width: 840px;
+  max-width: 720px;
   height: calc(100% - 12px);
   min-height: 560px;
   padding: 12px calc(100% * 1 / 32) 0 calc(100% * 1 / 32);
@@ -24,10 +24,15 @@ html{
   margin-bottom: 8px;
 }
 div.title{
+  display: inline-block;
   width: calc(100% - 104px);
-  font-size: 32px;
+  height: 48px;
+  min-width: 232px;
+  text-align: center;
 }
+/* 우측 상단 아이콘 */
 div.home, div.question{
+  display: inline-block;
   float: right;
   margin-left: 12px;
   width: 40px;
@@ -36,51 +41,146 @@ div.home, div.question{
   -webkit-border-radius: 6px;
   cursor: pointer;
 }
+div.home{
+  background-image: url('../images/home.png');
+  background-size: contain;
+}
+div.question{
+  background-image: url('../images/question.png');
+  background-size: contain;
+}
 #body{
   width: 100%;
   height: calc(100% - 120px);
+  min-height: 500px;
 }
 div.console{
   width: 100%;
-  height: 30%;
-  min-height: 96px;
+  height: 172px;
 }
-div.seatTable{
+/* 좌석표 축소판 */
+div.seatTableWrap{
   float: left;
   width: calc(100% - 104px);
   height: 100%;
-  background-color: #777777;
 }
+div.seatTable{
+  padding: 8px;
+  width: calc(100% - 16px);
+  height: 140px;
+  background-color: #666666;
+  -webkit-border-radius: 8px;
+  text-align: center;
+  overflow: auto;
+}
+table.mini{
+  border-spacing: 8px;
+  height: 100%;
+  display: inline;
+}
+td.mini{
+  margin: 0;
+  padding: 0;
+  width: 12px;
+  height: 8px;
+}
+td.cell{
+  background-color: #888888;
+}
+td.booked_cell{
+  background-color: #E93047;
+}
+td.unusable_cell{
+  background-color: transparent;
+}
+td.vip_cell{
+  background-color: #A080AD;
+}
+
+/* 1부, 2부 선택 */
 div.toggle{
   float: right;
   width: 104px;
   height: 100%;
-  font-size: 32px;
   font-weight: bold;
   text-align: center;
 }
-.toggle_part{
+a.toggle_part{
   width: 84px;
-  height: calc(50% - 20px );
+  height: 24px;
   display: block;
-  margin: 0 0 12px 12px;
-  padding: 4px 4px 4px 4px;
+  margin: 0px 0 12px 12px;
+  padding: 16px 4px 32px 4px;
   background-color: #ffffff;
   color: #222222;
+  font-size: 200%;
   -webkit-border-radius: 8px;
 }
-div.seatTable_zoom{
-  width: 100%;
-  height: 70%;
-  background-color: #666666;
+a.toggle_part_checked{
+  width: 84px;
+  height: 24px;
+  display: block;
+  margin: 0 0 12px 12px;
+  padding: 16px 4px 32px 4px;
+  background-color: #ffd88a;
+  color: #404040;
+  font-size: 32px;
+  -webkit-border-radius: 8px;
 }
+/* 좌석 선택표 */
+div.seatTable_zoom_Wrap{
+  width: 100%;
+  height: calc(100% - 180px);
+  min-height: 284px;
+}
+div.seatTable_zoom{
+  padding: 8px;
+  width: calc(100% - 16px);
+  height: calc(100% - 16px);
+  background-color: #666666;
+  -webkit-border-radius: 8px;
+}
+div.seatTable_zoom>table{
+  border-spacing: 8px;
+  width: 100%;
+  height: 100%;
+}
+td.seatTable_zoomed{
+  padding: 0;
+  margin: 0;
+  width: 20%;
+  height: 20%;
+}
+label.seatTable_zoomed{
+  display: block;
+  font-size: 32px;
+  margin: 0;
+  width: 100%;
+}
+form{
+  width:100%;
+  height: 100%;
+}
+
 #foot{
-  width: calc(100% + 24px);
+  width: calc(100% + 16px);
   height: 48px;
-  margin: 8px -12px 0 -12px;
+  margin: 8px -8px 0 -8px;
   padding-top: 8px;
   background-color: #ffffff;
-  color: #222222;
-  font-size: 32px;
   -webkit-border-radius: 18px 18px 0 0;
+}
+h2{
+  margin: 0;
+  padding: 0;
+  color: #222222;
+  font-size: 24px;
+}
+ul{
+  margin: 0;
+  padding: 0;
+}
+ul>li{
+  display: inline-block;
+  margin: 0 4px 0 4px;
 }

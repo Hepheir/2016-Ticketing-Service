@@ -1,9 +1,56 @@
 @charset "UTF-8";
-
+header{
+  height: 26px;
+  padding: 8px 8px 8px 8px;
+}
+ul{
+  margin: 0;
+  padding: 0;
+}
+ul>li{
+  display: inline-block;
+}
+li.fr{
+  float: right;
+  margin-right: 12px;
+}
+div.logo{
+  position: absolute;
+  top: 5px;
+  left: 13px;
+  width: 32px;
+  height: 32px;
+  font-size: 0px;
+  background-image: url('../images/MMC_logo_dark.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+a#header{
+  display: block;
+  margin: 0;
+  width: 280px;
+  height: 26px;
+  font-size: 22px;
+  font-weight: bold;
+  text-indent: 50px;
+}
+div.help{
+  position: fixed;
+  top: 108px;
+  left: 116px;
+  width: 500px;
+  height: 200px;
+  background-image: url('../images/desktop_help.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  z-index: 1000;
+}
 #bodyWrap{
   width: 100%;
+  height: calc(100% - 42px);
   margin: 0;
-  padding: 42px 0 0 0;
+  padding: 0;
   color: #ffffff;
   background-color: #ffffff;
   text-transform: uppercase;
@@ -11,13 +58,14 @@
 }
 #stageWrap{
   /*  100% - padding-left, right  */
-  width: calc(100% - 32px - 32px - 16px);
-  height: auto;
+  width: calc(100% - 32px - 32px);
+  min-height: calc(100% - 184px);
   background-color: #444444;
-  -webkit-border-radius: 24px 24px 24px 24px;
+  -webkit-border-radius: 24px 24px 0 0;
+  margin: 0;
   padding: 92px 32px 92px 32px;
-  margin: 0 8px 0 8px;
   text-align: center;
+  z-index: 200;
 }
 /* 콘솔 영역 */
 #dataInputWrap{
@@ -27,12 +75,6 @@
   left: 42px;
   line-height: 1em;
 }
-div.seatCoord{
-  margin: 0;
-  padding: 12px 16px 12px 24px;
-  background-color: #ffffff;
-  -webkit-border-radius: 10px;
-}
 label.console_1{
   display: inline-block;
   margin: 8px 0 8px 0;
@@ -41,11 +83,14 @@ label.console_1{
   -webkit-border-radius: 4px;
   cursor: pointer;
 }
+label.console_1:hover{
+  background-color: #ffffdd;
+}
 label.selected{
 
 	/* 1부, 2부 선택시 색상 */
-	background-color: #bbbbbb;
-  color: #333333;
+	background-color: #ffd88a;
+  color: #404040;
 	/* ================= */
 
   display: inline-block;
@@ -62,6 +107,9 @@ label.console_2{
   background-color: #ffffff;
   -webkit-border-radius: 4px;
   cursor: pointer;
+}
+label.console_2:hover{
+  background: #ffffdd;
 }
 
 /* 스테이지 영역 */
@@ -81,6 +129,9 @@ td.cell{
   width: 52px;
   height: 52px;
   background-color: #888888;
+}
+td.cell:hover{
+  background: #ffffff;
 }
 td.unusable_cell{
   width: 52px;
@@ -128,12 +179,22 @@ input[type=radio]:checked+label.cell{
   color: #ffffff;
 	/* ================= */
 }
-nav.footer{
+footer{
+  margin: 0;
+  padding: 0;
   width: 100%;
-  height: 48px;
-  background-color: #ffffff;
-  color: #222222;
+  height: 56px;
   text-align: center;
+  background-color: #444444;
+}
+nav.footer{
+  display: inline-block;
+  width: 90%;
+  height: 56px;
+  background-color: #888888;
+  color: #333333;
+  font-size: 20px;
+  -webkit-border-radius:16px 16px 0 0;
 }
 h2{
   margin:0;

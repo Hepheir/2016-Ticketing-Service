@@ -19,11 +19,11 @@
   </head>
   <body>
     <?php
-    if (empty($_GET['part']) && empty($_GET['seat'])) {
-      echo '<script>alert("뭐라도 좀 고르고 예매하세요.");window.location.replace("../ticket");</script>';
+    if (empty($_GET['part']) && empty($_GET['seat']) || $_GET['part'] == 0 && empty($_GET['seat'])) {
+      echo '<script>alert("뭐라도 좀 고르고 예매하세요.");window.location.replace("../ticket/?part=0");</script>';
     }
-    else if (empty($_GET['part'])) {
-      echo '<script>alert("시간을 선택하시지 않으셨습니다.");window.location.replace("../ticket");</script>';
+    else if (empty($_GET['part']) || $_GET['part'] == 0) {
+      echo '<script>alert("시간을 선택하시지 않으셨습니다.");window.location.replace("../ticket/?part=0");</script>';
     }
     else if (empty($_GET['seat'])) {
       echo '<script>alert("좌석을 선택하시지 않으셨습니다.");window.location.replace("../ticket/?part='.$_GET['part'].'");</script>';

@@ -85,7 +85,7 @@
   <div id="bodyWrap" onclick="guide();">
     <div class="bodyClearfix">
       <header>
-        <div class="MMC_logo hidden"></div>
+        <div class="MMC_logo hidden" onclick="window.location.replace('http://www.facebook.com/bojeongmmc/')"></div>
         <nav class="menu">
           <table class="menu">
             <td class="menu_Ltd"><a title="예매하기" href="./ticket">
@@ -103,7 +103,7 @@
     </div>
     <div id="MMC_desc">
       <p class="MMC_desc_1 hidden">movie</p>
-      <p class="MMC_desc_2 hidden">manufactur<span onclick="singMode()">i</span>ng</p>
+      <p class="MMC_desc_2 hidden">m<span onclick="location.replace('./admin.php')">a<span>nufactur<span onclick="singMode()">i</span>ng</p>
       <p class="MMC_desc_3 hidden">club</p>
     </div>
 		<div id="lyricWrap" class="hidden">
