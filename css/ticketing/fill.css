@@ -1,0 +1,103 @@
+@charset "UTF-8";
+@font-face {
+  font-family: 'Hanna';
+  font-style: normal;
+  font-weight: 400;
+  src: url(../../asset/fonts/BM-HANNA.eot);
+  src: url(../../asset/fonts/BM-HANNA.eot?#iefix) format('embedded-opentype'),
+       url(../../asset/fonts/BM-HANNA.woff2) format('woff2'),
+       url(../../asset/fonts/BM-HANNA.woff) format('woff'),
+       url(../../asset/fonts/BM-HANNA.ttf) format('truetype');
+}
+/* Float bug */
+.clearfix:after{content:".";display:block;clear:both;visibility:hidden;height:0}
+.clearfix{display: inline-block}
+/* Hides from IE-mac \*/
+* html .clearfix{height:1%}
+
+body,html,div,nav{
+  font-family: 'Hanna', "맑은 고딕", serif;
+  font-size: 20px;
+  color: white;
+  overflow: hidden;
+}
+input[type=button]{
+  padding: 6px;
+  background: white;
+  border: 3px solid gray;
+  color: gray;
+  font-family: inherit;
+  font-size: 1em;
+  cursor: pointer;
+  border-radius: 8px;
+}
+#topHidden{
+  background: lightgray;
+  height: 84px;
+  text-align: center;
+  line-height: 1.8em;
+  padding: 8px;
+}
+.Header{
+  height: 42px;
+  background: gray;
+  letter-spacing: 1px;
+}
+.toHome{
+  height: 1em;
+  width: 58px;
+  padding: 11px;
+  background: lightgray;
+  text-align: center;
+  cursor: pointer;
+  color: gray;
+}
+.topIcon{
+  width: 22px;
+  height: 22px;
+  padding: 10px 0 10px 10px;
+  cursor: pointer;
+}
+.topText{
+  height: 1em;
+  width: 180px;
+  padding: 11px;
+}
+.topMenu{
+  height: 1em;
+  width: 120px;
+  padding: 11px;
+  cursor: pointer;
+}
+.TableContainer{
+  color: gray;
+  text-align: center;
+}
+div#pinnedTableWrap{
+  color: gray;
+  max-width: 412px;
+  margin: 0 auto;
+}
+table.pinned{
+  color: inherit;
+  width: 100%;
+  width: 100%;
+  border-spacing: 4px;
+}
+td.pinned{
+  width: 18px;
+  height: 18px;
+}
+#nextWrap{
+  margin: 0 auto;
+}
+.toNext{
+  width: 48px;
+  height: 1em;
+  padding: 6px;
+  margin-right: 4px;
+  font-size: 24px;
+  background: lightgray;
+  cursor: pointer;
+  text-align: center;
+}

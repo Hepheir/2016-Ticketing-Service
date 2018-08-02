@@ -5,7 +5,7 @@
 *   written by hepheir@gmail.com
 *
 * page designed by
-*   ljhappy1201@naver.com - 이진호 & hepheir@gmail.com - 김동주
+*   hepheir@gmail.com - 김동주 & ljhappy1201@naver.com - 이진호
 *
 * :: TICKETING_SELECT ::
 -->
@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="../css/support.css" media="screen">
   <link rel="stylesheet" href="../css/table_color.css" media="screen">
   <script src="../js/ticketing/select.js" charset="utf-8"></script>
+  <title>좌석을 선택하세요</title>
 </head>
 <body onresize="tableResize(cols, rows)">
   <div id="topHidden" class="hidden">
@@ -41,13 +42,16 @@
       <a href="./check/">수정/조회하기</a>
     </div>
   </div>
-  <form action="./fill.php" method="post">
+  <form id="seatForm" action="./fill.php" method="post">
     <?php
     $PART_AVAILABLE = file($toRoot.'data/setting/part_available');
     if (!isset($_GET['part'])) {
       header('Location: ?part=1');
       end();
     }
+    else
+      echo '<input type="hidden" name="part" value="'.$_GET['part'].'">';
+
     if (str_replace(chr(13).chr(10), '',$PART_AVAILABLE[0]) == 1)
       echo '<table class="choosePart hidden">';
     else
@@ -68,11 +72,11 @@
       <?php
       include $toRoot.'php/table_drawer.php';
       default_table($_GET['part']);
-      echo '<script>var cols = '.$TABLE_SIZE[0].'; var rows = '.$TABLE_SIZE[1].';</script>';
+      echo '<script>var cols = '.$TABLE_SIZE[0].'; var rows = '.$TABLE_SIZE[1].'; var part = '.$_GET['part'].';</script>';
       ?>
     </div>
     <div id="nextWrap">
-      <div class="toNext fr">다음</div>
+      <div class="toNext fr" onclick="seatForm()">다음</div>
     </div>
   </form>
   <script type="text/javascript">

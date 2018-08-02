@@ -62,3 +62,14 @@ function tableResize(cols, rows){
   }
   screenResize();
 }
+function seatForm(){
+  if (pre_seat != undefined) {
+    var ok = confirm('선택하신 좌석은 '+part+'부 '+pre_seat+'석 입니다.');
+    if (ok) {
+      document.getElementById('seatForm').submit();
+    }
+  }
+  else {
+    alert('좌석을 선택하세요');
+  }
+}

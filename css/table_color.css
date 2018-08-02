@@ -28,3 +28,9 @@
 .selectedSeat{
   background: green;
 }
+.pinned_default{
+  background: lightgray;
+}
+.pinned_pinned{
+  background: green;
+}
