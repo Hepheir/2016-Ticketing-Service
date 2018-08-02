@@ -85,17 +85,17 @@ else {
               for ($row = 1; $row <= $TABLE_SETTING[1]; $row++) {
                 $row_chr = chr($row+64);
 
-                echo '<ul class="emtpy__row">';
-                echo '<li class="emtpy__row-chr">'.$row_chr.'</li>';
+                echo '<ul class="row">';
+                echo '<li class="row-chr">'.$row_chr.'</li>';
 
                 for ($col = 1; $col <= $TABLE_SETTING[0]; $col++) {
                   if (file_exists('../data/empty_cell/'.$row_chr.$col)) {
                     // 1이면 빈 칸이다.
-                    echo '<li class="emtpy__col"><input class="empty__checkbox" type="checkbox" name="'.$row_chr.$col.'" checked></li>';
+                    echo '<li class="col"><input class="empty__checkbox" type="checkbox" name="'.$row_chr.$col.'" checked></li>';
                     continue;
                   }
 
-                  echo '<li class="emtpy__col"><input class="empty__checkbox" type="checkbox" name="'.$row_chr.$col.'"></li>';
+                  echo '<li class="col"><input class="empty__checkbox" type="checkbox" name="'.$row_chr.$col.'"></li>';
                 }
                 echo '</ul>';
                 echo '<br>';
@@ -127,8 +127,67 @@ else {
 
         <div class="option_desc">
           <div class="option_info">선택 할 수 없는 좌석을 지정.<br>VIP석이나 오프라인 예매 전용석은 이 기능으로 지정하면 된다.</div>
+          <div class="table_wrap">
+            <?php
+              ini_set('display_errors','off');
+              $TABLE_SETTING = file('../data/table_setting');
+
+              for ($part=1; $part <= str_replace(chr(13).chr(10), '', file('../data/part_available')[0]); $part++) {
+                echo '<caption>Part'.$part.'</caption>';
+                for ($row = 1; $row <= $TABLE_SETTING[1]; $row++) {
+                  $row_chr = chr($row+64);
+                  echo '<ul class="row">';
+                  echo '<li class="row-chr">'.$row_chr.'</li>';
+                  $col_shift = 0;
+
+                  for ($col = 1; $col <= $TABLE_SETTING[0]; $col++) {
+
+                    if (file_exists('../data/empty_cell/'.$row_chr.$col)) {
+                      echo '<li class="col-empty"></li>';
+                      $col_shift++;
+                      continue;
+                    }
+                    // 빈 칸에 의해 밀려버린 col를 한 루프동안 원래대로 shifting 함.
+                    $col -= $col_shift;
+
+                    $SEAT_STATUS = str_replace(chr(13).chr(10), '',file('../data/part'.$part.'/'.$row_chr.$col)[0]);
+
+                    if (!file_exists('../data/part'.$part.'/'.$row_chr.$col) || $SEAT_STATUS == 0) {
+                      // 1이면 빈 칸이다.
+                      echo '<li class="col"><input class="unselectable__checkbox" type="checkbox" name="'.$part.$row_chr.$col.'"></li>';
+                    }
+                    elseif ($SEAT_STATUS == 2) {
+                      // 2이면 예매된 좌석
+                      echo '<li class="col taken">x</li>';
+                    }
+                    else
+                      echo '<li class="col"><input class="unselectable__checkbox" type="checkbox" name="'.$part.$row_chr.$col.'" checked></li>';
+
+                    // 위 에서 shifting한 col을 for문의 연산에 지장이 없도록 기존 값으로 돌려놓음
+                    $col += $col_shift;
+                  }
+                  echo '</ul>';
+                  echo '<br>';
+                }
+                echo '<br>';
+                echo '<br>';
+              }
+            ?>
+          </div>
+          <script type="text/javascript" role="count checked seats">
+            function D () {
+              var ckd = document.getElementsByClassName('unselectable__checkbox');
+              var ept_seats = '';
+              for (var i = 0; i < ckd.length; i++) {
+                if (ckd[i].checked) {
+                  ept_seats += ckd[i].name+',';
+                }
+              }
+              return ept_seats;
+            }
+          </script>
+          <button class="option_apply" onclick="B('code=4&seats='+D())">적용</button>
         </div>
-        <button class="option_apply" onclick="B('code=4&part='+document.querySelector('#opt2_part').value)">적용</button>
       </li>
 
       <!-- <li class="card opt0">

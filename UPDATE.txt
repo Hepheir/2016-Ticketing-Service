@@ -1,2 +1,6 @@
-16-08-11 : Added Cancelation mode (이미 선택된 좌석 선택을 해제하고 저장 할 경우 예매를 취소시킴.)
-Added Admin Option - Blank Seat (빈 좌석 배치)
+16-08-11 : Added Cancelation mode (if user already has a seat booked, deselect the seat and save for de-book the seat.)
+Added Admin Option - Blank Seat (Aka. empty seat)
+
+16-08-12 : Added loader. they will be shown while Ajax is being loaded. (2)
++ Added few confirm popups for illegal users.
++ [ADMIN] added Unselectable Seats option. (1 hour coding)

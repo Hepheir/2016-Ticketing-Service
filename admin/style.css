@@ -146,7 +146,7 @@ span.card-title__text { display:block;width:auto;height:32px;font-size:20px;line
   text-align: center;
 }
 
-.emtpy__row-chr, .emtpy__col, .caption {
+.row-chr, .col, .caption {
   padding: 8px 0;
   text-align: center;
   font-size: 16px;
@@ -164,7 +164,7 @@ span.card-title__text { display:block;width:auto;height:32px;font-size:20px;line
   display: inline-block;
 }
 
-.emtpy__row {
+.row {
   width: auto;
   height: 40px;
   padding: 4px 0;
@@ -174,7 +174,7 @@ span.card-title__text { display:block;width:auto;height:32px;font-size:20px;line
   flex-direction: row;
 }
 
-.emtpy__row-chr {
+.row-chr {
   width: 28px;
   height: 32px;
   min-width: 28px;
@@ -184,19 +184,26 @@ span.card-title__text { display:block;width:auto;height:32px;font-size:20px;line
 
 /* Basic Cell Layout */
 
-.emtpy__col {
+.col {
   width: 32px;
   height: 32px;
   min-width: 32px;
   margin-left: 8px;
   border-radius: 3px;
-}
 
-.emtpy__col {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   cursor: pointer;
   background-color: #FFF;
 
   transition: box-shadow .3s cubic-bezier(0,0,.3,1);
 }
-.emtpy__col:hover { box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); }
+.col.taken { background-color: gray;color:white; }
+.col:hover { box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); }
+
+.col-empty {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  margin-left: 8px;
+  background: transparent;
+}
