@@ -21,6 +21,23 @@ body,html,div,nav{
   color: white;
   overflow: hidden;
 }
+input[type=button]{
+  padding: 6px;
+  background: white;
+  border: 3px solid gray;
+  color: gray;
+  font-family: inherit;
+  font-size: 1em;
+  cursor: pointer;
+  border-radius: 8px;
+}
+#topHidden{
+  background: lightgray;
+  height: 84px;
+  text-align: center;
+  line-height: 1.8em;
+  padding: 8px;
+}
 .Header{
   height: 42px;
   background: gray;
@@ -52,22 +69,63 @@ body,html,div,nav{
   padding: 11px;
   cursor: pointer;
 }
-.topSubMenu{
-  position: fixed;
-  left: 0px;
-  top: 48px;
-  width: 296px;
-  height:167px;
+table.choosePart{
+  width: 100%;
+  height: 32px;
+  border-spacing: 0px;
 }
-.balloonTop{
-  height: 30px;
-  background-image: url(../../asset/texture/balloon/top.png);
+td.choosePart{
+  border: 1px solid white;
+  color: gray;
+  text-align: center;
+  cursor: pointer;
 }
-.balloonMain{
-  height: 120px;
-  background-image: url(../../asset/texture/balloon/main.png);
+td.choosePart:hover{
+  background: lightgray;
 }
-.balloonBottom{
-  height: 17px;
-  background-image: url(../../asset/texture/balloon/bottom.png);
+td.selectedPart{
+  background: lightgray;
+}
+.TableContainer{
+  color: gray;
+  text-align: center;
+}
+div#defaultTableWrap{
+  color: inherit;
+  max-width: 412px;
+  margin: 0 auto;
+}
+table.default{
+  color: inherit;
+  width: 100%;
+  width: 100%;
+  border-spacing: 4px;
+}
+td.default{
+  width: 18px;
+  height: 18px;
+}
+td.default:hover{
+  /* IE 8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
+  /* IE 5-7 */
+  filter: alpha(opacity=60);
+  /* Netscape */
+  -moz-opacity: 0.6;
+  /* Safari 1.x */
+  -khtml-opacity: 0.6;
+  opacity: 0.5;
+}
+#nextWrap{
+  margin: 0 auto;
+}
+.toNext{
+  width: 48px;
+  height: 1em;
+  padding: 6px;
+  margin-right: 4px;
+  font-size: 24px;
+  background: lightgray;
+  cursor: pointer;
+  text-align: center;
 }

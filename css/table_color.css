@@ -1,0 +1,30 @@
+.default_default{
+  background: lightgray;
+  cursor: pointer;
+}
+.default_broken{
+  background: gray;
+  cursor: not-allowed;
+}
+.default_vip{
+  background: purple;
+  cursor: not-allowed;
+}
+.default_offline{
+  background: blue;
+  cursor: not-allowed;
+}
+.default_booked{
+  background: red;
+  cursor: not-allowed;
+}
+.default_selected{
+  background: yellow;
+  cursor: not-allowed;
+}
+.hall, .empty{
+  background: transparent;
+}
+.selectedSeat{
+  background: green;
+}

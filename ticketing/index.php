@@ -9,26 +9,28 @@
 *
 * :: TICKETING_SELECT ::
 -->
+<?php $toRoot = '../'; ?>
 <head>
   <meta charset="utf-8">
 	<meta name="author" content="hepheir">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../css/ticketing/select.css" media="screen">
   <link rel="stylesheet" href="../css/support.css" media="screen">
+  <link rel="stylesheet" href="../css/table_color.css" media="screen">
   <script src="../js/ticketing/select.js" charset="utf-8"></script>
 </head>
-<body onresize="screenResize()">
+<body onresize="tableResize(cols, rows)">
+  <div id="topHidden" class="hidden">
+    수정/조회하기 페이지로 이동합니다
+    <br>
+    <input type="button" value="수정/조회하기" onclick="location.replace('./check/')"></input>
+  </div>
   <div class="Header">
-    <div id="topIcon" class="topIcon fl">
+<!--[if (gt IE 9)|!(IE)]><!-->
+    <div id="topIcon" class="topIcon fl" onclick="topDrawer(drawerToggle)">
       <img width="100%" height="100%" src="../asset/icons/white_hamburger_64.png" alt="Menu" />
-      <div class="topSubMenu">
-        <div class="balloonTop"></div>
-        <div class="balloonMain">
-
-        </div>
-        <div class="balloonBottom"></div>
-      </div>
     </div>
+<!--<![endif]-->
     <div id="topText" class="topText fl">
       좌석을 선택하세요
     </div>
@@ -36,18 +38,46 @@
       뒤로
     </div>
     <div class="topMenu fr">
-      수정/조회하기
+      <a href="./check/">수정/조회하기</a>
     </div>
   </div>
-  <div class="TableContainer">
-<?php
-  $toRoot = '../';
-  include $toRoot.'php/table_drawer.php';
-  default_table(1);
-?>
-  </div>
+  <form action="./fill.php" method="post">
+    <?php
+    $PART_AVAILABLE = file($toRoot.'data/setting/part_available');
+    if (!isset($_GET['part'])) {
+      header('Location: ?part=1');
+      end();
+    }
+    if (str_replace(chr(13).chr(10), '',$PART_AVAILABLE[0]) == 1)
+      echo '<table class="choosePart hidden">';
+    else
+      echo '<table class="choosePart">';
+    ?>
+      <tr>
+        <?php
+        for ($i=1; $i <= str_replace(chr(13).chr(10), '',$PART_AVAILABLE[0]); $i++) {
+          if ($_GET['part'] == $i)
+            echo '<td id="part_'.$i.'" class="choosePart selectedPart" onclick="window.location.replace(\'?part='.$i.'\')">'.$i.'부</td>';
+          else
+            echo '<td id="part_'.$i.'" class="choosePart" onclick="window.location.replace(\'?part='.$i.'\')">'.$i.'부</td>';
+        }
+        ?>
+      </tr>
+    </table>
+    <div class="TableContainer">
+      <?php
+      include $toRoot.'php/table_drawer.php';
+      default_table($_GET['part']);
+      echo '<script>var cols = '.$TABLE_SIZE[0].'; var rows = '.$TABLE_SIZE[1].';</script>';
+      ?>
+    </div>
+    <div id="nextWrap">
+      <div class="toNext fr">다음</div>
+    </div>
+  </form>
   <script type="text/javascript">
-    screenResize();
+    var drawerToggle = 0; //작은 화면에서 나타나는 햄버거 매뉴버튼을 눌렀을때 div#topHidden의 토글러 매개변수
+    tableResize(cols, rows);
   </script>
 </body>
 </html>

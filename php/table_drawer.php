@@ -1,193 +1,64 @@
 <?php
-  $TABLE_SIZE = file($toRoot.'data/setting/table_size');
-  #[0]cols ,[1]rows ,[2]:hall, [3]:좌석 보호 지속시간
-  #내부에서 샤용되는 변수나 이름은 소문자, 외부에서 사용될 수 있는 변수명이나 불러온 파일에 해당하는 변수명, 클래스 이름은 대문자로
-//    $TABLE_SIZE[0] = str_replace(chr(13).chr(10), '', $TABLE_SIZE[0]);
-//    $TABLE_SIZE[1] = str_replace(chr(13).chr(10), '', $TABLE_SIZE[1]);
-//    $TABLE_SIZE[2] = str_replace(chr(13).chr(10), '', $TABLE_SIZE[2]);
+$toSeats = $toRoot.'data/seats/';
+$TABLE_SIZE = file($toRoot.'data/setting/table_size');
+# $TABLE_SIZE[0] = str_replace(chr(13).chr(10), '',$PART_AVAILABLE[0]); //가로
+# $TABLE_SIZE[1] = str_replace(chr(13).chr(10), '',$PART_AVAILABLE[1]); //세로
+# $TABLE_SIZE[2] = str_replace(chr(13).chr(10), '',$PART_AVAILABLE[2]); //복도
 
-  $cols = str_replace(chr(13).chr(10), '',$TABLE_SIZE[0]);
-  $rows = str_replace(chr(13).chr(10), '',$TABLE_SIZE[1]);
-  $hall = str_replace(chr(13).chr(10), '',$TABLE_SIZE[2]);
+function default_table($PART){
+  global $toRoot;
+  global $toSeats;
+  global $TABLE_SIZE;
+  $cols_shift = 0;
 
-  date_default_timezone_set("Asia/Seoul");
-  if (date('a') == 'am'){
-    if (date('h') == 12 || date('h') == 24) {
-      $record_time = date('m').date('d').'00'.date('i');
-    }
-    else {
-      $record_time = date('m').date('d').date('h').date('i');
-    }
-  }
-  else {
-    if (date('h') == 12) {
-      $record_time = date('m').date('d').'12'.date('i');
-    }
-    else {
-      $record_time = date('m').date('d').(date('h') + 12).date('i');
-    }
-  }
-
-
-  function default_table($PART) {
-    global $toRoot;
-    global $TABLE_SIZE;
-    global $record_time;
-    echo '<table class="default" style="display:inline-table;text-transform:uppercase">';
-    echo '<caption class="default">screen</caption>';
-    for ($rows=1; $rows <= $TABLE_SIZE[1]; $rows++) {
-      $rows_char = chr($rows+64); #열번호를 숫자에서 알파벳 문자로 바꿔줌
-      $cols_shift = 0; #빈 구역만큼 좌석번호를 오른쪽으로 쉬프팅
-      echo '<tr>';
-      for ($cols=1; $cols <= $TABLE_SIZE[0]; $cols++) {
-        if (file_exists($toRoot.'data/config/seat_table/disabled/'.$rows_char.$cols)) {
-          echo '<td id="disabled" class="default"></td>';
-          $cols_shift++;
-        }
-        elseif (file_exists($toRoot.'data/config/seat_table/part_'.$PART.'/vip\/'.$rows_char.($cols-$cols_shift))) {
-          echo '<td id="vip" class="default">vip<br><span class="default">'.$rows_char.($cols-$cols_shift).'</span></td>';
-        }
-        elseif (file_exists($toRoot.'data/config/seat_table/part_'.$PART.'/booked\/'.$rows_char.($cols-$cols_shift))) {
-          echo '<td id="booked" class="default">x<br><span class="default">'.$rows_char.($cols-$cols_shift).'</span></td>';
-        }
-        elseif (file_exists($toRoot.'data/config/seat_table/part_'.$PART.'/selected\/'.$rows_char.($cols-$cols_shift))) {
-          $theFile = fopen($toRoot.'data/config/seat_table/part_'.$PART.'/selected\/'.$rows_char.($cols-$cols_shift), "r");
-          if (fgets($theFile) < ($record_time - $TABLE_SIZE[3])){
-            fclose($theFile);
-            unlink($toRoot.'data/config/seat_table/part_'.$PART.'/selected\/'.$rows_char.($cols-$cols_shift));
-            echo '<td id="choosable" class="default">'.$rows_char.($cols-$cols_shift).'</td>';
-          }
-          else {
-            fclose($theFile);
-            echo '<td id="selected" class="default">!<br><span class="default">'.$rows_char.($cols-$cols_shift).'</span></td>';
-          }
-        }
-        else{
-          echo '<td id="choosable" class="default">'.$rows_char.($cols-$cols_shift).'</td>';
-        }
-        if ($cols==$TABLE_SIZE[2]) {
-          echo '<td id="HALL" class="default"></td>';
-        }
+  echo '<script src="'.$toRoot.'js/table_drawer.js" charset="utf-8"></script>'.chr(13).chr(10);
+  echo '<style>.default_example{display:inline-block;vertical-align:bottom;width:16px;height:16px;margin:4px 2px 0 0;cursor:default;}#default_exampleContainer{height:40px;margin:0;padding:4px;font-size:14px;color:inherit;line-height:1em;}i.default_exampleWrap{display:inline-block;width:auto;height:auto;font-style: normal;}</style>'.chr(13).chr(10);
+  echo '<div id="defaultTableWrap">'.chr(13).chr(10);
+  echo '<table class="default">'.chr(13).chr(10);
+  echo '<caption class="default">Screen</caption>'.chr(13).chr(10);
+  for ($rows=1; $rows <= $TABLE_SIZE[1]; $rows++) {
+    echo '<tr>';
+    for ($cols=1; $cols <= $TABLE_SIZE[0]; $cols++) {
+      #빈 공간
+      if (file_exists($toSeats.'empty/'.chr($rows+64).$cols)) {
+        echo '<td class="default empty"></td>'.chr(13).chr(10);
+        $cols_shift++;
       }
-      echo '</tr>';
+
+      #고장석
+      elseif (file_exists($toSeats.'broken/'.chr($rows+64).$cols))
+        echo '<td id="default_'.chr($rows+64).($cols-$cols_shift).'" class="default default_broken"></td>'.chr(13).chr(10);
+
+      #VIP석
+      elseif (file_exists($toSeats.'vip/'.$PART.'/'.chr($rows+64).$cols))
+        echo '<td id="default_'.chr($rows+64).($cols-$cols_shift).'" class="default default_vip"></td>'.chr(13).chr(10);
+
+      #오프라인 전용석
+      elseif (file_exists($toSeats.'offline/'.$PART.'/'.chr($rows+64).$cols))
+        echo '<td id="default_'.chr($rows+64).($cols-$cols_shift).'" class="default default_offline"></td>'.chr(13).chr(10);
+
+      #예매된 좌석
+      elseif (file_exists($toSeats.'booked/'.$PART.'/'.chr($rows+64).$cols))
+        echo '<td id="default_'.chr($rows+64).($cols-$cols_shift).'" class="default default_booked"></td>'.chr(13).chr(10);
+
+      #예매중인 좌석
+      elseif (file_exists($toSeats.'selected/'.$PART.'/'.chr($rows+64).$cols))
+        echo '<td id="default_'.chr($rows+64).($cols-$cols_shift).'" class="default default_selected"></td>'.chr(13).chr(10);
+
+      #일반석
+      else
+        echo '<td id="default_'.chr($rows+64).($cols-$cols_shift).'" class="default default_default" onclick="default_table(\''.chr($rows+64).($cols-$cols_shift).'\')"></td>'.chr(13).chr(10);
+
+      #복도
+      if ($cols == $TABLE_SIZE[2])
+        echo '<td class="default hall"></td>'.chr(13).chr(10);
     }
-    echo '</table>';
+    echo '</tr>'.chr(13).chr(10);
   }
-
-  function point_table($PART,$SEAT) {
-    global $toRoot;
-    global $TABLE_SIZE;
-    echo '<table class="default" style="display:inline-table;text-transform:uppercase">';
-    echo '<caption class="default">screen</caption>';
-    for ($rows=1; $rows <= $TABLE_SIZE[1]; $rows++) {
-      $rows_char = chr($rows+64); #열번호를 숫자에서 알파벳 문자로 바꿔줌
-      $cols_shift = 0; #빈 구역만큼 좌석번호를 오른쪽으로 쉬프팅
-      echo '<tr>';
-      for ($cols=1; $cols <= $TABLE_SIZE[0]; $cols++) {
-        if (file_exists($toRoot.'data/config/seat_table/disabled/'.$rows_char.$cols)) {
-          echo '<td id="disabled" class="default"></td>';
-          $cols_shift++;
-        }
-        elseif ($rows_char.($cols-$cols_shift) == $SEAT) {
-          echo '<td id="pinned" class="point">'.$rows_char.($cols-$cols_shift).'</td>';
-        }
-        else{
-          echo '<td id="not_pinned" class="point">'.$rows_char.($cols-$cols_shift).'</td>';
-        }
-        if ($cols==$TABLE_SIZE[2]) {
-          echo '<td id="HALL" class="point"></td>';
-        }
-      }
-      echo '</tr>';
-    }
-    echo '</table>';
-  }
-
-  #input[type=radio]
-  function input_table($PART) {
-    global $toRoot;
-    global $TABLE_SIZE;
-    global $record_time;
-    $setting = file($toRoot.'data/config/setting'); #setting의 1째줄은 예매 활성화 여부, 2째줄은 좌석 보호 지속시간이다.
-    echo '<table class="input" style="display:inline-table;text-transform:uppercase">';
-    echo '<caption class="input">screen</caption>';
-    for ($rows=1; $rows <= $TABLE_SIZE[1]; $rows++) {
-      $rows_char = chr($rows+64);
-      $cols_shift = 0;
-      echo '<tr>';
-      for ($cols=1; $cols <= $TABLE_SIZE[0]; $cols++) {
-        if (file_exists($toRoot.'data/config/seat_table/disabled/'.$rows_char.$cols)) {
-          echo '<td id="disabled" class="input"></td>';
-          $cols_shift++;
-        }
-        elseif (file_exists($toRoot.'data/config/seat_table/part_'.$PART.'/vip\/'.$rows_char.($cols-$cols_shift))) {
-          echo '<td id="vip" onclick="td_onclick(\'vip\')" class="input">vip<br><span class="input">'.$rows_char.($cols-$cols_shift).'</span></td>';
-        }
-        elseif (file_exists($toRoot.'data/config/seat_table/part_'.$PART.'/booked\/'.$rows_char.($cols-$cols_shift))) {
-          echo '<td id="booked" onclick="td_onclick(\'booked\')" class="input">x<br><span class="input">'.$rows_char.($cols-$cols_shift).'</span></td>';
-        }
-        elseif (file_exists($toRoot.'data/config/seat_table/part_'.$PART.'/selected\/'.$rows_char.($cols-$cols_shift))) {
-          $theFile = file($toRoot.'data/config/seat_table/part_'.$PART.'/selected\/'.$rows_char.($cols-$cols_shift));
-
-          ##디버그용: 시간 기록이 제대로 이루어지는지 확인 ## echo '<script>alert(\''.str_replace(chr(13).chr(10), '',$theFile[0]).'-'.($record_time - (str_replace(chr(13).chr(10), '',$setting[1]))).'\');</script>';
-
-          if ((str_replace(chr(13).chr(10), '',$theFile[0])) < ($record_time - (str_replace(chr(13).chr(10), '',$setting[1])))){
-            unlink($toRoot.'data/config/seat_table/part_'.$PART.'/selected\/'.$rows_char.($cols-$cols_shift));
-            echo '<td id="choosable" class="input" style="padding:0;">
-            <input id="input_'.$rows_char.($cols-$cols_shift).'" type="radio" name="seat" value="'.$rows_char.($cols-$cols_shift).'" style="display:none">
-            <label id="choosable" for="input_'.$rows_char.($cols-$cols_shift).'" style="display:block;width:100%;height:100%;margin:0;">'.$rows_char.($cols-$cols_shift).'</label>
-            </td>';
-          }
-          else {
-            echo '<td id="selected" onclick="td_onclick(\'selected\')" class="input">!<br><span class="input">'.$rows_char.($cols-$cols_shift).'</span></td>';
-          }
-        }
-        else{
-          echo '<td id="choosable" class="input" style="padding:0;">
-          <input id="input_'.$rows_char.($cols-$cols_shift).'" type="radio" name="seat" value="'.$rows_char.($cols-$cols_shift).'" style="display:none">
-          <label id="choosable" for="input_'.$rows_char.($cols-$cols_shift).'" style="display:block;width:100%;height:100%;margin:0;">'.$rows_char.($cols-$cols_shift).'</label>
-          </td>';
-        }
-        if ($cols==$TABLE_SIZE[2]) {
-          echo '<td id="HALL" class="input"></td>';
-        }
-      }
-      echo '</tr>';
-    }
-    echo '</table>';
-  }
-
-  function count_table($PART){
-    global $toRoot;
-    global $TABLE_SIZE;
-    $available_seats = 0;
-    for ($rows=1; $rows <= $TABLE_SIZE[1]; $rows++) {
-      $rows_char = chr($rows+64);
-      for ($cols=1; $cols <= $TABLE_SIZE[0]; $cols++) {
-        if (file_exists($toRoot.'data/config/seat_table/disabled/'.$rows_char.$cols)) {
-          continue;
-        }
-        elseif (file_exists($toRoot.'data/config/seat_table/part_'.$PART.'/vip\/'.$rows_char.$cols)) {
-          continue;
-        }
-        elseif (file_exists($toRoot.'data/config/seat_table/part_'.$PART.'/booked\/'.$rows_char.$cols)) {
-          continue;
-        }
-        elseif (file_exists($toRoot.'data/config/seat_table/part_'.$PART.'/selected\/'.$rows_char.$cols)) {
-          continue;
-        }
-        $available_seats++;
-      }
-    }
-    return $available_seats;
-  }
-  #min-height, min-width를 구하기 쉽게 해주는 함수. 첫 번째 parameter에는 변의 길이, 두 번째에는 표의 칸 사이 간격을 입력해주면 된다.
-  function min_table($side,$border){
-    global $TABLE_SIZE;
-    if ($TABLE_SIZE[2] == -1){$min_width = $side * $TABLE_SIZE[0] + $border * ($TABLE_SIZE[0] + 1);}
-    else {$min_width = $side * ($TABLE_SIZE[0] + 1) + $border * ($TABLE_SIZE[0] + 1);}
-    $min_height = $side * ($TABLE_SIZE[1] + 1) + $border * ($TABLE_SIZE[1] + 1);
-    return 'min-width:'.$min_width.'px; min-height:'.$min_height.'px;';
-  }
+  echo '</table>'.chr(13).chr(10);
+  echo '</div>'.chr(13).chr(10);
+  echo '<div id="default_exampleContainer"><i class="default_exampleWrap"><div class="default_example default_default"></div>일반석&nbsp;&nbsp;&nbsp;</i><i class="default_exampleWrap"><div class="default_example default_broken"></div>고장</td>&nbsp;&nbsp;&nbsp;</i><i class="default_exampleWrap"><div class="default_example default_vip"></div>VIP석</td>&nbsp;&nbsp;&nbsp;</i><i class="default_exampleWrap"><div class="default_example default_booked"></div>예매됨</td>&nbsp;&nbsp;&nbsp;</i><i class="default_exampleWrap"><div class="default_example default_selected"></div>예매중</td>&nbsp;&nbsp;&nbsp;</i><i class="default_exampleWrap"><div class="default_example default_offline"></div>오프라인 예매 전용석</div></i>'.chr(13).chr(10);
+  echo '<div id="hiddenSeatForm" style="display:none"></div>'.chr(13).chr(10);
+}
 
 ?>
