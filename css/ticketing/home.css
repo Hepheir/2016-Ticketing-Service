@@ -1,52 +1,88 @@
 @charset "UTF-8";
 @import url(http://fonts.googleapis.com/earlyaccess/hanna.css);
+/* Float bug */
+.clearfix:after{content:".";display:block;clear:both;visibility:hidden;height:0}
+.clearfix{display: inline-block}
+/* Hides from IE-mac \*/
+* html .clearfix{height:1%}
+
 body,html,div,nav{
   font-family: 'Hanna', "맑은 고딕", serif;
   font-size: 20px;
   color: white;
+  overflow: hidden;
+}
+.LayoutWrap{
+  overflow-y: auto;
 }
 .Header{
-  height: 48px;
-  background: lightgray;
-}
-.icon{
-  width: 26px;
-  height: 26px;
-  padding: 10px;
-}
-.topBar{
-  width: 240px;
-  padding: 14px;
+  height: 42px;
   background: gray;
+  letter-spacing: 1px;
 }
-.imgSection{
-  height: 50%;
-  overflow: hidden;
-  background: #888888;
-}
-.imgDot{
-  position: absolute;
-  top: 50%;
-  height: 20px;
-  margin-top: 20px;
+.toHome{
+  height: 1em;
+  width: 58px;
+  padding: 11px;
+  background: lightgray;
   text-align: center;
   cursor: pointer;
+  color: gray;
+}
+.topBar{
+  height: 1em;
+  width: 200px;
+  padding: 11px;
+  text-indent: 12px;
+}
+.imgSectionWrap{
+  height: 50%;
+  background: black;
+}
+.imgSectionFix{
+  /* 자바스크립트에서 너비 설정 */
+  margin: 0 auto;
+}
+.imgSection{
+  width: 304%;
+  background: #888888;
+}
+.dotContainerWrap{
+  position: absolute;
+  height: 20px;
+  top: 50%;
+  margin: 20px 0;
+  text-align: center;
+}
+.dotContainer{
+  display: inline-block;
+  width: 54px;
+  margin: 0 auto;
+  padding-left: 3px;
 }
 .dot{
-  display: inline-block;
   width: 12px;
   height: 12px;
   margin: 0 2px;
   background: white;
   border-radius: 50%;
   border: 1px solid lightgray;
+  cursor: pointer;
 }
 .dot:hover{
-  background: gray;
+  background: lightgray;
   border: 1px solid white;
 }
 .selected{
   background: gray;
   border: 1px solid white;
-  cursor: auto;
+}
+.menuContainer{
+  width: 100%;
+  height: 240px;
+  color:gray;
+}
+.menu_1, .menu_2, .menu_3{
+  background: lightgray;
+  cursor: pointer;
 }

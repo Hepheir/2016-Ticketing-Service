@@ -1,0 +1,34 @@
+@charset "UTF-8";
+@import url(http://fonts.googleapis.com/earlyaccess/hanna.css);
+/* Float bug */
+.clearfix:after{content:".";display:block;clear:both;visibility:hidden;height:0}
+.clearfix{display: inline-block}
+/* Hides from IE-mac \*/
+* html .clearfix{height:1%}
+
+body,html,div,nav{
+  font-family: 'Hanna', "맑은 고딕", serif;
+  font-size: 20px;
+  color: white;
+  overflow: hidden;
+}
+.Header{
+  height: 42px;
+  background: gray;
+  letter-spacing: 1px;
+}
+.toHome{
+  height: 1em;
+  width: 58px;
+  padding: 11px;
+  background: lightgray;
+  text-align: center;
+  cursor: pointer;
+  color: gray;
+}
+.topBar{
+  height: 1em;
+  width: 200px;
+  padding: 11px;
+  text-indent: 12px;
+}

@@ -3,8 +3,6 @@ body,html,div,nav{
   height: 100%;
   margin: 0;
   padding: 0;
-  overflow: hidden;
-  letter-spacing: 1px;
 }
 .fl{
   display: inline-block;
@@ -19,6 +17,9 @@ body,html,div,nav{
 }
 .absolute{
   position: absolute;
+}
+.relative{
+  position: relative;
 }
 a{
   color: inherit;
