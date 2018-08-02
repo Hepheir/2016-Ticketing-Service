@@ -58,6 +58,7 @@
     height: 100%;
     float: left;
     background: #efefef;
+    overflow: auto;
   }
   ul.list{
     margin-right: 8px;
@@ -94,7 +95,7 @@
   <ul class="list">
     <li><h1 style="position: relative; top:8px;left:-4px;">관리페이지</h1></li>
     <li><hr style="margin-top:4px;"></li><br>
-    <li style="text-transform: uppercase;"><?php echo $_SESSION['id']; ?> 로 로그인 함</li>
+    <li style="text-transform: uppercase;"><?php echo $_SESSION['id']; ?> <span style="font-size:.8em;">로 로그인 함</span></li>
     <li class="pointer"><a href="./logout.php" style="font-size:.7em;color:inherit;text-decoration:none;">- 로그아웃 하기</a></li>
     <li><hr style="margin-top:4px;"></li>
     <li><h3>좌석표 설정</h3></li>
@@ -105,8 +106,10 @@
     <li class="pointer" onclick="window.location.replace('?opt=4')">- vip석</li>
     <hr>
     <li><h3>공연정보</h3></li>
-    <li class="pointer" onclick="window.location.replace('?opt=10')">- 예매현황</li>
-    <li class="pointer" onclick="window.location.replace('?opt=11')">- 홍보페이지</li>
+    <li class="pointer" onclick="window.location.replace('?opt=10')">- 예매기능<br> &nbsp; &nbsp; &nbsp;활성/비활성</li>
+    <li class="pointer" onclick="window.location.replace('?opt=11')">- 예매현황</li>
+    <li class="pointer" onclick="window.location.replace('?opt=12')">- 예매자 관리</li>
+    <li class="pointer" onclick="window.location.replace('?opt=13')">- 홍보페이지</li>
     <hr>
     <li><h3>기타기능</h3></li>
     <li class="pointer" onclick="window.location.replace('?opt=20')">- 디버그</li>
@@ -119,7 +122,6 @@
   echo '<div class="body_wrap">';
   echo '<div class="container_wrap" style="width: calc(100% - 16px);margin:0;padding:8px;">';
   echo '<form id="apply" action="./apply.php" method="post">';
-  echo '<input type="hidden" name="secure" value="2J19D08K9">';
 
   if (!isset($_GET['opt'])) {
     echo '<div class="opt_name">';
@@ -129,7 +131,6 @@
     echo '관리관리 후하후하!';
   }
   else{
-    echo '<input type="hidden" name="opt" value="'.$_GET['opt'].'">';
     switch ($_GET['opt']) {
       case '0':
         echo '<div class="opt_name">';
@@ -165,9 +166,32 @@
         include './seat_table/vip_set.php';
         break;
 
+      case '10':
+        echo '<div class="opt_name">';
+        echo '<h1 style="margin-left:16px;display:inline-block;letter-spacing:2px;">공연정보</h1>';
+        echo '<p style="margin-left:32px;display:inline-block">- 예매기능 활성/비활성</p><hr></div>';
+        include './show/toggle_ticketing.php';
+        break;
+
+      case '11':
+        echo '<div class="opt_name">';
+        echo '<h1 style="margin-left:16px;display:inline-block;letter-spacing:2px;">공연정보</h1>';
+        echo '<p style="margin-left:32px;display:inline-block">- 예매현황</p><hr></div>';
+        include './show/status.php';
+        break;
+
+      case '12':
+        echo '<div class="opt_name">';
+        echo '<h1 style="margin-left:16px;display:inline-block;letter-spacing:2px;">공연정보</h1>';
+        echo '<p style="margin-left:32px;display:inline-block">- 예매자 관리</p><hr></div>';
+        include './show/ticket_list.php';
+        break;
+
       default:
         break;
     }
   }
+  echo '<input type="hidden" name="secure" value="2J19D08K9">';
+  if (isset($_GET['opt'])) {echo '<input type="hidden" name="opt" value="'.$_GET['opt'].'">';}
   echo '</form></div>';
 ?>

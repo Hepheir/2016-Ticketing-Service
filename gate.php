@@ -1,4 +1,4 @@
-<?php $toROOT = './'; ?>
+<?php $toROOT = './';$toggler = file($toROOT.'data/config/setting'); ?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -81,10 +81,14 @@
       <br>
       <h2 style="margin:0;">예매하려면 여기로</h2>
       <hr>
-      <br>
-      <p>
-        <input type="button" value="예매하러 가기" onclick="window.location.replace('./ticket/')">
-      </p>
+      <?php
+        if ($toggler[0] == 0){
+          echo '<p>현재 예매기능이 활성화 되어있지 않습니다.</p></script>';
+        }
+        else {
+          echo '<br><p><input type="button" value="예매하러 가기" onclick="window.location.replace(\'./ticket/\')"></p>';
+        }
+      ?>
       <br>
       <br>
       <br>
@@ -104,10 +108,10 @@
       <br>
       <br>
       <br>
-      <h2 style="margin:0;">굉장히 잉여롭군</h2>
+      <h2 style="margin:0;">메인으로 돌아가기</h2>
       <hr>
       <p>
-        후하하하하ㅏ
+        <a href="./" style="text-decoration:underline;">클릭 클릭 클릭 클릭 클릭 클릭</a>
       </p>
       <br>
       <br>

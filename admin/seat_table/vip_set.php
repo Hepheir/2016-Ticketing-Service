@@ -14,6 +14,9 @@
     }
   </style>
 </form>
+<p>
+  주의 : 예매기능을 활성화 한 상태에서 이 설정을 바꾸면 큰 혼란을 초래할 수 있습니다.
+</p>
 <form id="vip_part" method="get">
   <input type="hidden" name="opt" value="4">
   <?php
@@ -22,25 +25,17 @@
     $part_set = str_replace(chr(13).chr(10), '',$table_info_fi[3]);
     if (isset($_GET['part'])){
       if ($_GET['part'] == 1) {echo'<option value="1" selected>1부</option>';}
-      else {echo'<option value="1">1부</option>';}
-      if ($part_set <= 2) {
-        if ($_GET['part'] == 2) {echo'<option value="2" selected>2부</option>';}
-        else {echo'<option value="2">2부</option>';}
-      }
-      elseif ($part_set <= 3) {
-        if ($_GET['part'] == 3) {echo'<option value="3" selected>3부</option>';}
-        else {echo'<option value="3">3부</option>';}
-      }
+      else {echo '<option value="1">1부</option>';}
+      if ($_GET['part'] == 2) {echo'<option value="2" selected>2부</option>';}
+      else {echo '<option value="2">2부</option>';}
+      if ($_GET['part'] == 3) {echo'<option value="3" selected>3부</option>';}
+      else {echo '<option value="3">3부</option>';}
     }
     else{
       echo '<option value="0">선택</option>';
       echo '<option value="1">1부</option>';
-      if ($part_set <= 2) {
-        echo'<option value="2">2부</option>';
-      }
-      elseif ($part_set <= 3) {
-        echo'<option value="3">3부</option>';
-      }
+      echo '<option value="2">2부</option>';
+      echo '<option value="3">3부</option>';
     }
     echo '</select><br><br>';
     echo '</form><form id="apply" action="./apply.php" method="post">';
@@ -48,6 +43,7 @@
       vip_set_table($_GET['part']);
 
       echo '<br><br><br><input type="submit" value="수정하기">';
+      echo '<input type="hidden" name="part" value="'.$_GET['part'].'">';
     }
     else {
       echo '<br><p style="float:left;">시간을 선택하시오</p><br>';
