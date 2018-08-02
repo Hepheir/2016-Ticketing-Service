@@ -1,23 +1,23 @@
 function seatTableSizing(cols,rows){
   var border = 2; //table border-spacing
   var width;
-  if (window.innerWidth < 320){
+  if (window.innerWidth < 400){
     width = Math.round(240/(cols+1));
     document.getElementById('Content').style.width = seatTableCalc(cols,rows,border,width)[0]+'px';
     document.getElementById('seatTable').style.height = seatTableCalc(cols,rows,border,width)[1]+'px';
   }
-  else if (window.innerWidth < 480){
-    width = Math.round(280/(cols+1));
+  else if (window.innerWidth < 640){
+    width = Math.round(320/(cols+1));
     document.getElementById('Content').style.width = seatTableCalc(cols,rows,border,width)[0]+'px';
     document.getElementById('seatTable').style.height = seatTableCalc(cols,rows,border,width)[1]+'px';
   }
-  else if (window.innerWidth < 640){
-    width = Math.round(400/(cols+1));
+  else if (window.innerWidth < 920){
+    width = Math.round(480/(cols+1));
     document.getElementById('Content').style.width = seatTableCalc(cols,rows,border,width)[0]+'px';
     document.getElementById('seatTable').style.height = seatTableCalc(cols,rows,border,width)[1]+'px';
   }
   else{
-    width = Math.round(560/(cols+1));
+    width = Math.round(640/(cols+1));
     document.getElementById('Content').style.width = seatTableCalc(cols,rows,border,width)[0]+'px';
     document.getElementById('seatTable').style.height = seatTableCalc(cols,rows,border,width)[1]+'px';
   }

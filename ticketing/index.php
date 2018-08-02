@@ -60,6 +60,10 @@
     </tr>
   </table>
   <div id="Content">
+    <?php
+    if (str_replace(chr(13).chr(10), '', file('../data/setting/notice')[0]) == 1)
+      echo '<div id="noticeBoard">'.str_replace(chr(13).chr(10), '', file('../data/setting/notice')[1].'</div>');
+    ?>
     <table id="seatTable">
       <caption id="seatTableCaption">Screen</caption>
       <?php
@@ -75,7 +79,7 @@
 
       $TABLE_SIZE = file('../data/setting/table_size');
       # PHP -> JavaScript
-      echo '<script>var cols = '.$TABLE_SIZE[0].'; var rows = '.$TABLE_SIZE[1].';</script>';
+      echo '<script>var cols = '.$TABLE_SIZE[0].'; var rows = '.$TABLE_SIZE[1].'; var part = '.$_GET['part'].';</script>';
 
       for ($rows=1; $rows <= $TABLE_SIZE[1]; $rows++) {
         $cols_shift = 0;
@@ -127,23 +131,25 @@
     </table>
     <div id="exampleContainer">
       <?php
-      if (file('../data/setting/style/ticketing/exampleSeat')[0] == 1)
-        echo '<i class="exampleWrap"><div class="exampleIcon default_default"></div><p class="exampleText">일반석</p></i>';
-      if (file('../data/setting/style/ticketing/exampleSeat')[1] == 1)
-        echo '<i class="exampleWrap"><div class="exampleIcon default_broken"></div><p class="exampleText">고장</td></p></i>';
-      if (file('../data/setting/style/ticketing/exampleSeat')[2] == 1)
-        echo '<i class="exampleWrap"><div class="exampleIcon default_vip"></div><p class="exampleText">VIP석</td></p></i>';
-      if (file('../data/setting/style/ticketing/exampleSeat')[3] == 1)
-        echo '<i class="exampleWrap"><div class="exampleIcon default_booked"></div><p class="exampleText">예매됨</td></p></i>';
-      if (file('../data/setting/style/ticketing/exampleSeat')[4] == 1)
-        echo '<i class="exampleWrap"><div class="exampleIcon default_selected"></div><p class="exampleText">예매중</td></p></i>';
-      if (file('../data/setting/style/ticketing/exampleSeat')[5] == 1)
-        echo '<i class="exampleWrap"><div class="exampleIcon default_offline"></div><p class="exampleText">오프라인 예매 전용석</div></p></i>';
+      $EXAMPLE_SEAT = file('../data/setting/exampleSeat');
+      if ($EXAMPLE_SEAT[0] == 1)
+        echo '<i class="exampleWrap"><div class="exampleIcon default_default"></div><div class="exampleText">일반석</div></i>';
+      if ($EXAMPLE_SEAT[1] == 1)
+        echo '<i class="exampleWrap"><div class="exampleIcon default_broken"></div><div class="exampleText">고장</div></i>';
+      if ($EXAMPLE_SEAT[2] == 1)
+        echo '<i class="exampleWrap"><div class="exampleIcon default_vip"></div><div class="exampleText">VIP석</div></i>';
+      if ($EXAMPLE_SEAT[3] == 1)
+        echo '<i class="exampleWrap"><div class="exampleIcon default_booked"></div><div class="exampleText">예매됨</div></i>';
+      if ($EXAMPLE_SEAT[4] == 1)
+        echo '<i class="exampleWrap"><div class="exampleIcon default_selected"></div><div class="exampleText">예매중</div></i>';
+      if ($EXAMPLE_SEAT[5] == 1)
+        echo '<i class="exampleWrap"><div class="exampleIcon default_offline"></div><div class="exampleText">오프라인 예매 전용석</div></i>';
       ?>
     </div>
     <form id="seatForm" action="fill.php" method="post">
       <div id="hiddenSeatForm" class="hidden"></div>
-      <input id="seatFormButton" type="button" value="다음">
+      <input type="hidden" name="part" value="<?php echo $_GET['part']; ?>">
+      <input id="seatFormButton" type="button" value="다음" onclick="seatFormSubmit()">
       <br>
       <br>
     </form>
@@ -152,6 +158,13 @@
     var drawerToggle = 0;
     topMenuToggle();
     seatTableSizing(cols,rows);
+
+    function seatFormSubmit(){
+      if (pre_seat == undefined)
+        alert('좌석을 선택하세요.');
+      else if (confirm('선택하신 좌석은 '+part+'부 '+pre_seat+'석 입니다.'))
+        document.getElementById('seatForm').submit();
+    }
   </script>
 </body>
 </html>

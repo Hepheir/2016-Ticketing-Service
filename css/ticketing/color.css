@@ -18,14 +18,19 @@ body{
   color: gray;
   border-color: gray;
 }
+/* 공지 사항 */
+#noticeBoard{
+  border-color: lightgray;
+  background: #FFFB86;
+  color: gray;
+}
 /* "다음" 버튼 */
 #seatFormButton{
   background: lightgray;
-  color: gray;
+  color: white;
 }
-/* TICKETING_SELECT */
-#partSelect{
-
+#seatFormButton:hover{
+  color: gray;
 }
 .part{
   background: lightgray;
@@ -38,6 +43,28 @@ body{
   background: transparent;
   color: gray;
 }
-#seatTableCaption, .exampleWrap{
+/* Content 영역안에 들어가는 글씨 */
+#seatTableCaption, .exampleWrap, .userInfoLabel{
+  color: gray;
+}
+/* fill.php 좌석표 접기/펴기 버튼 */
+#tableFolder{
+  background: lightgray;
+  color: white;
+}
+#tableFolder:hover{
+  color: gray;
+}
+/* fill.php 정보 입력란 */
+.userInfoInput{
+  color: black;
+  background: transparent;
+  border-color: gray;
+}
+#pwShow{
+  background: lightgray;
+  color: white;
+}
+#pwShow:hover{
   color: gray;
 }

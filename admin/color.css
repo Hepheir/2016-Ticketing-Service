@@ -1,0 +1,23 @@
+#Header, #topMenuIcon, #topTitle, #topMenuText, #topMenuText>a{
+  background: gray;
+  color: white;
+  text-decoration: none;
+}
+#topBack{
+  background: lightgray;
+  color: gray;
+}
+#sideBar{
+  background: gray;
+}
+.Category, .Element{
+  color: white;
+  background: lightgray;
+}
+.Element:hover{
+  color: gray;
+  background: white;
+}
+#ContentWrap{
+  background: lightgray;
+}

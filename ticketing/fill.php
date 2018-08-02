@@ -70,13 +70,15 @@ else{
   <link rel="stylesheet" href="../css/ticketing/color.css" media="screen">
   <link rel="stylesheet" href="../css/table_color.css" media="screen">
   <script src="../js/ticketing/Header.js" charset="utf-8"></script>
-  <title>좌석을 선택하세요</title>
+  <script src="../js/ticketing/seatTableSizing.js" charset="utf-8"></script>
+  <script src="../js/ticketing/seatSubmitter.js" charset="utf-8"></script>
+  <title>예매중!! - 정보입력 :: <?php echo $_POST['part']; ?>부 <?php echo $_POST['seat']; ?></title>
 </head>
-<body onresize="topMenuToggle()">
+<body onresize="topMenuToggle();seatTableSizing(cols,rows)">
   <div id="topHidden" class="hidden">
     수정/조회하기 페이지로 이동합니다
     <br>
-    <input id="topHiddenButton" type="button" value="수정/조회하기" onclick="location.replace('./check/')"></input>
+    <input id="topHiddenButton" type="button" value="수정/조회하기" onclick="location.replace('./fill.php?<?php echo 'part='.$_POST['part'].'&#38;seat='.$_POST['seat'];?>&#38;cancel=check')"></input>
   </div>
   <div id="Header">
 <!--[if (gt IE 9)|!(IE)]><!-->
@@ -87,23 +89,106 @@ else{
     <div id="topTitle">
       정보를 입력하세요
     </div>
-    <div id="topBack" onclick="window.location.replace('../')">
+    <div id="topBack" onclick="window.location.replace('./fill.php?<?php echo 'part='.$_POST['part'].'&#38;seat='.$_POST['seat'];?>&#38;cancel=')">
       뒤로
     </div>
     <div id="topMenuText">
-      <a href="./check/">수정/조회하기</a>
+      <a href="./fill.php?<?php echo 'part='.$_POST['part'].'&#38;seat='.$_POST['seat'];?>&#38;cancel=check">수정/조회하기</a>
     </div>
   </div>
   <div id="Content">
-    <form id="seatForm" action=".html" method="post">
-      <input id="seatFormButton" type="button" value="다음">
+    <?php
+    if (str_replace(chr(13).chr(10), '', file('../data/setting/notice')[0]) == 1)
+      echo '<div id="noticeBoard">'.str_replace(chr(13).chr(10), '', file('../data/setting/notice')[1].'</div>');
+    ?>
+    <hr>
+    <table id="seatTable">
+      <caption id="seatTableCaption">Screen</caption>
+      <?php
+      $TABLE_SIZE = file('../data/setting/table_size');
+      # PHP -> JavaScript
+      echo '<script>var cols = '.$TABLE_SIZE[0].'; var rows = '.$TABLE_SIZE[1].';</script>';
+
+      for ($rows=1; $rows <= $TABLE_SIZE[1]; $rows++) {
+        $cols_shift = 0;
+        echo '<tr>';
+        for ($cols=1; $cols <= $TABLE_SIZE[0]; $cols++) {
+          #빈 공간
+          if (file_exists('../data/seats/empty/'.chr($rows+64).$cols)) {
+            echo '<td class="seatCell empty"></td>'.chr(13).chr(10);
+            $cols_shift++;
+          }
+
+          #선택한 좌석
+          elseif (chr($rows+64).($cols-$cols_shift) == $_POST['seat'])
+            echo '<td id="seatCell_'.chr($rows+64).($cols-$cols_shift).'" class="seatCell pinned_pinned"></td>'.chr(13).chr(10);
+
+          #일반석, #예매중인 좌석, #예매된 좌석, #오프라인 전용석, #VIP석, #고장석
+          else
+            echo '<td id="seatCell_'.chr($rows+64).($cols-$cols_shift).'" class="seatCell pinned_default"></td>'.chr(13).chr(10);
+
+          #복도
+          if ($cols == $TABLE_SIZE[2])
+            echo '<td class="seatCell hall"></td>'.chr(13).chr(10);
+        }
+        echo '</tr>'.chr(13).chr(10);
+      }
+      ?>
+    </table>
+    <div id="tableFolder" onclick="pinnedTableFold(tableViewToggle)"></div>
+    <hr>
+    <form id="seatForm" action="confirm.php" method="post">
+      <table id="userInfo">
+        <tr>
+          <td><label class="userInfoLabel" for="idInput">학 번 : </label></td>
+          <td colspan="2"><input id="idInput" class="userInfoInput" type="number" min="10101" max="31440" name="id" value=""></td>
+        </tr>
+        <tr>
+          <td><label class="userInfoLabel" for="nameInput">이 름 : </label></td>
+          <td colspan="2"><input id="nameInput" class="userInfoInput" type="text" name="name" value=""></td>
+        </tr>
+        <tr>
+          <td><label class="userInfoLabel" for="pwInput">비밀번호 : </label></td>
+          <td><input id="pwInput" class="userInfoInput" type="password" name="pw" value=""></td>
+<!--[if (gt IE 9)|!(IE)]><!-->
+          <td><div id="pwShow" onclick="passwordShow(passwordShowToggle)">비밀번호 보기</div></td>
+<!--<![endif]-->
+        </tr>
+      </table>
+      <input id="seatFormButton" type="button" value="다음" onclick="seatSubmit()">
       <br>
       <br>
     </form>
   </div>
   <script type="text/javascript">
     var drawerToggle = 0;
+    var tableViewToggle = 0;
+    var passwordShowToggle = 0;
     topMenuToggle();
+    pinnedTableFold(tableViewToggle);
+    seatTableSizing(cols,rows);
+    function passwordShow(t){
+      if (t % 2 == 0){
+        document.getElementById("pwInput").type = "text";
+        document.getElementById("pwShow").innerHTML = "비밀번호 숨기기";
+      }
+      else{
+        document.getElementById("pwInput").type = "password";
+        document.getElementById("pwShow").innerHTML = "비밀번호 보기";
+      }
+      passwordShowToggle++;
+    }
+    function pinnedTableFold(t){
+      if (t % 2 == 1){
+        document.getElementById("seatTable").className = "";
+        document.getElementById("tableFolder").innerHTML = "좌석표 접기";
+      }
+      else{
+        document.getElementById("seatTable").className = "hidden";
+        document.getElementById("tableFolder").innerHTML = "좌석표 보기";
+      }
+      tableViewToggle++;
+    }
   </script>
 </body>
 </html>
