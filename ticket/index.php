@@ -3,7 +3,11 @@
   $cols = str_replace(chr(13).chr(10), '',$seat_table[0]);
   $rows = str_replace(chr(13).chr(10), '',$seat_table[1]);
   $hall = str_replace(chr(13).chr(10), '',$seat_table[2]);
+  $_toROOT = '../';
 
+  include 'mobile_new.php';
+
+/*
   require_once '../opensource/Mobile_Detect.php';
   $detect = new Mobile_Detect;
 
@@ -13,4 +17,5 @@
   else{
     include 'desktop.php';
   }
+*/
 ?>
