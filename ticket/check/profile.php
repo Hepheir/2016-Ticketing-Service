@@ -4,8 +4,10 @@
     <meta charset="utf-8">
   	<meta name="author" content="hepheir">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../css/table_color.css">
-    <link rel="shortcut icon" href="../../favicon.ico">
+    <?php
+      echo '<link rel="shortcut icon" href="'.$toROOT.'favicon.ico">';
+      echo '<link rel="stylesheet" href="'.$toROOT.'css/table_color.css">';
+    ?>
     <title>예매조회</title>
     <style media="screen">
       html, body{

@@ -4,7 +4,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../css/table_color.css">
-    <link rel="shortcut icon" href="../../favicon.ico">
     <title>예매완료</title>
     <style media="screen">
       html, body{
@@ -82,7 +81,7 @@
       <?php
         $BOOK_INFO = file($toROOT.'data/p_info/'.$_POST['id']);
         $NAME = str_replace(chr(13).chr(10), '',$BOOK_INFO[0]);
-        echo $_POST['id'].$NAME;
+        echo $_POST['id'].' '.$NAME;
       ?>
       로 좌석 예매가 완료되었습니다.
       <br>

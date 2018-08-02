@@ -8,8 +8,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="author" content="hepheir@gmail.com">
-    <link rel="stylesheet" href="../css/table_color.css">
     <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../css/table_color.css">
     <?php
       session_start();
       include './members.php';

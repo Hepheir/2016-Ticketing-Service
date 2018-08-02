@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="../favicon.ico">
     <?php
-      echo '<link rel="stylesheet" href="'.$toROOT.'/css/table_color.css">';
+      echo '<link rel="shortcut icon" href="'.$toROOT.'favicon.ico">';
+      echo '<link rel="stylesheet" href="'.$toROOT.'css/table_color.css">';
     ?>
     <style>
       html, body{
@@ -157,6 +157,7 @@
         </div>
       </form>
     </div>
+    <script src="../js/table_alert.js"></script>
     <script type="text/javascript">
       document.getElementById("part_select").onchange = function(){
       var part = this.children[this.selectedIndex].value;

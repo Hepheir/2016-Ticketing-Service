@@ -4,18 +4,15 @@ td#disabled{
  background: transparent;
 }
 td#vip{
- background: purple;
- opacity: .1;
+ background: #D59AFF;
  cursor: not-allowed;
 }
 td#booked{
- background: red;
- opacity: .2;
+ background: #FF7A76;
  cursor: not-allowed;
 }
 td#selected{
- background: red;
- opacity: .2;
+ background: #FF9572;
  cursor: not-allowed;
 }
 label#choosable{

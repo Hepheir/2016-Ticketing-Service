@@ -49,9 +49,16 @@
         }
         break;
 
-      case '10':
+      case '5':
+        $setting = file($toROOT.'data/config/setting');
         $setting_fo = fopen($toROOT.'data/config/setting', 'w');
-        fwrite($setting_fo,$_POST['toggle']);
+        fwrite($setting_fo,str_replace(chr(13).chr(10),'',$setting[0]).chr(13).chr(10).$_POST['protection']);
+        break;
+
+      case '10':
+        $setting = file($toROOT.'data/config/setting');
+        $setting_fo = fopen($toROOT.'data/config/setting', 'w');
+        fwrite($setting_fo,$_POST['toggle'].chr(13).chr(10).$setting[1]);
         break;
 
       case '12':

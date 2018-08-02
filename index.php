@@ -211,7 +211,7 @@
             echo '<td class="menu_Ltd"><a title="예매하기" href="'.$toROOT.'gate.php">';
               echo '<p class="menu_text menu_1 hidden">tickets</p>';
             echo '</a></td>';
-            echo '<td class="menu_td"><a title="상영작/연극 소개" href="'.$toROOT.'info/">';
+            echo '<td class="menu_td"><a title="상영작/연극 소개" href="'.$toROOT.'intro/">';
             ?>
               <p class="menu_text menu_2 hidden">introduction</p>
             </a></td>

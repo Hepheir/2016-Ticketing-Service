@@ -104,6 +104,7 @@
     <li class="pointer" onclick="window.location.replace('?opt=2')">- 복도위치</li>
     <li class="pointer" onclick="window.location.replace('?opt=3')">- 사용불가석</li>
     <li class="pointer" onclick="window.location.replace('?opt=4')">- vip석</li>
+    <li class="pointer" onclick="window.location.replace('?opt=5')">- 좌석보호 지속시간</li>
     <hr>
     <li><h3>공연정보</h3></li>
     <li class="pointer" onclick="window.location.replace('?opt=10')">- 예매기능<br> &nbsp; &nbsp; &nbsp;활성/비활성</li>
@@ -165,6 +166,14 @@
         include './seat_table/vip_set.php';
         break;
 
+      case '5':
+        echo '<div class="opt_name">';
+        echo '<h1 style="margin-left:16px;display:inline-block;letter-spacing:2px;">좌석표 설정</h1>';
+        echo '<p style="margin-left:32px;display:inline-block">- 좌석보호 지속시간</p><hr></div>';
+        include './seat_table/protection.php';
+        break;
+
+
       case '10':
         echo '<div class="opt_name">';
         echo '<h1 style="margin-left:16px;display:inline-block;letter-spacing:2px;">공연정보</h1>';
@@ -195,6 +204,7 @@
         echo '<div class="container" style="padding-left: 8px;">';
         echo '<p>주의 : 이 기능은 좀 위험하면서 중요한 작업을 담당합니다.</p>';
         echo '<p>>> intro/ 디렉토리 안에 파일을 업로드 합니다. (예 : index.html)</p>';
+        echo '<p>PS) MMC로고를 파비콘으로 사용하려면 &#60;head>에 &#60;link rel="shortcut icon" href="../favicon.ico">을 추가해주세요.</p>';
         echo '<input type="file" name="file_upload" id="file_upload" style="width:auto;"><br><br>';
         echo '<input id="reset" type="radio" name="upload_mode" value="0" style="position:relative;top:4px;width:16px;height:16px;"><label for="reset">초기화</label><br>';
         echo '<input id="add" type="radio" name="upload_mode" value="1" style="position:relative;top:4px;width:16px;height:16px;" checked=""><label for="add">추가</label><br>';

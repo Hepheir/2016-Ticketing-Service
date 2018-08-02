@@ -10,6 +10,7 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <link rel="shortcut icon" href="../favicon.ico">
     <title>관리자 로그인</title>
     <style>
       html, body{

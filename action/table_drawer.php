@@ -13,7 +13,7 @@
   date_default_timezone_set("Asia/Seoul");
   if (date('a') == 'am'){
     if (date('h') == 12) {
-      $record_time = date('m').date('d').(date('h') - 1).date('i');
+      $record_time = date('m').date('d').'00'.date('i');
     }
     else {
       $record_time = date('m').date('d').date('h').date('i');
@@ -101,6 +101,7 @@
     global $toROOT;
     global $TABLE_INFO;
     global $record_time;
+    $setting = file($toROOT.'data/config/setting'); #setting의 1째줄은 예매 활성화 여부, 2째줄은 좌석 보호 지속시간이다.
     echo '<table class="input" style="display:inline-table;text-transform:uppercase">';
     echo '<caption class="input">screen</caption>';
     for ($rows=1; $rows <= $TABLE_INFO[1]; $rows++) {
@@ -113,15 +114,17 @@
           $cols_shift++;
         }
         elseif (file_exists($toROOT.'data/config/seat_table/part_'.$PART.'/vip\/'.$rows_char.($cols-$cols_shift))) {
-          echo '<td id="vip" class="input">vip<br><span class="input">'.$rows_char.($cols-$cols_shift).'</span></td>';
+          echo '<td id="vip" onclick="td_onclick(\'vip\')" class="input">vip<br><span class="input">'.$rows_char.($cols-$cols_shift).'</span></td>';
         }
         elseif (file_exists($toROOT.'data/config/seat_table/part_'.$PART.'/booked\/'.$rows_char.($cols-$cols_shift))) {
-          echo '<td id="booked" class="input">x<br><span class="input">'.$rows_char.($cols-$cols_shift).'</span></td>';
+          echo '<td id="booked" onclick="td_onclick(\'booked\')" class="input">x<br><span class="input">'.$rows_char.($cols-$cols_shift).'</span></td>';
         }
         elseif (file_exists($toROOT.'data/config/seat_table/part_'.$PART.'/selected\/'.$rows_char.($cols-$cols_shift))) {
-          $theFile = fopen($toROOT.'data/config/seat_table/part_'.$PART.'/selected\/'.$rows_char.($cols-$cols_shift), "r");
-          if (fgets($theFile) < ($record_time - $TABLE_INFO[3])){
-            fclose($theFile);
+          $theFile = file($toROOT.'data/config/seat_table/part_'.$PART.'/selected\/'.$rows_char.($cols-$cols_shift));
+
+          ##디버그용: 시간 기록이 제대로 이루어지는지 확인 ## echo '<script>alert(\''.str_replace(chr(13).chr(10), '',$theFile[0]).'-'.($record_time - (str_replace(chr(13).chr(10), '',$setting[1]))).'\');</script>';
+
+          if ((str_replace(chr(13).chr(10), '',$theFile[0])) < ($record_time - (str_replace(chr(13).chr(10), '',$setting[1])))){
             unlink($toROOT.'data/config/seat_table/part_'.$PART.'/selected\/'.$rows_char.($cols-$cols_shift));
             echo '<td id="choosable" class="input" style="padding:0;">
             <input id="input_'.$rows_char.($cols-$cols_shift).'" type="radio" name="seat" value="'.$rows_char.($cols-$cols_shift).'" style="display:none">
@@ -129,8 +132,7 @@
             </td>';
           }
           else {
-            fclose($theFile);
-            echo '<td id="selected" class="input">!<br><span class="input">'.$rows_char.($cols-$cols_shift).'</span></td>';
+            echo '<td id="selected" onclick="td_onclick(\'selected\')" class="input">!<br><span class="input">'.$rows_char.($cols-$cols_shift).'</span></td>';
           }
         }
         else{

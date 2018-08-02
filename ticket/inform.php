@@ -3,8 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/table_color.css">
-    <link rel="shortcut icon" href="../favicon.ico">
+    <?php
+      echo '<link rel="shortcut icon" href="'.$toROOT.'favicon.ico">';
+      echo '<link rel="stylesheet" href="'.$toROOT.'css/table_color.css">';
+    ?>
     <title>정보입력</title>
     <style media="screen">
       html, body{
@@ -123,7 +125,8 @@
     </nav>
     <div id="body_wrap">
       <?php
-        echo '<div id="alertbox">주의 : 중복 예약을 막기위한 좌석 보호는 '.$TABLE_INFO[3].'분간만 지속됩니다.</div>';
+        $setting = file($toROOT.'data/config/setting');
+        echo '<div id="alertbox">주의 : 중복 예약을 막기위한 좌석 보호는 '.$setting[1].'분간만 지속됩니다.</div>';
         echo '<form action="./result/" method="post">';
 
         echo '<h2 style="margin:0;">선택하신 좌석은 '.$_POST['part'].'부 '.$_POST['seat'].'입니다.</h2>';
