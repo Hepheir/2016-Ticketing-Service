@@ -1,5 +1,5 @@
 <?php $toROOT = './';$toggler = file($toROOT.'data/config/setting'); ?>
-<!DOCTYPE html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
   <head>
     <meta charset="utf-8">
@@ -15,15 +15,19 @@
         padding: 0;
         text-align: center;
         overflow: auto;
+        font-family: "맑은 고딕";
       }
       #topnav{
+        display: block;
         position: fixed;
+        top: 0;
+        left: 0;
         width: calc(100% - 8px);
         height: 48px;
         padding-left: 8px;
         text-align: left;
         background: #5f5f5f;
-        box-shadow: 0 4px 4px lightgray;
+        -webkit-box-shadow: 0 4px 4px lightgray;
         overflow: hidden;
       }
       span{
@@ -66,11 +70,11 @@
     </style>
   </head>
   <body>
-    <nav id="topnav">
+    <div id="topnav">
       <div id="topnav_div" style="float:left;width:360px;height:36px;padding:8px;color:#ffffff;font-size:20px;">
         게이트웨이
       </div>
-    </nav>
+    </div>
     <div id="body_wrap">
       <h2 style="margin:0;">이 사이트는</h2>
       <hr>
