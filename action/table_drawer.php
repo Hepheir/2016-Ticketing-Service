@@ -11,7 +11,14 @@
   $hall = str_replace(chr(13).chr(10), '',$TABLE_INFO[2]);
 
   date_default_timezone_set("Asia/Seoul");
-  if (date('a') == 'am'){$record_time = date('m').date('d').date('h').date('i');}
+  if (date('a') == 'am'){
+    if (date('h') == 12) {
+      $record_time = date('m').date('d').(date('h') - 1).date('i');
+    }
+    else {
+      $record_time = date('m').date('d').date('h').date('i');
+    }
+  }
   else {$record_time = date('m').date('d').(date('h') + 12).date('i');}
 
 

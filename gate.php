@@ -1,10 +1,11 @@
+<?php $toROOT = './'; ?>
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
+  	<meta name="author" content="hepheir">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../css/table_color.css">
-    <title>예매완료</title>
+    <title>예매하기에 앞서서</title>
     <style media="screen">
       html, body{
         width: 100%;
@@ -35,11 +36,14 @@
         margin: 0;
         padding: 60px 12px 12px 12px;
       }
-      div#table_container{
-        width: 100%;
-        margin: 8px 0 32px 0;
-        overflow: auto;
-        text-align: center;
+      p{
+        margin: 0;
+        padding: 0;
+        line-height: 1em;
+      }
+      a{
+        text-decoration: inherit;
+        color:inherit;
       }
       input[type=button]{
         float: right;
@@ -55,43 +59,56 @@
       }
       input[type=button]:hover{
         background: #ffffff;
-        color: #2D9475;
+        color: #3ABF97;
         box-shadow: 0px 0px 32px gray;
-      }
-      p{
-        margin: 0;
-        padding: 0;
-        line-height: 1em;
-      }
-      a{
-        text-decoration: inherit;
-        color:inherit;
       }
     </style>
   </head>
   <body>
     <nav id="topnav">
       <div id="topnav_div" style="float:left;width:360px;height:36px;padding:8px;color:#ffffff;font-size:20px;">
-        <a href="../ticket/">좌석선택</a> > <a onclick="window.history.back();">정보입력</a> > 예매완료
+        후후후.. 여기에 뭘 적어야하나
       </div>
     </nav>
     <div id="body_wrap">
-      <h2 style="margin:0;">예매완료</h2>
+      <h2 style="margin:0;">이 사이트는</h2>
       <hr>
-      <?php
-        $BOOK_INFO = file($toROOT.'data/p_info/'.$_POST['id']);
-        $NAME = str_replace(chr(13).chr(10), '',$BOOK_INFO[0]);
-        echo $_POST['id'].$NAME;
-      ?>
-      로 좌석 예매가 완료되었습니다.
-      <br>
-      <br>
-      혹시 예매를 취소하고 싶으시다면, '홈 - Ticket - 예매 조회하기' 로 들어가셔서 취소하실 수 있습니다.
+      <p>
+        연극영화부 MMC와 자율동아리 UNIT이 함께하는 프로젝트의 결과물 입니다.
+      </p>
       <br>
       <br>
       <br>
+      <h2 style="margin:0;">예매하려면 여기로</h2>
+      <hr>
       <br>
-      <input type="button" value="홈으로" onclick="window.location.replace('../../')">
+      <p>
+        <input type="button" value="예매하러 가기" onclick="window.location.replace('./ticket/')">
+      </p>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <h2 style="margin:0;">내가 예매한 좌석 확인하기</h2>
+      <hr>
+      <br>
+      <p>
+        <input type="button" value="조회하기" onclick="window.location.replace('./ticket/check/')">
+      </p>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <h2 style="margin:0;">굉장히 잉여롭군</h2>
+      <hr>
+      <p>
+        후하하하하ㅏ
+      </p>
+      <br>
+      <br>
+      <br>
     </div>
   </body>
 </html>

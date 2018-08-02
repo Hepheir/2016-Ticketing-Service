@@ -64,7 +64,6 @@
         font-size:18px;
         border:2px solid gray;
         border-radius:8px;
-        padding 4px;
       }
       #inform{
         padding: 16px 0 16px 16px;
@@ -88,9 +87,10 @@
       }
       input[type=button]{
         float: left;
+        height: 48px;
         font-size: 20px;
         font-weight: bold;
-        padding: 8px 12px 8px 12px;
+        padding: 4px 12px 8px 12px;
         border: none;
         border-radius: 2px;
         background: #3ABF97;
@@ -154,7 +154,7 @@
         </div>
         <div class="console">
           <input type="submit" value="다음으로">
-          <input type="button" value="이전으로" onclick="document.getElementById("cancel").submit();">
+          <input type="button" value="이전으로" onclick="document.getElementById('cancel').submit();">
         </div>
         <br>
         <br>
