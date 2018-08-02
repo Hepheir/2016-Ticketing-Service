@@ -28,58 +28,8 @@ body{
   overflow-x: hidden;
   overflow-y: auto;
 }
-#Layout{
-  border-spacing: 0px;
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
-#sideBar{
-  width: 320px;
-  min-width: 200px;
-  height: 100%;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-#sideBarList{
-  display: block;
-  width: auto;
-  height: 100%;
-  margin: 0;
-  padding: 0 8px;
-}
-.Spacing{
-  width: auto;
-  height: 8px;
-  margin: 0;
-  padding: 0;
-  background: transparent;
-}
-.Category{
-  width: auto;
-  height: 24px;
-  font-size: 24px;
-  margin: 0 0 8px 0;
-  padding: 6px;
-}
-.Element{
-  width: auto;
-  height: 20px;
-  margin-bottom: 8px;
-  padding: 6px;
-  cursor: pointer;
-}
-#ContentWrap{
-  display: inline-block;
-  width: auto;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  float: left;
-}
 #Header{
-  width: auto;
+  width: 100%;
   height: 42px;
   letter-spacing: 1px;
   overflow: hidden;
@@ -108,12 +58,20 @@ body{
   cursor: pointer;
   float: right;
 }
-#ContentWrap{
-  width: 100%;
-}
-#Content{
+#subHeader{
   width: auto;
-  max-width: 720px;
-  margin: 0 auto;
-  padding: 8px;
+  height: auto;
+  padding: 8px 16px;
+  font-size: 16px;
+}
+#ContentWrap{
+  width: auto;
+  height: auto;
+  padding: 12px;
+}
+#optionList{
+  display: inline-block;
+  width: 255px;
+  margin: 0;
+
 }

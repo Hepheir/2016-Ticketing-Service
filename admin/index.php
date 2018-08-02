@@ -28,68 +28,26 @@ if (!login('2J19D08K9',$_POST['id']))
   <title>설정</title>
 </head>
 <body>
-  <table id="Layout">
-    <tr>
-      <td id="sideBar">
-        <ul id="sideBarList">
-          <li class="Spacing"></li>
-          <li class="Category">예매 설정</li>
-          <li class="Element">예매 활성화</li>
-          <li class="Element">공연 횟수</li>
-          <li class="Element">공지사항</li>
-          <li class="Spacing"></li>
-          <li class="Category">좌석표 설정</li>
-          <li class="Element">좌석표 크기</li>
-          <li class="Element">복도 위치 지정</li>
-          <li class="Element">좌석 보호</li>
-          <li class="Element">좌석표 설명</li>
-          <li class="Spacing"></li>
-          <li class="Category">디자인 설정</li>
-          <li class="Element">메인 배경이미지</li>
-          <li class="Element">홍보 페이지</li>
-          <li class="Spacing"></li>
-          <li class="Category">ss 페이지</li>
-          <li class="Element">페이지</li>
-        </ul>
-      </td>
-      <td id="ContentWrap">
-        <div id="Header">
-          <div id="topMenuIcon" onclick="sideBarToggle(sideBarStatus)">
-            <img width="100%" height="100%" src="../asset/icons/white_hamburger_64.png" alt="Menu" />
-          </div>
-          <div id="topTitle">
-            제어판
-          </div>
-          <div id="topBack" onclick="window.location.replace('../')">
-            뒤로
-          </div>
-        </div>
-        <div id="ContentSubWrap" onclick="sideBarStatus=0;sideBarToggle(sideBarStatus)">
-          <div id="Content">
-            아걀걁
-            <br>
-            my name
-            <br>
-            is
-            <br>
-            hawo
-          </div>
-        </div>
-      </td>
-    </tr>
-  </table>
+  <div id="Header">
+    <div id="topTitle">
+      &nbsp;제어판
+    </div>
+    <div id="topBack" onclick="window.location.replace('../')">
+      뒤로
+    </div>
+  </div>
+  <div id="subHeader">
+    오류 발생/수정 관련 문의는 010-2463-1852로 해주세요
+  </div>
+  <div id="ContentWrap">
+    <div id="optionList">
+adsf
+    </div>
+    <div id="Content">
+asdf
+    </div>
+  </div>
   <script type="text/javascript">
-  var sideBarStatus = 0;
-  function sideBarToggle(sbt){
-    if (sbt % 2 == 0){
-      document.getElementById('sideBar').style.display = 'none';
-    }
-    else{
-      document.getElementById('sideBar').style.display = 'table-cell';
-    }
-    sideBarStatus++;
-  }
-  sideBarToggle(sideBarStatus);
   </script>
 </body>
 </html>

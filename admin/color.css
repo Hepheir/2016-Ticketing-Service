@@ -7,17 +7,6 @@
   background: lightgray;
   color: gray;
 }
-#sideBar{
-  background: gray;
-}
-.Category, .Element{
-  color: white;
-  background: lightgray;
-}
-.Element:hover{
+#subHeader{
   color: gray;
-  background: white;
-}
-#ContentWrap{
-  background: lightgray;
 }

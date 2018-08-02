@@ -138,6 +138,8 @@ else{
     <div id="tableFolder" onclick="pinnedTableFold(tableViewToggle)"></div>
     <hr>
     <form id="seatForm" action="confirm.php" method="post">
+      <input type="hidden" name="part" value="<?php echo $_POST['part']; ?>">
+      <input type="hidden" name="seat" value="<?php echo $_POST['seat']; ?>">
       <table id="userInfo">
         <tr>
           <td><label class="userInfoLabel" for="idInput">학 번 : </label></td>
@@ -148,8 +150,8 @@ else{
           <td colspan="2"><input id="nameInput" class="userInfoInput" type="text" name="name" value=""></td>
         </tr>
         <tr>
-          <td><label class="userInfoLabel" for="pwInput">비밀번호 : </label></td>
-          <td><input id="pwInput" class="userInfoInput" type="password" name="pw" value=""></td>
+          <td><label class="userInfoLabel" for="pwInput">비밀번호 :&nbsp;</label></td>
+          <td><input id="pwInput" class="userInfoInput" type="password" name="password" value=""></td>
 <!--[if (gt IE 9)|!(IE)]><!-->
           <td><div id="pwShow" onclick="passwordShow(passwordShowToggle)">비밀번호 보기</div></td>
 <!--<![endif]-->
