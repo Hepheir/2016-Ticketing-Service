@@ -76,6 +76,28 @@
         <span id="name" class="js-form-name"></span>
       </hidden>
     </div>
+      <script type="text/javascript" role="detect IE (from http://www.jquerybyexample.net/2014/06/how-to-detect-ie-11-using-javascript-jquery.html)">
+        function GetIEVersion() {
+          var sAgent = window.navigator.userAgent;
+          var Idx = sAgent.indexOf("MSIE");
+
+          // If IE, return version number.
+          if (Idx > 0)
+            return parseInt(sAgent.substring(Idx+ 5, sAgent.indexOf(".", Idx)));
+
+          // If IE 11 then look for Updated user agent string.
+          else if (!!navigator.userAgent.match(/Trident\/7\./))
+            return 11;
+
+          else
+            return false; //It is not IE
+        }
+        if (GetIEVersion() > 0) {
+          alert('본 사이트는 W3에서 규약한 HTML5와 CSS3의 웹 표준에 맞추어 디자인 및 제작 되었습니다.\n현재 사용하고 계신 IE 브라우저는 디자인 관련 버그가 심하고, 자바스크립트 지원 범위도 까다롭게 적으며, 굉장히 비효율적인 HTML/CSS 엔진을 사용하고 있습니다.\n정말 죄송하지만 제 실력과 인내력과 끈기가 부족하여 IE용 디자인을 따로 하지 못하였습니다.\n따라서 안타깝게도 본 사이트는 IE를 지원하지 않습니다.');
+          alert('혹시 구글 크롬을 사용해 보시는건 어떤가요?');
+          window.close();
+        }
+      </script>
     <script type="text/javascript" role="login and user detection">
       var id = document.querySelector('.js-form-id').innerHTML;
       var name = document.querySelector('.js-form-name').innerHTML;
