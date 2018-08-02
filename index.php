@@ -5,7 +5,7 @@
 *   written by hepheir@gmail.com
 *
 * page designed by
-*   dfc7936@naver.com
+*   dfc7936@naver.com - 박종운
 *
 * :: MAIN ::
 -->
@@ -26,6 +26,9 @@
       <div class="ContentWrap">
         <div class="Header">
           <div class="LogoWrap">
+<?php
+
+?>
             <img class="Logo" src="./asset/img/main-mmc_logo.png" alt="" />
           </div>
           <div class="topMenu">

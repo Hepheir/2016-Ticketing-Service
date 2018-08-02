@@ -4,6 +4,9 @@ body,html,div,nav{
   margin: 0;
   padding: 0;
 }
+.hidden{
+  display: none;
+}
 .fl{
   display: inline-block;
   float: left;
