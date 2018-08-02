@@ -1,0 +1,148 @@
+<!-- isLogin == false -->
+<style media="screen">
+  .page {
+    background-image: url(./asset/background.jpg);
+    background-size: cover;
+    background-position: 25% 50%;
+  }
+
+  .header {
+    background: linear-gradient(rgba(0,0,0,0.4) 0%,rgba(0,0,0,0.2) 70%,rgba(0,0,0,0));
+  }
+
+  .header__menu-toggle, .header__title {
+    color: white;
+  }
+
+  /* For Mobile */
+  .content, .content.is-mobile {
+    position: absolute;
+    top: 45%;
+    left: 0;
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+    background: #FAFAFA;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.3);
+  }
+  /* For Desktop */
+  .content.is-desktop{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30%;
+    min-width: 320px;
+    height: 100%;
+    margin-right: 0;
+  }
+
+  .content__title {
+    width: 100%;
+    height: 56px;
+    padding: 16px;
+    font-size: 16px;
+    border-bottom: 1px solid lightgray;
+  }
+
+  .content__title-button {
+    position: absolute;
+    top: -32px;
+    right: 24px;
+    width: 64px;
+    height: 64px;
+    padding: 16px;
+    background: #FAFAFA;
+    font-size: 32px;
+    font-weight: bold;
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    text-shadow: 0 1px 4px rgba(0,0,0,0.2);
+
+    will-change: color,background;
+    transition: color,background 0.3s ease 0s;
+    color: rgba(0,0,0,0.2);
+  }
+  .content__title-button.activated {background: #4CAF50; color: white; cursor: pointer; font-weight: bold}
+  .content__title-button.is-desktop {
+    position: absolute;
+    top: auto;
+    bottom: 64px;
+    right: 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+  }
+
+  .content__title-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+    float: left;
+  }
+
+  .content__title-text {
+    width: auto;
+    height: 24px;
+    padding: 2px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    float: left;
+  }
+
+  /* Log In */
+  .login {
+    width: 100%;
+    height: auto;
+    padding: 20px;
+    padding-bottom: 32px;
+  }
+  .login-id, .login-pw {
+    width: 100%;
+    height: 32px;
+    margin-bottom: 24px;
+  }
+  .login-icon {
+    width: 32px;
+    height: 32px;
+    padding: 4px;
+    margin-right: 4px;
+    float: left;
+  }
+  .login-input {
+    width: 70%;
+    max-width: 320px;
+    height: 32px;
+    padding: 4px;
+    margin-right: 4px;
+    border: none;
+    border-bottom: 2px solid lightgray;
+    float: left;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    transition: border 0.3s ease 0s;
+    background: none;
+  }
+  .login-input::-webkit-input-placeholder{
+    font-weight: normal;
+    letter-spacing: 2px;
+  }
+  .login-input:hover,.login-input:focus {
+    border-bottom: 2px solid gray;
+  }
+</style>
+<div class="content__title">
+  <button class="js-content-button content__title-button material-icons">done</button>
+  <!-- isParty == true -->
+  <span class="content__title-icon material-icons">assignment_ind</span>
+  <span class="content__title-text">로그인 해주세요!</span>
+</div>
+<form class="login">
+  <div class="login-id">
+    <span class="login-icon material-icons">person</span>
+    <input class="js-login-input-id login-input" type="text" name="id" maxlength="5" placeholder="학번" value=""/>
+  </div>
+  <div class="login-pw">
+    <span class="login-icon material-icons">lock</span>
+    <input class="js-login-input-pw login-input" type="password" name="password" placeholder="비밀번호" value=""/>
+    <button type="button" class="js-login-pwVisible login-icon material-icons" onclick="password_visibility()">visibility_off</button>
+  </div>
+</form>

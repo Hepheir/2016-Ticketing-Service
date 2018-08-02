@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Material Design</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/earlyaccess/jejugothic.css">
+    <style media="screen">
+      /*  __ : child of a thing ,  -- : modifier on the thing */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Roboto', 'Jeju Gothic', sans-serif;
+      }
+      html, body, .page {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+      button {
+        background: none;
+        border: none;
+        cursor: pointer;
+      }
+      a{
+        text-decoration: none;
+        color: inherit;
+      }
+
+      .container {
+        width: 100%;
+        height: 100%;
+      }
+
+      .header {
+        width: 100%;
+        height: 64px;
+        padding: 20px;
+        font-size: 20px;
+        line-height: 1;
+      }
+
+      .header__menu-toggle {
+        width: 24px;
+        height: 24px;
+        font-size: 24px;
+        float: left;
+      }
+
+      .header__title {
+        width: auto;
+        height: 24px;
+        margin-left: 20px;
+        float: left;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="js-page page">
+      <div class="container">
+        <div class="header">
+          <button class="js-menu-show header__menu-toggle material-icons">menu</button>
+          <div class="header__title">Material Designing</div>
+        </div>
+        <div class="js-content content">
+          <!-- Content -->
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript" role="AJAX Module">
+      function getCookie(name) {
+        var name = name+ '=';
+        var arr = document.cookie.split(';');
+
+        for (var i = 0; i < arr.length; i++) {
+          while (arr[i].charAt(0)==' ') {
+            arr[i] = arr[i].substring(1);
+          }
+          if (arr[i].indexOf(name) == 0) {
+            return arr[i].substring(name.length, arr[i].length);
+          }
+        }
+        return '';
+      }
+
+      function delCookie(name) {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+          if (name != 'all' && cookies[i].split('=')[0] != name)
+            continue;
+          document.cookie = cookies[i].split('=')[0]+'=';
+        }
+      }
+
+      function UserVerification() {
+        if (getCookie('id') == '' || getCookie('pw') == '')
+          return false;
+
+        var cId = getCookie('id');
+        var cPw = getCookie('pw');
+        var xhttp = new XMLHttpRequest();
+
+        xhttp.open("POST", "./_login.php?id="+cId+"&pw="+cPw, false);
+        xhttp.send();
+        var xhttp_r = xhttp.responseText;
+
+        if (xhttp_r.includes('true'))
+          return true;
+        else if (xhttp_r.includes('new'))
+          return 'new';
+        else {
+          console.log(xhttp_r+'/'+getCookie('id')+'/'+document.cookie);
+          delCookie('all');
+        }
+
+        return false;
+      }
+
+      class AjaxSideNav {
+        constructor() {
+          this.xhttp = new XMLHttpRequest();
+          this.ajaxSrc = "./ajax/side-nav.html";
+          this.ajaxTarget = document.querySelector(".js-page");
+
+          this.onLoadEvt();
+        }
+
+        onLoadEvt () {
+          this.xhttp.open("POST", this.ajaxSrc, false);
+          this.xhttp.send();
+          this.textDoc = this.xhttp.responseText;
+
+          this.ajaxTarget.innerHTML += this.textDoc;
+        }
+      }
+      new AjaxSideNav();
+
+      class AjaxLogin {
+        constructor() {
+          this.xhttp = new XMLHttpRequest();
+          this.ajaxSrc = "./ajax/login.html";
+          this.ajaxTarget = document.querySelector(".js-content");
+
+          this.onLoadEvt();
+        }
+
+        onLoadEvt () {
+          this.xhttp.open("POST", this.ajaxSrc, false);
+          this.xhttp.send();
+          this.textDoc = this.xhttp.responseText;
+
+          this.ajaxTarget.innerHTML = this.textDoc;
+        }
+      }
+
+      class AjaxLoggedIn {
+        constructor() {
+          this.xhttp = new XMLHttpRequest();
+          this.ajaxSrc = "./ajax/logged-in.html";
+          this.ajaxTarget = document.querySelector(".js-content");
+
+          this.userInfo = this.userInfo.bind(this);
+
+          this.onLoadEvt();
+        }
+
+        onLoadEvt () {
+          this.xhttp.open("POST", this.ajaxSrc, false);
+          this.xhttp.send();
+          this.textDoc = this.xhttp.responseText;
+
+          this.ajaxTarget.innerHTML = this.textDoc;
+
+          this.userInfo();
+        }
+
+        userInfo() {
+          this.xhttp.open("POST", "./_user_info.php?id="+getCookie("id"), false);
+          this.xhttp.send();
+          console.log(this.xhttp.responseText);
+
+          var user_info = this.xhttp.responseText.split(';');
+          if (user_info[0] != '' || user_info[0] != 'master') {
+            var party = (user_info[0]+'').split(',');
+            if (party[0] == 'master')
+              party.shift();
+            for (var i = 0; i < party.length; i++)
+              party[i] = ', '+party[i];
+            user_info[0] = '';
+            for (var i = 0; i < party.length; i++)
+              user_info[0] += party[i];
+          }
+          user_info[2] = user_info[2].replace(/ /g,'').replace(/,/g,', ');
+          var party_master = user_info[3];
+
+          document.querySelector(".js-user").innerHTML = getCookie('id');
+          document.querySelector(".js-party").innerHTML = user_info[0];
+          document.querySelector(".js-time").innerHTML = user_info[1] == undefined || user_info[1] == '' ? '예매한 좌석이 없습니다.' : user_info[1]+'부';
+          document.querySelector(".js-seat").innerHTML = user_info[2];
+          document.querySelector(".js-cancel-button").style.display = 'none';
+        }
+      }
+
+      var loginStatus = UserVerification();
+
+      if (loginStatus == 'new'){
+        new AjaxLoggedIn();
+        var user_info = prompt('추후 티켓 발급을 위한 이름/연락처를 남겨주세요.', '');
+        if (user_info == null)
+          user_info = '입력되지 않음';
+
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("POST", './_resister.php?id='+getCookie('id')+'&pw='+getCookie('pw')+'&info='+user_info, false);
+        xhttp.send();
+      }
+
+      else if(loginStatus == true)
+        new AjaxLoggedIn();
+
+      else {
+        new AjaxLogin();
+        console.log('login false');
+      }
+
+    </script>
+    <script src="./source/js/screen-sizing.js"></script>
+    <script src="./source/js/login.js"></script>
+    <script src="./source/js/side-nav.js"></script>
+  </body>
+</html>
