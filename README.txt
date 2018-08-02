@@ -13,9 +13,15 @@
   <meta charset="utf-8">
 	<meta name="author" content="hepheir">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./js/windowResize.js" charset="utf-8"></script>
   <link rel="stylesheet" href="./css/main.css" media="screen">
+  <link rel="stylesheet" href="./css/support.css" media="screen">
 </head>
-<body>
+<body onresize="windowResize(,)">
+  <img id="background" width="100%" height="100%" class="fixed" src="" alt="" />
+  <script type="text/javascript">
+   windowResize(,);
+  </script>
 </body>
 </html>
 

@@ -1,0 +1,52 @@
+@charset "UTF-8";
+@import url(http://fonts.googleapis.com/earlyaccess/hanna.css);
+body,html,div,nav{
+  font-family: 'Hanna', "맑은 고딕", serif;
+  font-size: 20px;
+  color: white;
+}
+.Header{
+  height: 48px;
+  background: lightgray;
+}
+.icon{
+  width: 26px;
+  height: 26px;
+  padding: 10px;
+}
+.topBar{
+  width: 240px;
+  padding: 14px;
+  background: gray;
+}
+.imgSection{
+  height: 50%;
+  overflow: hidden;
+  background: #888888;
+}
+.imgDot{
+  position: absolute;
+  top: 50%;
+  height: 20px;
+  margin-top: 20px;
+  text-align: center;
+  cursor: pointer;
+}
+.dot{
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin: 0 2px;
+  background: white;
+  border-radius: 50%;
+  border: 1px solid lightgray;
+}
+.dot:hover{
+  background: gray;
+  border: 1px solid white;
+}
+.selected{
+  background: gray;
+  border: 1px solid white;
+  cursor: auto;
+}

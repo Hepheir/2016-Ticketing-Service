@@ -6,7 +6,6 @@ body,html,div,nav{
   margin: 0;
   padding: 0;
   overflow: hidden;
-  font-family: 'Jeju Gothic', sans-serif;
   font-weight: bold;
   letter-spacing: 1px;
 }
@@ -14,26 +13,19 @@ body{
   width: auto;
   font-size: 18px;
   color: white;
+  font-family: 'Jeju Gothic', sans-serif;
 }
 a{
   color: white;
-  text-decoration: none;
-}
-.fixed{
-  position: fixed;
-}
-.absolute{
-  position: absolute;
 }
 .LayoutWrap{
   min-height: 320px;
 }
-.LayoutWrapClearfix{
-
-}
 .ContentWrap{
+  width: 90%;
   margin: 0 auto;
   max-width: 720px;
+  padding: 0 5%;
 }
 .Header{
   height: 70px;
