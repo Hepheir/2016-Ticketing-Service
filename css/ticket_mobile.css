@@ -1,186 +1,173 @@
 @charset "UTF-8";
-div{
+html,body{
   margin: 0;
   padding: 0;
-}
-html{
-  text-align: center;
-  background-color: #444444;
-  min-width: 360px;
-}
-#bodyWrap{
-  display: inline-block;
-  background-color: #444444;
-  color: #ffffff;
-  width: calc(100% * 30 / 32);
-  max-width: 720px;
-  height: calc(100% - 12px);
-  min-height: 560px;
-  padding: 12px calc(100% * 1 / 32) 0 calc(100% * 1 / 32);
-}
-#head{
-  width: 100%;
-  height: 48px;
-  margin-bottom: 8px;
-}
-div.title{
-  display: inline-block;
-  width: calc(100% - 104px);
-  height: 48px;
-  min-width: 232px;
-  text-align: center;
-}
-/* 우측 상단 아이콘 */
-div.home, div.question{
-  display: inline-block;
-  float: right;
-  margin-left: 12px;
-  width: 40px;
-  height: 40px;
-  background-color: #ffffff;
-  -webkit-border-radius: 6px;
-  cursor: pointer;
-}
-div.home{
-  background-image: url('../images/home.png');
-  background-size: contain;
-}
-div.question{
-  background-image: url('../images/question.png');
-  background-size: contain;
-}
-#body{
-  width: 100%;
-  height: calc(100% - 120px);
-  min-height: 500px;
-}
-div.console{
-  width: 100%;
-  height: 172px;
-}
-/* 좌석표 축소판 */
-div.seatTableWrap{
-  float: left;
-  width: calc(100% - 104px);
-  height: 100%;
-}
-div.seatTable{
-  padding: 8px;
-  width: calc(100% - 16px);
-  height: 140px;
-  background-color: #666666;
-  -webkit-border-radius: 8px;
-  text-align: center;
-  overflow: auto;
-}
-table.mini{
-  border-spacing: 8px;
-  height: 100%;
-  display: inline;
-}
-td.mini{
-  margin: 0;
-  padding: 0;
-  width: 12px;
-  height: 8px;
-}
-td.cell{
-  background-color: #888888;
-}
-td.booked_cell{
-  background-color: #E93047;
-}
-td.unusable_cell{
-  background-color: transparent;
-}
-td.vip_cell{
-  background-color: #A080AD;
-}
-
-/* 1부, 2부 선택 */
-div.toggle{
-  float: right;
-  width: 104px;
-  height: 100%;
-  font-weight: bold;
-  text-align: center;
-}
-a.toggle_part{
-  width: 84px;
-  height: 24px;
-  display: block;
-  margin: 0px 0 12px 12px;
-  padding: 16px 4px 32px 4px;
-  background-color: #ffffff;
-  color: #222222;
-  font-size: 200%;
-  -webkit-border-radius: 8px;
-}
-a.toggle_part_checked{
-  width: 84px;
-  height: 24px;
-  display: block;
-  margin: 0 0 12px 12px;
-  padding: 16px 4px 32px 4px;
-  background-color: #ffd88a;
-  color: #404040;
-  font-size: 32px;
-  -webkit-border-radius: 8px;
-}
-/* 좌석 선택표 */
-div.seatTable_zoom_Wrap{
-  width: 100%;
-  height: calc(100% - 180px);
-  min-height: 284px;
-}
-div.seatTable_zoom{
-  padding: 8px;
-  width: calc(100% - 16px);
-  height: calc(100% - 16px);
-  background-color: #666666;
-  -webkit-border-radius: 8px;
-}
-div.seatTable_zoom>table{
-  border-spacing: 8px;
   width: 100%;
   height: 100%;
-}
-td.seatTable_zoomed{
-  padding: 0;
-  margin: 0;
-  width: 20%;
-  height: 20%;
-}
-label.seatTable_zoomed{
-  display: block;
-  font-size: 32px;
-  margin: 0;
-  width: 100%;
+  font-size: 20px;
 }
 form{
-  width:100%;
-  height: 100%;
+  height : inherit;
 }
-
-#foot{
-  width: calc(100% + 16px);
-  height: 48px;
-  margin: 8px -8px 0 -8px;
-  padding-top: 8px;
-  background-color: #ffffff;
-  -webkit-border-radius: 18px 18px 0 0;
-}
-h2{
+p{
   margin: 0;
   padding: 0;
-  color: #222222;
-  font-size: 24px;
+}
+p.table_title{
+  background: lightgray;
 }
 ul{
   margin: 0;
-  padding: 0;
+  padding: 8px;
+  width: calc(100% - 16px);
+  height: calc(100% - 16px);
+  background:lightblue;
+  overflow: auto;
 }
 ul>li{
+  display: block;
+  margin: 0 0 8px 0;
+  padding: 4px;
+  width: calc(100% - 8px);
+  background: #ffffff;
+}
+li.title{
+  font-size: 1.2em;
+}
+div.default_table_container{
+  overflow: auto;
+  text-align: center;
+}
+div.table_wrap{
   display: inline-block;
-  margin: 0 4px 0 4px;
+}
+table.default{
+  border-spacing: 4px;
+  line-height: .5em;
+  margin: 0;
+  padding: 0;
+  /* font-size를 td의 너비와 같게 해놓지 않으면 뭔가 꼬임 */
+  font-size: 12px;
+}
+caption{
+  padding: 8px;
+  font-size: 20px;
+  color: #000000;
+}
+td.default{
+  width: 12px;
+  height: 12px;
+  font-size: 0;
+}
+li.input_table_container{
+  height:calc(100% - 48px - 59px);
+}
+div.input_table_container{
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  text-align: center;
+}
+table.input{
+  border-spacing: 4px;
+  color: #ffffff;
+}
+td.input{
+  width: 56px;
+  height: 56px;
+  margin: 0;
+  padding: 0;
+  line-height: .8em;
+}
+span.input{
+  font-size: 0.7em;
+  margin: 0;
+  padding: 0;
+  opacity: .7;
+}
+li.part_selection{
+  height: 120px;
+}
+li.part_selection>div{
+  padding: 0;
+  width: calc((100% - 8px)/3);
+  height: 100%;
+}
+a{
+  color: inherit;
+  text-decoration: none;
+}
+div.choice_part_1{
+  margin-right:4px;
+  float: left;
+}
+div.choice_part_1>a{
+  display: block;
+  margin: 0;
+  padding: 12px;
+  width: calc(100% - 24px);
+  height: calc(100% - 24px);
+  background: red;
+  color: #ffffff;
+}
+div.choice_part_1>a.checked{
+  background: gray;
+}
+div.choice_part_2{
+  margin-right:4px;
+  float: left;
+}
+div.choice_part_2>a{
+  display: block;
+  margin: 0;
+  padding: 12px;
+  width: calc(100% - 24px);
+  height: calc(100% - 24px);
+  background: blue;
+  color: #ffffff;
+}
+div.choice_part_2>a.checked{
+  background: gray;
+}
+div.choice_part_3{
+  margin: 0;
+  float: left;
+}
+div.choice_part_3>a{
+  display: block;
+  margin: 0;
+  padding: 12px;
+  width: calc(100% - 24px);
+  height: calc(100% - 24px);
+  background: green;
+  color: #ffffff;
+}
+div.choice_part_3>a.checked{
+  background: gray;
+}
+div.part_selection_circle{
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ffffff;
+}
+li.back{
+  display: inline-block;
+  width: calc(50% - 12px);
+  margin-right: 8px;
+  float: left;
+  text-align: center;
+}
+li.next{
+  display: inline-block;
+  width: calc(50% - 12px);
+  float: left;
+  text-align: center;
+}
+li.next>label{
+  display: block;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
 }

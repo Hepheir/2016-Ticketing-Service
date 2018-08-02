@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+td#disabled{
+ background: transparent;
+}
+td#vip{
+ background: purple;
+}
+td#booked{
+ background: red;
+}
+td#selected{
+ background: pink;
+}
+td#choosable{
+ background: lightgray;
+}

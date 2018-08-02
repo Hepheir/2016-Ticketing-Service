@@ -1,447 +1,86 @@
 <!DOCTYPE html>
 <html>
-<!-- Author information
-* html, php, css, javascript
-*   written by hepheir@gmail.com
-*
-* site designed by
-*   dfc7936@naver.com & hepheir@gmail.com
-*
--->
   <head>
     <meta charset="utf-8">
-		<meta name="author" content="hepheir">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
-    <link rel="stylesheet" type="text/css" href="../css/ticket_mobile.css">
-    <link rel="stylesheet" type="text/css" href="../css/default.css">
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <title>좌석 선택</title>
-    <script>
-      var w = window.innerWidth;
-      if (w < 440){
-        document.write('<style>p.title{font-size: 24px;letter-spacing: 2px;}</style>');
-      }
-      else {
-        document.write('<style>p.title{font-size: 32px;letter-spacing: 4px;}</style>');
-      }
-    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test</title>
+<?php
+    echo '<link rel="stylesheet" href="'.$toROOT.'css/ticket_mobile.css">';
+    echo '<link rel="stylesheet" href="'.$toROOT.'css/table_color.css">';
+    include $toROOT.'action/table_drawer.php';
+?>
   </head>
   <body>
-    <script>
-      window.scrollTo(0,1);
-    </script>
-    <?php
-      if (!isset($_GET['part'])) {
-        echo '<script>window.location.replace("./?part=1");</script>';
+  <?php
+    if(isset($_POST['step'])){
+      if ($_POST['step'] == 3) {echo '<form action="'.$toROOT.'ticket/result/" method="post">';}
+      else {echo '<form action="" method="post">';}
+    }
+    else {echo '<form action="" method="post">';}
+
+    echo'<ul>';
+    if (!isset($_POST['step'])||$_POST['step'] == 1) {
+      if (!isset($_GET['part'])) {$PART = 1;}
+      else{$PART = $_GET['part'];}
+      echo '<li class="title">시간 선택</li>';
+      echo '<li class="default_table_container">';
+      echo '<p class="table_title">'.$PART.'부 좌석표</p>';
+      echo '<div class="default_table_container">';
+      echo '<div class="table_wrap" style="'.min_table(12,4).'">';
+      echo default_table($PART);
+      echo '</div>';
+      echo '</div>';
+      echo '</li>';
+      echo '<li class="part_selection">';
+      if ($PART == 1) {echo '<div class="choice_part_1"><a href="?part=1" class="checked">1부<br>잔여석: '.count_table(1).'</a></div>';}
+      else {echo '<div class="choice_part_1"><a href="?part=1">1부<br>잔여석: '.count_table(1).'</a></div>';}
+      if ($PART == 2) {echo '<div class="choice_part_2"><a href="?part=2" class="checked">2부<br>잔여석: '.count_table(2).'</a></div>';}
+      else {echo '<div class="choice_part_2"><a href="?part=2">2부<br>잔여석: '.count_table(2).'</a></div>';}
+      if ($PART == 3) {echo '<div class="choice_part_3"><a href="?part=3" class="checked">3부<br>잔여석: '.count_table(3).'</a></div>';}
+      else {echo '<div class="choice_part_3"><a href="?part=3">3부<br>잔여석: '.count_table(3).'</a></div>';}
+      echo '</li>';
+      echo '<li class="back" onclick="location.replace(\'../\')">돌아가기</li>';
+      echo '<li class="next"><label for="submit">다음으로</label></li>';
+      echo '<input type="hidden" name="part" value="'.$PART.'"><input type="hidden" name="step" value="2"><input id="submit" type="submit" style="display:none">';
+    }
+    elseif ($_POST['step'] == 2) {
+      $PART = $_POST['part'];
+      echo '<li class="title">좌석 선택</li>';
+      echo '<li class="input_table_container">';
+      echo '<div class="input_table_container">';
+      echo '<div class="table_wrap" style="'.min_table(56,4).'">';
+      echo input_table($PART);
+      echo '</div>';
+      echo '</div>';
+      echo '</li>';
+      echo '<li class="back" onclick="window.history.back();">이전으로</li>';
+      echo '<li class="next"><label for="submit">다음으로</label></li>';
+      echo '<input type="hidden" name="part" value="'.$PART.'"><input type="hidden" name="step" value="3"><input id="submit" type="submit" style="display:none">';
+    }
+    elseif ($_POST['step'] == 3) {
+      $PART = $_POST['part'];
+      if (!isset($_POST['seat'])) {
+        echo '<script>alert("좌석을 선택해주세요.");window.history.back();</script>';
       }
-    ?>
-    <div id="bodyWrap">
-      <div id="head">
-        <div class="title"><p class="title">좌석을 선택하세요</p></div>
-        <div class="question"></div>
-        <div class="home" onclick="window.location.replace('../')"></div>
-      </div>
-      <div id="body">
-        <div class="console">
-          <div class="seatTableWrap">
-            <div class="seatTable">
-              <table class="mini">
-                <?php
-                  $part = isset($_GET['part']) ? $_GET['part'] : '';
-                  if (empty($part)) {
-                    $query = '?';
-                  }
-                  else {
-                    $query = '?part='.$_GET['part'].'&';
-                  }
-                  for($i = 0; $i < $rows; $j=1){
-                    $c= chr(++$i+64);
-                    echo '<tr>';
-                    for ($j = 1; $j <= $hall; $j++) {
-                      if (file_exists('../data/seat/unusable/'.$c.$j)) {
-                        echo '<td id="unusable_'.$c.$j.'" class="mini unusable_cell" onclick="location.replace(\''.$query.'focus[0]='.$i.'&focus[1]='.$j.'\')"></td>';
-                      }
-                      else if (file_exists('../data/seat/vip/'.$c.$j)) {
-                        echo '<td id="vip_'.$c.$j.'" class="mini vip_cell" onclick="location.replace(\''.$query.'focus[0]='.$i.'&focus[1]='.$j.'\')"></td>';
-                      }
-                      else if ($part == 1 && file_exists('../data/seat/part_1/'.$c.$j)) {
-                        echo '<td id="booked_'.$c.$j.'" class="mini booked_cell" onclick="location.replace(\'?part=1&focus[0]='.$i.'&focus[1]='.$j.'\')"></td>';
-                      }
-                      else if ($part == 2 && file_exists('../data/seat/part_2/'.$c.$j)) {
-                        echo '<td id="booked_'.$c.$j.'" class="mini booked_cell" onclick="location.replace(\'?part=2&focus[0]='.$i.'&focus[1]='.$j.'\')"></td>';
-                      }
-                      else {
-                        echo '<td id="'.$c.$j.'" class="mini cell" onclick="location.replace(\''.$query.'focus[0]='.$i.'&focus[1]='.$j.'\')"></td>';
-                      }
-                    }
-                    echo '<td class="mini unusable_cell" onclick="location.replace(\''.$query.'focus[0]='.$i.'&focus[1]='.$j.'\')"></td>';
-                    for ( ; $j <= $cols; $j++) {
-                      if (file_exists('../data/seat/unusable/'.$c.$j)) {
-                        echo '<td id="unusable_'.$c.$j.'" class="mini unusable_cell" onclick="location.replace(\''.$query.'focus[0]='.$i.'&focus[1]='.$j.'\')"></td>';
-                      }
-                      else if (file_exists('../data/seat/vip/'.$c.$j)) {
-                        echo '<td id="vip_'.$c.$j.'" class="mini vip_cell" onclick="location.replace(\''.$query.'focus[0]='.$i.'&focus[1]='.$j.'\')"></td>';
-                      }
-                      else if ($part == 1 && file_exists('../data/seat/part_1/'.$c.$j)) {
-                        echo '<td id="booked_'.$c.$j.'" class="mini booked_cell" onclick="location.replace(\'?part=1&focus[0]='.$i.'&focus[1]='.$j.'\')"></td>';
-                      }
-                      else if ($part == 2 && file_exists('../data/seat/part_2/'.$c.$j)) {
-                        echo '<td id="booked_'.$c.$j.'" class="mini booked_cell" onclick="location.replace(\'?part=2&focus[0]='.$i.'&focus[1]='.$j.'\')"></td>';
-                      }
-                      else {
-                        echo '<td id="'.$c.$j.'" class="mini cell" onclick="location.replace(\''.$query.'focus[0]='.$i.'&focus[1]='.$j.'\')"></td>';
-                      }
-                    }
-                    echo '</tr>';
-                  }
-                ?>
-              </table>
-            </div>
-          </div>
-          <div class="toggle">
-            <a id="part_1" class="toggle_part" href="?part=1"><p>1부</p></a>
-            <a id="part_2" class="toggle_part" href="?part=2"><p>2부</p></a>
-            <?php
-              echo '<input type="hidden" name="part" value="'.$part.'"/>';
-              if ($part == 1) {
-                echo '<script>$("a#part_1").addClass("toggle_part_checked").removeClass("toggle_part");</script>';
-              }
-              else if ($part == 2) {
-                echo '<script>$("a#part_2").addClass("toggle_part_checked").removeClass("toggle_part");</script>';
-              }
-            ?>
-          </div>
-        </div>
-        <div class="seatTable_zoom_Wrap">
-          <div class="seatTable_zoom">
-            <table>
-              <?php
-                if (!isset($_GET['focus'])) {$focus = array(0,0);}else {$focus = $_GET['focus'];}
-                if ($focus[0] > 2 && $focus[0] < $rows - 1) {
-                  for ($i=$focus[0] - 2; $i <= $focus[0] + 2; ) {
-                    echo'<tr class="seatTable_zoomed">';
-                    $c= chr(++$i+63);
-                    if ($focus[1] > 2 && $focus[1] < $cols - 1) {
-                      for ($j = $focus[1] - 2; $j <= $focus[1] + 2; $j++) {
-                        if (file_exists('../data/seat/unusable/'.$c.$j)) {
-                          echo '<td class="seatTable_zoomed unusable_cell"></td>';
-
-                        }
-                        else if (file_exists('../data/seat/vip/'.$c.$j)) {
-                          echo '<td class="seatTable_zoomed vip_cell"><label class="seatTable_zoomed" for="'.$c.$j.'">'.$c.$j.'</label></td>';
-                          echo '<style>td#vip_'.$c.$j.'{background-color:#D0BDF5;}</style>';
-                        }
-                        else if ($part == 1 && file_exists('../data/seat/part_1/'.$c.$j)) {
-                          echo '<td class="seatTable_zoomed booked_cell"><label class="seatTable_zoomed" for="'.$c.$j.'">'.$c.$j.'</label></td>';
-                          echo '<style>td#booked_'.$c.$j.'{background-color:#FF6D82;}</style>';
-                        }
-                        else if ($part == 2 && file_exists('../data/seat/part_2/'.$c.$j)) {
-                          echo '<td class="seatTable_zoomed booked_cell"><label class="seatTable_zoomed" for="'.$c.$j.'">'.$c.$j.'</label></td>';
-                          echo '<style>td#booked_'.$c.$j.'{background-color:#FF6D82;}</style>';
-                        }
-                        else {
-                          echo '<td class="seatTable_zoomed cell" onclick="window.location.replace(\'./result.php?part='.$part.'&seat='.$c.$j.'\')"><input type="radio" class="hidden" id="'.$c.$j.'" name="seat" value="'.$c.$j.'"><label class="seatTable_zoomed  cell" for="'.$c.$j.'">'.$c.$j.'</label></td>';
-                          if ($part == 1) {
-                            echo '<input type="hidden" name="part" value="1">';
-                          }
-                          else {
-                            echo '<input type="hidden" name="part" value="2">';
-                          }
-                          echo '<style>td#'.$c.$j.'{background-color:#C4C4C4;}</style>';
-                        }
-                      }
-                    }
-                    elseif ($focus[1] <= 2) {
-                      for ($j = 1; $j <= 5; $j++) {
-                        if (file_exists('../data/seat/unusable/'.$c.$j)) {
-                          echo '<td class="seatTable_zoomed unusable_cell"></td>';
-
-                        }
-                        else if (file_exists('../data/seat/vip/'.$c.$j)) {
-                          echo '<td class="seatTable_zoomed vip_cell"><label class="seatTable_zoomed" for="'.$c.$j.'">'.$c.$j.'</label></td>';
-                          echo '<style>td#vip_'.$c.$j.'{background-color:#D0BDF5;}</style>';
-                        }
-                        else if ($part == 1 && file_exists('../data/seat/part_1/'.$c.$j)) {
-                          echo '<td class="seatTable_zoomed booked_cell"><label class="seatTable_zoomed" for="'.$c.$j.'">'.$c.$j.'</label></td>';
-                          echo '<style>td#booked_'.$c.$j.'{background-color:#FF6D82;}</style>';
-                        }
-                        else if ($part == 2 && file_exists('../data/seat/part_2/'.$c.$j)) {
-                          echo '<td class="seatTable_zoomed booked_cell"><label class="seatTable_zoomed" for="'.$c.$j.'">'.$c.$j.'</label></td>';
-                          echo '<style>td#booked_'.$c.$j.'{background-color:#FF6D82;}</style>';
-                        }
-                        else {
-                          echo '<td class="seatTable_zoomed cell" onclick="window.location.replace(\'./result.php?part='.$part.'&seat='.$c.$j.'\')"><input type="radio" class="hidden" id="'.$c.$j.'" name="seat" value="'.$c.$j.'"><label class="seatTable_zoomed  cell" for="'.$c.$j.'">'.$c.$j.'</label></td>';
-                          if ($part == 1) {
-                            echo '<input type="hidden" name="part" value="1">';
-                          }
-                          else {
-                            echo '<input type="hidden" name="part" value="2">';
-                          }
-                          echo '<style>td#'.$c.$j.'{background-color:#C4C4C4;}</style>';
-                        }
-                      }
-                    }
-                    else {
-                      for ($j = $cols - 4; $j <= $cols; $j++) {
-                        if (file_exists('../data/seat/unusable/'.$c.$j)) {
-                          echo '<td class="seatTable_zoomed unusable_cell"></td>';
-
-                        }
-                        else if (file_exists('../data/seat/vip/'.$c.$j)) {
-                          echo '<td class="seatTable_zoomed vip_cell"><label class="seatTable_zoomed" for="'.$c.$j.'">'.$c.$j.'</label></td>';
-                          echo '<style>td#vip_'.$c.$j.'{background-color:#D0BDF5;}</style>';
-                        }
-                        else if ($part == 1 && file_exists('../data/seat/part_1/'.$c.$j)) {
-                          echo '<td class="seatTable_zoomed booked_cell"><label class="seatTable_zoomed" for="'.$c.$j.'">'.$c.$j.'</label></td>';
-                          echo '<style>td#booked_'.$c.$j.'{background-color:#FF6D82;}</style>';
-                        }
-                        else if ($part == 2 && file_exists('../data/seat/part_2/'.$c.$j)) {
-                          echo '<td class="seatTable_zoomed booked_cell"><label class="seatTable_zoomed" for="'.$c.$j.'">'.$c.$j.'</label></td>';
-                          echo '<style>td#booked_'.$c.$j.'{background-color:#FF6D82;}</style>';
-                        }
-                        else {
-                          echo '<td class="seatTable_zoomed cell" onclick="window.location.replace(\'./result.php?part='.$part.'&seat='.$c.$j.'\')"><input type="radio" class="hidden" id="'.$c.$j.'" name="seat" value="'.$c.$j.'"><label class="seatTable_zoomed  cell" for="'.$c.$j.'">'.$c.$j.'</label></td>';
-                          if ($part == 1) {
-                            echo '<input type="hidden" name="part" value="1">';
-                          }
-                          else {
-                            echo '<input type="hidden" name="part" value="2">';
-                          }
-                          echo '<style>td#'.$c.$j.'{background-color:#C4C4C4;}</style>';
-                        }
-                      }
-                    }
-                    echo'</tr>';
-                  }
-                }
-                elseif ($focus[0] <= 2) {
-                  for ($i= 1; $i <= 5; ) {
-                    echo'<tr class="seatTable_zoomed">';
-                    $c= chr(++$i+63);
-                    if ($focus[1] > 2 && $focus[1] < $cols - 1) {
-                      for ($j = $focus[1] - 2; $j <= $focus[1] + 2; $j++) {
-                        if (file_exists('../data/seat/unusable/'.$c.$j)) {
-                          echo '<td class="seatTable_zoomed unusable_cell"></td>';
-
-                        }
-                        else if (file_exists('../data/seat/vip/'.$c.$j)) {
-                          echo '<td class="seatTable_zoomed vip_cell"><label class="seatTable_zoomed" for="'.$c.$j.'">'.$c.$j.'</label></td>';
-                          echo '<style>td#vip_'.$c.$j.'{background-color:#D0BDF5;}</style>';
-                          }
-                        else if ($part == 1 && file_exists('../data/seat/part_1/'.$c.$j)) {
-                          echo '<td class="seatTable_zoomed booked_cell"><label class="seatTable_zoomed" for="'.$c.$j.'">'.$c.$j.'</label></td>';
-                          echo '<style>td#booked_'.$c.$j.'{background-color:#FF6D82;}</style>';
-                        }
-                        else if ($part == 2 && file_exists('../data/seat/part_2/'.$c.$j)) {
-                          echo '<td class="seatTable_zoomed booked_cell"><label class="seatTable_zoomed" for="'.$c.$j.'">'.$c.$j.'</label></td>';
-                          echo '<style>td#booked_'.$c.$j.'{background-color:#FF6D82;}</style>';
-                        }
-                        else {
-                          echo '<td class="seatTable_zoomed cell" onclick="window.location.replace(\'./result.php?part='.$part.'&seat='.$c.$j.'\')"><input type="radio" class="hidden" id="'.$c.$j.'" name="seat" value="'.$c.$j.'"><label class="seatTable_zoomed  cell" for="'.$c.$j.'">'.$c.$j.'</label></td>';
-                          if ($part == 1) {
-                            echo '<input type="hidden" name="part" value="1">';
-                          }
-                          else {
-                            echo '<input type="hidden" name="part" value="2">';
-                          }
-                          echo '<style>td#'.$c.$j.'{background-color:#C4C4C4;}</style>';
-                        }
-                      }
-                    }
-                    elseif ($focus[1] <= 2) {
-                      for ($j = 1; $j <= 5; $j++) {
-                        if (file_exists('../data/seat/unusable/'.$c.$j)) {
-                          echo '<td class="seatTable_zoomed unusable_cell"></td>';
-
-                        }
-                        else if (file_exists('../data/seat/vip/'.$c.$j)) {
-                          echo '<td class="seatTable_zoomed vip_cell"><label class="seatTable_zoomed" for="'.$c.$j.'">'.$c.$j.'</label></td>';
-                          echo '<style>td#vip_'.$c.$j.'{background-color:#D0BDF5;}</style>';
-                        }
-                        else if ($part == 1 && file_exists('../data/seat/part_1/'.$c.$j)) {
-                          echo '<td class="seatTable_zoomed booked_cell"><label class="seatTable_zoomed" for="'.$c.$j.'">'.$c.$j.'</label></td>';
-                          echo '<style>td#booked_'.$c.$j.'{background-color:#FF6D82;}</style>';
-                        }
-                        else if ($part == 2 && file_exists('../data/seat/part_2/'.$c.$j)) {
-                          echo '<td class="seatTable_zoomed booked_cell"><label class="seatTable_zoomed" for="'.$c.$j.'">'.$c.$j.'</label></td>';
-                          echo '<style>td#booked_'.$c.$j.'{background-color:#FF6D82;}</style>';
-                        }
-                        else {
-                          echo '<td class="seatTable_zoomed cell" onclick="window.location.replace(\'./result.php?part='.$part.'&seat='.$c.$j.'\')"><input type="radio" class="hidden" id="'.$c.$j.'" name="seat" value="'.$c.$j.'"><label class="seatTable_zoomed  cell" for="'.$c.$j.'">'.$c.$j.'</label></td>';
-                          if ($part == 1) {
-                            echo '<input type="hidden" name="part" value="1">';
-                          }
-                          else {
-                            echo '<input type="hidden" name="part" value="2">';
-                          }
-                          echo '<style>td#'.$c.$j.'{background-color:#C4C4C4;}</style>';
-                        }
-                      }
-                    }
-                    else {
-                      for ($j = $cols - 4; $j <= $cols; $j++) {
-                        if (file_exists('../data/seat/unusable/'.$c.$j)) {
-                          echo '<td class="seatTable_zoomed unusable_cell"></td>';
-
-                        }
-                        else if (file_exists('../data/seat/vip/'.$c.$j)) {
-                          echo '<td class="seatTable_zoomed vip_cell"><label class="seatTable_zoomed" for="'.$c.$j.'">'.$c.$j.'</label></td>';
-                          echo '<style>td#vip_'.$c.$j.'{background-color:#D0BDF5;}</style>';
-                        }
-                        else if ($part == 1 && file_exists('../data/seat/part_1/'.$c.$j)) {
-                          echo '<td class="seatTable_zoomed booked_cell"><label class="seatTable_zoomed" for="'.$c.$j.'">'.$c.$j.'</label></td>';
-                          echo '<style>td#booked_'.$c.$j.'{background-color:#FF6D82;}</style>';
-                        }
-                        else if ($part == 2 && file_exists('../data/seat/part_2/'.$c.$j)) {
-                          echo '<td class="seatTable_zoomed booked_cell"><label class="seatTable_zoomed" for="'.$c.$j.'">'.$c.$j.'</label></td>';
-                          echo '<style>td#booked_'.$c.$j.'{background-color:#FF6D82;}</style>';
-                        }
-                        else {
-                          echo '<td class="seatTable_zoomed cell" onclick="window.location.replace(\'./result.php?part='.$part.'&seat='.$c.$j.'\')"><input type="radio" class="hidden" id="'.$c.$j.'" name="seat" value="'.$c.$j.'"><label class="seatTable_zoomed  cell" for="'.$c.$j.'">'.$c.$j.'</label></td>';
-                          if ($part == 1) {
-                            echo '<input type="hidden" name="part" value="1">';
-                          }
-                          else {
-                            echo '<input type="hidden" name="part" value="2">';
-                          }
-                          echo '<style>td#'.$c.$j.'{background-color:#C4C4C4;}</style>';
-                        }
-                      }
-                    }
-                    echo'</tr>';
-                  }
-                }
-                else {
-                  for ($i= $rows - 4; $i <= $rows; ) {
-                    echo'<tr class="seatTable_zoomed">';
-                    $c= chr(++$i+63);
-                    if ($focus[1] > 2 && $focus[1] < $cols - 1) {
-                      for ($j = $focus[1] - 2; $j <= $focus[1] + 2; $j++) {
-                        if (file_exists('../data/seat/unusable/'.$c.$j)) {
-                          echo '<td class="seatTable_zoomed unusable_cell"></td>';
-
-                        }
-                        else if (file_exists('../data/seat/vip/'.$c.$j)) {
-                          echo '<td class="seatTable_zoomed vip_cell"><label class="seatTable_zoomed" for="'.$c.$j.'">'.$c.$j.'</label></td>';
-                          echo '<style>td#vip_'.$c.$j.'{background-color:#D0BDF5;}</style>';
-                        }
-                        else if ($part == 1 && file_exists('../data/seat/part_1/'.$c.$j)) {
-                          echo '<td class="seatTable_zoomed booked_cell"><label class="seatTable_zoomed" for="'.$c.$j.'">'.$c.$j.'</label></td>';
-                          echo '<style>td#booked_'.$c.$j.'{background-color:#FF6D82;}</style>';
-                        }
-                        else if ($part == 2 && file_exists('../data/seat/part_2/'.$c.$j)) {
-                          echo '<td class="seatTable_zoomed booked_cell"><label class="seatTable_zoomed" for="'.$c.$j.'">'.$c.$j.'</label></td>';
-                          echo '<style>td#booked_'.$c.$j.'{background-color:#FF6D82;}</style>';
-                        }
-                        else {
-                          echo '<td class="seatTable_zoomed cell" onclick="window.location.replace(\'./result.php?part='.$part.'&seat='.$c.$j.'\')"><input type="radio" class="hidden" id="'.$c.$j.'" name="seat" value="'.$c.$j.'"><label class="seatTable_zoomed  cell" for="'.$c.$j.'">'.$c.$j.'</label></td>';
-                          if ($part == 1) {
-                            echo '<input type="hidden" name="part" value="1">';
-                          }
-                          else {
-                            echo '<input type="hidden" name="part" value="2">';
-                          }
-                          echo '<style>td#'.$c.$j.'{background-color:#C4C4C4;}</style>';
-                        }
-                      }
-                    }
-                    elseif ($focus[1] <= 2) {
-                      for ($j = 1; $j <= 5; $j++) {
-                        if (file_exists('../data/seat/unusable/'.$c.$j)) {
-                          echo '<td class="seatTable_zoomed unusable_cell"></td>';
-
-                        }
-                        else if (file_exists('../data/seat/vip/'.$c.$j)) {
-                          echo '<td class="seatTable_zoomed vip_cell"><label class="seatTable_zoomed" for="'.$c.$j.'">'.$c.$j.'</label></td>';
-                          echo '<style>td#vip_'.$c.$j.'{background-color:#D0BDF5;}</style>';
-                        }
-                        else if ($part == 1 && file_exists('../data/seat/part_1/'.$c.$j)) {
-                          echo '<td class="seatTable_zoomed booked_cell"><label class="seatTable_zoomed" for="'.$c.$j.'">'.$c.$j.'</label></td>';
-                          echo '<style>td#booked_'.$c.$j.'{background-color:#FF6D82;}</style>';
-                        }
-                        else if ($part == 2 && file_exists('../data/seat/part_2/'.$c.$j)) {
-                          echo '<td class="seatTable_zoomed booked_cell"><label class="seatTable_zoomed" for="'.$c.$j.'">'.$c.$j.'</label></td>';
-                          echo '<style>td#booked_'.$c.$j.'{background-color:#FF6D82;}</style>';
-                        }
-                        else {
-                          echo '<td class="seatTable_zoomed cell" onclick="window.location.replace(\'./result.php?part='.$part.'&seat='.$c.$j.'\')"><input type="radio" class="hidden" id="'.$c.$j.'" name="seat" value="'.$c.$j.'"><label class="seatTable_zoomed  cell" for="'.$c.$j.'">'.$c.$j.'</label></td>';
-                          if ($part == 1) {
-                            echo '<input type="hidden" name="part" value="1">';
-                          }
-                          else {
-                            echo '<input type="hidden" name="part" value="2">';
-                          }
-                          echo '<style>td#'.$c.$j.'{background-color:#C4C4C4;}</style>';
-                        }
-                      }
-                    }
-                    else {
-                      for ($j = $cols - 4; $j <= $cols; $j++) {
-                        if (file_exists('../data/seat/unusable/'.$c.$j)) {
-                          echo '<td class="seatTable_zoomed unusable_cell"></td>';
-
-                        }
-                        else if (file_exists('../data/seat/vip/'.$c.$j)) {
-                          echo '<td class="seatTable_zoomed vip_cell"><label class="seatTable_zoomed" for="'.$c.$j.'">'.$c.$j.'</label></td>';
-                          echo '<style>td#vip_'.$c.$j.'{background-color:#D0BDF5;}</style>';
-                        }
-                        else if ($part == 1 && file_exists('../data/seat/part_1/'.$c.$j)) {
-                          echo '<td class="seatTable_zoomed booked_cell"><label class="seatTable_zoomed" for="'.$c.$j.'">'.$c.$j.'</label></td>';
-                          echo '<style>td#booked_'.$c.$j.'{background-color:#FF6D82;}</style>';
-                        }
-                        else if ($part == 2 && file_exists('../data/seat/part_2/'.$c.$j)) {
-                          echo '<td class="seatTable_zoomed booked_cell"><label class="seatTable_zoomed" for="'.$c.$j.'">'.$c.$j.'</label></td>';
-                          echo '<style>td#booked_'.$c.$j.'{background-color:#FF6D82;}</style>';
-                        }
-                        else {
-                          echo '<td class="seatTable_zoomed cell" onclick="window.location.replace(\'./result.php?part='.$part.'&seat='.$c.$j.'\')"><input type="radio" class="hidden" id="'.$c.$j.'" name="seat" value="'.$c.$j.'"><label class="seatTable_zoomed  cell" for="'.$c.$j.'">'.$c.$j.'</label></td>';
-                          if ($part == 1) {
-                            echo '<input type="hidden" name="part" value="1">';
-                          }
-                          else {
-                            echo '<input type="hidden" name="part" value="2">';
-                          }
-                          echo '<style>td#'.$c.$j.'{background-color:#C4C4C4;}</style>';
-                        }
-                      }
-                    }
-                    echo'</tr>';
-                  }
-                }
-              ?>
-            </table>
-          </div>
-        </div>
-      </div>
-      <div id="foot">
-        <h2>
-          <ul>
-            <li>
-              <a href="../">메인으로</a>
-            </li>
-            <li>
-              |
-            </li>
-            <li>
-              <a href="check.php">예매확인</a>
-            </li>
-            <li>
-              |
-            </li>
-            <li>
-              <?php
-                if (empty($_GET['part'])){
-                  $Redi = '';
-                }
-                else {
-                  $Redi = '?part='.$_GET['part'];
-                }
-                echo '<a href="../debug.php/?code=1&amp;from=ticket&#47;'.$Redi.'">디버그</a>';
-              ?>
-            </li>
-          </ul>
-        </h2>
-      </div>
-    </div>
+      $SEAT = $_POST['seat'];
+      echo '<li class="title">예매 확인</li>';
+      echo '<li class="pinned_table_container">pinned_table';
+      echo '<p>시간 : '.$PART.'  좌석 : '.$SEAT.'</p>';
+      echo '</li>';
+      echo '<li class="p_info">';
+      echo '<p>학번</p>';
+      echo '<input id="id" type="text" name="id">';
+      echo '<p>이름</p>';
+      echo '<input id="name" type="text" name="name">';
+      echo '<p>비밀번호</p>';
+      echo '<input id="pw" type="password" name="pw">';
+      echo '</li>';
+      echo '<li class="back" onclick="window.history.back();">이전으로</li>';
+      echo '<li class="next"><label for="submit">예매하기</label></li>';
+      echo '<input type="hidden" name="part" value="'.$PART.'"><input type="hidden" name="seat" value="'.$SEAT.'"><input id="submit" type="submit" style="display:none">';
+    }
+    echo'</ul>';
+    echo '</form>';
+  ?>
   </body>
 </html>
