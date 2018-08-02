@@ -1,0 +1,27 @@
+@charset "UTF-8";
+
+html{
+  width: 100%;
+  height: 100%;
+  font-family: arial;
+}
+body{
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+a{
+  text-decoration: none;
+  color:inherit;
+}
+p{
+  margin:0;
+  padding: 0;
+  line-height: 1.2em;
+}
+.hidden{
+  display: none;
+}
+.inline_b{
+  display: inline-block;
+}
