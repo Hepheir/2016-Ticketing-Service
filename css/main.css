@@ -6,10 +6,12 @@ body,html,div,nav{
   margin: 0;
   padding: 0;
   overflow: hidden;
+  font-family: 'Jeju Gothic', sans-serif;
+  font-weight: bold;
+  letter-spacing: 1px;
 }
 body{
   width: auto;
-  font-family: 'Jeju Gothic', sans-serif;
   font-size: 18px;
   color: white;
 }
@@ -48,8 +50,7 @@ a{
   margin: 0 auto;
 }
 .topMenuLeft{
-  width: 30%;
-  margin-left: 5%;
+  width: 35%;
   text-align: left;
   float: left;
 }
@@ -59,14 +60,14 @@ a{
   float: left;
 }
 .topMenuRight{
-  width: 30%;
+  width: 35%;
   text-align: right;
   float: left;
 }
 .Content{
   bottom: 48px;
   width: 90%;
+  max-width: 720px;
   height: 120px;
-  margin: 0 5%;
   font-size: 36px;
 }

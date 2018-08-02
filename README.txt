@@ -4,16 +4,20 @@
 * html, php, css, javascript
 *   written by hepheir@gmail.com
 *
-* site designed by
-*   dfc7936@naver.com & hepheir@gmail.com
+* page designed by
+*   디자이너
 *
-* :: MAIN ::
+* :: 페이지 ::
 -->
 <head>
   <meta charset="utf-8">
 	<meta name="author" content="hepheir">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./css/main.css" media="screen">
+</head>
+<body>
+</body>
+</html>
 
 
 @import url(http://fonts.googleapis.com/earlyaccess/hanna.css);

@@ -4,8 +4,8 @@
 * html, php, css, javascript
 *   written by hepheir@gmail.com
 *
-* site designed by
-*   dfc7936@naver.com & hepheir@gmail.com
+* page designed by
+*   dfc7936@naver.com
 *
 * :: MAIN ::
 -->
@@ -15,6 +15,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./css/main.css" media="screen">
   <link rel="shortcut icon" href="./favicon.ico">
+  <title>티켓팅 사이트 제작 프로젝트 :: UNIT</title>
 </head>
 <body>
   <img id="BGimg" width="100%" height="100%"class="fixed" src="./asset/img/main-background.jpg" alt="" />
@@ -27,7 +28,7 @@
           </div>
           <nav class="topMenu">
             <div class="topMenuLeft"><a href="./ticketing/">TICKETING</a></div>
-            <div class="topMenuCenter"><a href="./ticketing/">INTRODUCE</a></div>
+            <div class="topMenuCenter"><a href="./introduce/">INTRODUCE</a></div>
             <div class="topMenuRight"><a target="_blank" href="http://project-unit.tistory.com/">TEAM UNIT</a></div>
           </nav>
         </div>
@@ -38,13 +39,14 @@
     </div>
   </div>
   <script type="text/javascript">
+  //페이지 새로고침시 배경이미지를 화면크기에 맞추어 채워지도록 크기 조정 (배경이미지 가로 세로 비율 = 3:2)
     if (2*window.innerWidth >= 3*window.innerHeight){
-      document.getElementById('BGimg').style.width = window.innerWidth+'px';
+      document.getElementById('BGimg').style.width = '100%';
       document.getElementById('BGimg').style.height = 2/3*window.innerWidth+'px';
     }
     else{
       document.getElementById('BGimg').style.width = 3/2*window.innerHeight+'px';
-      document.getElementById('BGimg').style.height = window.innerHeight+'px';
+      document.getElementById('BGimg').style.height = '100%';
     }
   </script>
 </body>
