@@ -5,13 +5,30 @@ td#disabled{
 }
 td#vip{
  background: purple;
+ opacity: .2;
 }
 td#booked{
- background: red;
+ background: #FF242C;
+ opacity: .2;
 }
 td#selected{
- background: pink;
+ background: #FF242C;
+ opacity: .7;
 }
-td#choosable{
+label#choosable{
+ background: gray;
+ cursor: pointer;
+}
+label#choosable:hover{
  background: lightgray;
+}
+input[type=radio]:checked + label#choosable{
+  background: #FF242C;
+}
+
+td#pinned{
+  background: #29C770;
+}
+td#not_pinned{
+  background: lightgray;
 }

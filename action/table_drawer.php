@@ -13,7 +13,7 @@
   function default_table($PART) {
     global $toROOT;
     global $TABLE_INFO;
-    echo '<table class="default" style="text-transform:uppercase">';
+    echo '<table class="default" style="display:inline-table;text-transform:uppercase">';
     echo '<caption class="default">screen</caption>';
     for ($rows=1; $rows <= $TABLE_INFO[1]; $rows++) {
       $rows_char = chr($rows+64); #열번호를 숫자에서 알파벳 문자로 바꿔줌
@@ -45,11 +45,40 @@
     echo '</table>';
   }
 
+  function point_table($PART,$SEAT) {
+    global $toROOT;
+    global $TABLE_INFO;
+    echo '<table class="default" style="display:inline-table;text-transform:uppercase">';
+    echo '<caption class="default">screen</caption>';
+    for ($rows=1; $rows <= $TABLE_INFO[1]; $rows++) {
+      $rows_char = chr($rows+64); #열번호를 숫자에서 알파벳 문자로 바꿔줌
+      $cols_shift = 0; #빈 구역만큼 좌석번호를 오른쪽으로 쉬프팅
+      echo '<tr>';
+      for ($cols=1; $cols <= $TABLE_INFO[0]; $cols++) {
+        if (file_exists($toROOT.'data/config/seat_table/disabled/'.$rows_char.$cols)) {
+          echo '<td id="disabled" class="default"></td>';
+          $cols_shift++;
+        }
+        elseif ($rows_char.($cols-$cols_shift) == $SEAT) {
+          echo '<td id="pinned" class="point">'.$rows_char.($cols-$cols_shift).'</td>';
+        }
+        else{
+          echo '<td id="not_pinned" class="point">'.$rows_char.($cols-$cols_shift).'</td>';
+        }
+        if ($cols==$TABLE_INFO[2]) {
+          echo '<td id="HALL" class="point"></td>';
+        }
+      }
+      echo '</tr>';
+    }
+    echo '</table>';
+  }
+
   #input[type=radio]
   function input_table($PART) {
     global $toROOT;
     global $TABLE_INFO;
-    echo '<table class="input" style="text-transform:uppercase">';
+    echo '<table class="input" style="display:inline-table;text-transform:uppercase">';
     echo '<caption class="input">screen</caption>';
     for ($rows=1; $rows <= $TABLE_INFO[1]; $rows++) {
       $rows_char = chr($rows+64);
@@ -70,7 +99,10 @@
           echo '<td id="selected" class="input">!<br><span class="input">'.$rows_char.($cols-$cols_shift).'</span></td>';
         }
         else{
-          echo '<td id="choosable" class="input"><input type="radio" name="seat" value="'.$rows_char.($cols-$cols_shift).'" id="'.$rows_char.($cols-$cols_shift).'" style="display:none"><label class="input" for="'.$rows_char.($cols-$cols_shift).'">'.$rows_char.($cols-$cols_shift).'</label></td>';
+          echo '<td id="choosable" class="input" style="padding:0;">
+          <input id="input_'.$rows_char.($cols-$cols_shift).'" type="radio" name="seat" value="'.$rows_char.($cols-$cols_shift).'" style="display:none">
+          <label id="choosable" for="input_'.$rows_char.($cols-$cols_shift).'" style="display:block;width:100%;height:100%;margin:0;">'.$rows_char.($cols-$cols_shift).'</label>
+          </td>';
         }
         if ($cols==$TABLE_INFO[2]) {
           echo '<td id="HALL" class="input"></td>';
