@@ -3,7 +3,6 @@ class ScreenResizing {
     this.contentEl = document.querySelector('.js-content');
     this.contentButtonEl = new Array();
     this.contentButtonEl[0] = document.querySelector('.js-content-button');
-    this.contentButtonEl[1] = document.querySelector('.js-content-button-2');
 
     this.moveContent = this.moveContent.bind(this);
 

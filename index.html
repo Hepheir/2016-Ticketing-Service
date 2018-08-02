@@ -107,29 +107,12 @@
         </div>
       </div>
     </div>
+    <script src="./source/js/ajax-handler.js"></script>
+    <script src="./source/js/side-nav.js"></script>
     <script type="text/javascript" role="AJAX Module">
-      function getCookie(name) {
-        var name = name+ '=';
-        var arr = document.cookie.split(';');
-
-        for (var i = 0; i < arr.length; i++) {
-          while (arr[i].charAt(0)==' ') {
-            arr[i] = arr[i].substring(1);
-          }
-          if (arr[i].indexOf(name) == 0) {
-            return arr[i].substring(name.length, arr[i].length);
-          }
-        }
-        return '';
-      }
-
-      function delCookie(name) {
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-          if (name != 'all' && cookies[i].split('=')[0] != name)
-            continue;
-          document.cookie = cookies[i].split('=')[0]+'=';
-        }
+      if ((location+'').includes('?logout')) {
+        delCookie('all');
+        location.replace('./');
       }
 
       function UserVerification() {
@@ -156,42 +139,16 @@
         return false;
       }
 
-      function AjaxContent (doc) {
-        xhttp = new XMLHttpRequest();
-        ajaxSrc = './ajax/'+doc;
-        ajaxTarget = document.querySelector(".js-content");
+      // for SideNav
+      if (UserVerification() == 'new' || !UserVerification())
+        document.querySelector('.js-logout').style.display = 'none';
 
-        xhttp.open("POST", this.ajaxSrc, false);
-        xhttp.send();
-        ajaxTarget.innerHTML = xhttp.responseText;
-      }
-
-      class AjaxSideNav {
-        constructor() {
-          this.xhttp = new XMLHttpRequest();
-          this.ajaxSrc = "./ajax/side-nav.html";
-          this.ajaxTarget = document.querySelector(".js-page");
-
-          this.onLoadEvt();
-        }
-
-        onLoadEvt () {
-          this.xhttp.open("POST", this.ajaxSrc, false);
-          this.xhttp.send();
-          this.textDoc = this.xhttp.responseText;
-
-          this.ajaxTarget.innerHTML += this.textDoc;
-        }
-      }
-      new AjaxSideNav();
 
       class AjaxLoggedIn {
         constructor() {
           this.xhttp = new XMLHttpRequest();
           this.ajaxSrc = "./ajax/logged-in.html";
           this.ajaxTarget = document.querySelector(".js-content");
-
-          this.userInfo = this.userInfo.bind(this);
 
           this.onLoadEvt();
         }
@@ -203,49 +160,14 @@
 
           this.ajaxTarget.innerHTML = this.textDoc;
 
-          this.userInfo();
-        }
-
-        userInfo() {
-          this.xhttp.open("POST", "./_user_info.php?id="+getCookie("id"), false);
-          this.xhttp.send();
-          console.log(this.xhttp.responseText);
-
-          var user_info = this.xhttp.responseText.split(';');
-          if (user_info[0] != '' && user_info[0] != 'master') {
-            var party = (user_info[0]+'').split(',');
-            if (party[0] == 'master')
-              party.shift();
-            for (var i = 0; i < party.length; i++)
-              party[i] = ', '+party[i];
-            user_info[0] = '';
-            for (var i = 0; i < party.length; i++)
-              user_info[0] += party[i];
-          }
-          user_info[2] = user_info[2].replace(/ /g,'').replace(/,/g,', ');
-          var party_master = user_info[3];
-
-          document.querySelector(".js-user").innerHTML = getCookie('id');
-          document.querySelector(".js-party").innerHTML = user_info[0];
-          document.querySelector(".js-time").innerHTML = user_info[1] == undefined || user_info[1] == '' ? '예매한 좌석이 없습니다.' : user_info[1]+'부';
-          document.querySelector(".js-seat").innerHTML = user_info[2];
-          if (user_info[1] == '')
-            document.querySelector(".js-cancel-button").style.display = 'none';
+          userInfo();
         }
       }
 
 
-      var loginStatus = UserVerification();
-
-
-      function TicketSequence () {
-        document.querySelector(".js-content").innerHTML = '';
-        AjaxContent('ticket.html');
-        document.querySelector(".js-header").classList.add('ticket');
-        document.querySelector(".js-content").classList.add('ticket');
-        new ScreenResizing();
-
+      function userInfo() {
         xhttp = new XMLHttpRequest();
+
         xhttp.open("POST", "./_user_info.php?id="+getCookie("id"), false);
         xhttp.send();
         console.log(xhttp.responseText);
@@ -261,9 +183,28 @@
           for (var i = 0; i < party.length; i++)
             user_info[0] += party[i];
         }
+        user_info[2] = user_info[2].replace(/ /g,'').replace(/,/g,', ');
+        var party_master = user_info[3];
+
         document.querySelector(".js-user").innerHTML = getCookie('id');
         document.querySelector(".js-party").innerHTML = user_info[0];
-        setTimeout(function(){location.assign('./README.html')}, 850);
+        document.querySelector(".js-time").innerHTML = user_info[1] == undefined || user_info[1] == '' ? '예매한 좌석이 없습니다.' : user_info[1]+'부';
+        document.querySelector(".js-seat").innerHTML = user_info[2];
+      }
+
+
+      var loginStatus = UserVerification();
+
+
+      function CrossFade (target) {
+        document.querySelector(".js-content").innerHTML = '';
+        AjaxContent('main-ticket_animation.html');
+        document.querySelector(".js-header").classList.add('ticket');
+        document.querySelector(".js-content").classList.add('ticket');
+        document.querySelector(".js-content-button").classList.add('ticket');
+
+        userInfo();
+        setTimeout(function(){location.assign('./'+target)}, 600);
       }
 
 
@@ -287,6 +228,5 @@
     </script>
     <script src="./source/js/screen-sizing.js"></script>
     <script src="./source/js/login.js"></script>
-    <script src="./source/js/side-nav.js"></script>
   </body>
 </html>
