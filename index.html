@@ -1,232 +1,257 @@
+<!--
+*
+*   Desinged by Hepheir@gmail.com
+*
+*   Google Material Deisigning
+*   본 스킨의 저작권은 hepheir@gmail.com에게 있습니다. 무단 복제, 배포 및 사용을 금합니다.
+*
+-->
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Material Design</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+		<meta name="theme-color" content="#FFFFFF">
+    <title>예매하기</title>
+    <link rel="stylesheet" href="./css/xml.css">
+    <link rel="stylesheet" href="./css/layout.css">
+    <link rel="stylesheet" href="./css/color.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="http://fonts.googleapis.com/earlyaccess/jejugothic.css">
-    <style media="screen">
-      /*  __ : child of a thing ,  -- : modifier on the thing */
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: 'Roboto', 'Jeju Gothic', sans-serif;
-      }
-      html, body, .page {
-        position: relative;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-      }
-      button {
-        background: none;
-        border: none;
-        cursor: pointer;
-      }
-      a{
-        text-decoration: none;
-        color: inherit;
-      }
-
-      .page {
-        background-image: url(./asset/background.jpg);
-        background-size: cover;
-        background-position: 25% 50%;
-      }
-
-      .container {
-        width: 100%;
-        height: 100%;
-      }
-
-      .header {
-        width: 100%;
-        height: 64px;
-        padding: 20px;
-        font-size: 20px;
-        line-height: 1;
-        background: linear-gradient(rgba(0,0,0,0.4) 0%,rgba(0,0,0,0.2) 70%,rgba(0,0,0,0));
-
-        transition: background 0.4s cubic-bezier(0,0,0.3,1) 0s;
-      }
-
-      .header__menu-toggle {
-        width: 24px;
-        height: 24px;
-        font-size: 24px;
-        float: left;
-      }
-
-      .header__title {
-        width: auto;
-        height: 24px;
-        margin-left: 20px;
-        float: left;
-      }
-
-      /* For Mobile */
-      .content, .content.is-mobile {
-        position: absolute;
-        top: 45%;
-        left: 0;
-        width: 100%;
-        height: auto;
-        min-height: 240px;
-        margin: 0 auto;
-        background: #FAFAFA;
-        box-shadow: 0 2px 4px 0 rgba(0,0,0,0.3);
-
-        will-change: transform;
-        transition: top 0.5s ease 0s;
-      }
-
-      /* For Desktop */
-      .content.is-desktop{
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 30%;
-        min-width: 320px;
-        height: 100%;
-        margin-right: 0;
-      }
-    </style>
   </head>
-  <body>
-    <div class="js-page page">
-      <div class="container">
-        <div class="js-header header">
-          <button class="js-menu-show header__menu-toggle material-icons">menu</button>
-          <div class="header__title">Material Designing</div>
-        </div>
-        <div class="js-content content">
-          <!-- Content -->
+  <body onresize="ScrResize()">
+    <!-- <loader></loader> -->
+    <button id="test" class="Debugger" onclick="onclickBtn()">debug</button>
+    <div class="page">
+      <!-- Login -->
+      <div class="form-wrap">
+        <div class="form">
+          <div class="form__logo">
+
+          </div>
+          <div class="form__login">
+            <br>
+            <input class="js-login-id" type="number" name="id" pattern="[1-30-10-90-40-9]{5}" placeholder="학번" required>
+            <br>
+            <br>
+            <br>
+            <input class="js-login-name" type="text" name="name" placeholder="이름" required>
+            <br>
+            <button onclick="login()">로그인</button>
+          </div>
         </div>
       </div>
+      <!-- Header -->
+      <header>
+        <div class="header__title">좌석선택</div>
+        <ul class="js-part-select part-container">
+        </ul>
+      </header>
+      <!-- Seat Table -->
+      <content>
+        <button class="js-save-btn save_seat" onclick="SaveSeat()"><icon>save</icon></button>
+        <div class="seat_table-wrap">
+          <div class="caption">Screen</div>
+          <div class="table">
+          </div>
+        </div>
+      </content>
+      <!-- Bottom/Side Bar -->
+      <aside>
+        <div class="bottom_bar">
+          <div class="js-selected_seat bottom_bar__selected_seat">선택하신 좌석이 없습니다.</div>
+        </div>
+        <ul class="js-part-select part-container">
+        </ul>
+        <div class="aside__content">
+          <div class="js-selected_seat aside__selected_seat">선택하신 좌석이 없습니다.</div>
+        </div>
+      </aside>
+      <!-- Hidden Form -->
+      <hidden>
+        <span id="seat" class="js-form-seat"></span>
+        <span id="part" class="js-form-part"></span>
+        <span id="id" class="js-form-id"></span>
+        <span id="name" class="js-form-name"></span>
+      </hidden>
     </div>
-    <script src="./source/js/ajax-handler.js"></script>
-    <script src="./source/js/side-nav.js"></script>
-    <script type="text/javascript" role="AJAX Module">
-      if ((location+'').includes('?logout')) {
-        delCookie('all');
-        location.replace('./');
-      }
+    <script type="text/javascript" role="login and user detection">
+      var id = document.querySelector('.js-form-id').innerHTML;
+      var name = document.querySelector('.js-form-name').innerHTML;
+      if (id != '' || name != '')
+        document.querySelector('.form-wrap').style.visibility = 'hidden';
 
-      function UserVerification() {
-        if (getCookie('id') == '' || getCookie('pw') == '')
+      function login () {
+        var id_login = document.querySelector('.js-login-id').value;
+        var name_login = document.querySelector('.js-login-name').value;
+
+        if (name_login == 'admin' || name_login == '관리자') {
+          location.assign('./admin?key='+prompt('암호를 대라!'));
           return false;
+        }
 
-        var cId = getCookie('id');
-        var cPw = getCookie('pw');
-        var xhttp = new XMLHttpRequest();
+        // Fail
+        if (id_login.length != 5 || name_login.value == '') {
+          alert('학번과 이름 모두 입력해주세요.');
+          return false;
+        }
+        grade_num = id_login[0];
+        class_num = id_login[1]+id_login[2];
+        number = id_login[3]+id_login[4];
 
-        xhttp.open("POST", "./_login.php?id="+cId+"&pw="+cPw, false);
-        xhttp.send();
-        var xhttp_r = xhttp.responseText;
+        // Success
+        if(grade_num >= 1 && grade_num <= 3 && class_num >= 1 && class_num <= 14 && number >= 1 && number <= 45) {
+          if (!confirm(id_login+' '+name_login+' 본인이 맞으십니까?\n(타인의 명의를 무단으로 도용 할 시 징계를 받을 수 있습니다.)'))
+            return false;
 
-        if (xhttp_r.includes('true'))
-          return true;
-        else if (xhttp_r.includes('new'))
-          return 'new';
+          console.log('attempt to login...');
+          var xhttp = new XMLHttpRequest();
+          xhttp.open('GET', './_login.php?id='+id_login+'&name='+name_login, false);
+          xhttp.send();
+
+          console.log('attempt to overwrite hidden forms : '+id_login+';'+name_login);
+          document.querySelector('.js-form-id').innerHTML = id_login;
+          document.querySelector('.js-form-name').innerHTML = name_login;
+          document.querySelector('.form-wrap').style.visibility = 'hidden';
+        }
+
+        // Fail
         else {
-          console.log(xhttp_r+'/'+getCookie('id')+'/'+document.cookie);
-          delCookie('all');
-        }
-
-        return false;
-      }
-
-      // for SideNav
-      if (UserVerification() == 'new' || !UserVerification())
-        document.querySelector('.js-logout').style.display = 'none';
-
-
-      class AjaxLoggedIn {
-        constructor() {
-          this.xhttp = new XMLHttpRequest();
-          this.ajaxSrc = "./ajax/logged-in.html";
-          this.ajaxTarget = document.querySelector(".js-content");
-
-          this.onLoadEvt();
-        }
-
-        onLoadEvt () {
-          this.xhttp.open("POST", this.ajaxSrc, false);
-          this.xhttp.send();
-          this.textDoc = this.xhttp.responseText;
-
-          this.ajaxTarget.innerHTML = this.textDoc;
-
-          userInfo();
+          alert('유효한 학번을 입력해주세요');
+          return false;
         }
       }
-
-
-      function userInfo() {
-        xhttp = new XMLHttpRequest();
-
-        xhttp.open("POST", "./_user_info.php?id="+getCookie("id"), false);
-        xhttp.send();
-        console.log(xhttp.responseText);
-
-        var user_info = xhttp.responseText.split(';');
-        if (user_info[0] != '' && user_info[0] != 'master') {
-          var party = (user_info[0]+'').split(',');
-          if (party[0] == 'master')
-            party.shift();
-          for (var i = 0; i < party.length; i++)
-            party[i] = ', '+party[i];
-          user_info[0] = '';
-          for (var i = 0; i < party.length; i++)
-            user_info[0] += party[i];
-        }
-        user_info[2] = user_info[2].replace(/ /g,'').replace(/,/g,', ');
-        var party_master = user_info[3];
-
-        document.querySelector(".js-user").innerHTML = getCookie('id');
-        document.querySelector(".js-party").innerHTML = user_info[0];
-        document.querySelector(".js-time").innerHTML = user_info[1] == undefined || user_info[1] == '' ? '예매한 좌석이 없습니다.' : user_info[1]+'부';
-        document.querySelector(".js-seat").innerHTML = user_info[2];
-      }
-
-
-      var loginStatus = UserVerification();
-
-
-      function CrossFade (target) {
-        document.querySelector(".js-content").innerHTML = '';
-        AjaxContent('main-ticket_animation.html');
-        document.querySelector(".js-header").classList.add('ticket');
-        document.querySelector(".js-content").classList.add('ticket');
-        document.querySelector(".js-content-button").classList.add('ticket');
-
-        userInfo();
-        setTimeout(function(){location.assign('./'+target)}, 600);
-      }
-
-
-      if (loginStatus == 'new'){
-        new AjaxLoggedIn();
-        var user_info = prompt('추후 티켓 발급을 위한 이름/연락처를 남겨주세요.', '');
-        if (user_info == null)
-          user_info = '입력되지 않음';
-
-        var xhttp = new XMLHttpRequest();
-        xhttp.open("POST", './_resister.php?id='+getCookie('id')+'&pw='+getCookie('pw')+'&info='+user_info, false);
-        xhttp.send();
-      }
-      else if(loginStatus == true)
-        new AjaxLoggedIn();
-      else {
-        AjaxContent('login.html');
-        console.log('login false');
-      }
-
     </script>
-    <script src="./source/js/screen-sizing.js"></script>
-    <script src="./source/js/login.js"></script>
+    <script type="text/javascript" role="Seat Selector">
+      function SelectSeat (selected_seat) {
+        var seats = document.getElementsByClassName('col');
+        for (var i = 0; i < seats.length; i++) {
+          if (seats[i].getAttribute('seat') == selected_seat) {
+            seats[i].classList.add('selected');
+            var seat_panel = document.getElementsByClassName('js-selected_seat');
+            for (var j = 0; j < seat_panel.length; j++) {
+              seat_panel[j].innerHTML = '선택하신 좌석은 '+selected_seat+'입니다.';
+            }
+
+            // fill hidden Form
+            document.querySelector('.js-form-seat').innerHTML = selected_seat;
+            document.querySelector('.js-save-btn').classList.add('activated');
+
+            console.log('seat selected : '+selected_seat);
+            continue;
+          }
+          seats[i].classList.remove('selected');
+        }
+      }
+    </script>
+    <script type="text/javascript" role="[AJAX] Read Table Data and Fill">
+      class SeatTable {
+        constructor () {
+          this.container = document.querySelector('div.table');
+          this.xhttp = new XMLHttpRequest();
+          this.xhttp_target = './_table_drawer.php';
+          this.writeTable = this.writeTable.bind(this);
+        }
+
+        writeTable (n) {
+          this.xhttp.open('GET', this.xhttp_target+'?part='+n+'&id='+document.querySelector('.js-form-id').innerHTML, false);
+          this.xhttp.send();
+
+          this.container.innerHTML = this.xhttp.responseText;
+
+          var saved_seat = document.querySelector('.js-saved-seat').innerHTML;
+          if (saved_seat != '')
+            SelectSeat(saved_seat);
+        }
+      }
+      new SeatTable();
+    </script>
+    <script type="text/javascript" role="Part Selector">
+      class PartSelect {
+        constructor () {
+          this.container = document.getElementsByClassName('js-part-select');
+          this.xhttp = new XMLHttpRequest();
+          this.xhttp_target = './_part_selector.php';
+          this.xhttp.open('GET', this.xhttp_target, false);
+          this.xhttp.send();
+
+          for (var i = 0; i < this.container.length; i++) {
+            this.container[i].innerHTML = this.xhttp.responseText;
+          }
+        }
+      }
+      new PartSelect();
+
+      function header_item_select (n) {
+        var itm = document.getElementsByClassName('part-container__item');
+        for (var i = 0; i < itm.length; i++) {
+          itm[i].classList.remove('selected');
+        }
+        itm[n - 1].classList.add('selected');
+        itm[n - 1 + (itm.length)/2].classList.add('selected');
+        var seat_panel = document.getElementsByClassName('js-selected_seat');
+        for (var i = 0; i < seat_panel.length; i++) {
+          seat_panel[i].innerHTML = '선택하신 좌석이 없습니다.';
+        }
+
+        // fill hidden Form
+        document.querySelector('.js-form-part').innerHTML = n;
+        document.querySelector('.js-form-seat').innerHTML = '';
+        document.querySelector('.js-save-btn').classList.remove('activated');
+
+        new SeatTable().writeTable(n);
+      }
+    </script>
+    <script type="text/javascript" role="Debugging Tool">
+      var t = 0;
+      function onclickBtn() {
+        if (t % 2 == 0) {
+          document.querySelector('header').classList.add('wide_screen');
+          document.querySelector('content').classList.add('wide_screen');
+          document.querySelector('aside').classList.add('wide_screen');
+          document.querySelector('.js-save-btn').classList.add('wide_screen');
+        }
+        else {
+          document.querySelector('header').classList.remove('wide_screen');
+          document.querySelector('content').classList.remove('wide_screen');
+          document.querySelector('aside').classList.remove('wide_screen');
+          document.querySelector('.js-save-btn').classList.remove('wide_screen');
+        }
+        t++;
+      }
+    </script>
+    <script type="text/javascript" role="Responsible Design">
+      function ScrResize () {
+        if (window.innerWidth > 920) {
+          document.querySelector('header').classList.add('wide_screen');
+          document.querySelector('content').classList.add('wide_screen');
+          document.querySelector('aside').classList.add('wide_screen');
+          document.querySelector('.js-save-btn').classList.add('wide_screen');
+        }
+        else {
+          document.querySelector('header').classList.remove('wide_screen');
+          document.querySelector('content').classList.remove('wide_screen');
+          document.querySelector('aside').classList.remove('wide_screen');
+          document.querySelector('.js-save-btn').classList.remove('wide_screen');
+        }
+      }
+      ScrResize();
+    </script>
+    <script type="text/javascript" role="Save Seat">
+      function SaveSeat () {
+        if (document.querySelector('.js-save-btn.activated') == undefined) {
+          return false;
+        }
+        var seat = document.querySelector('.js-form-seat').innerHTML;
+        var part = document.querySelector('.js-form-part').innerHTML;
+        var id = document.querySelector('.js-form-id').innerHTML;
+        var name = document.querySelector('.js-form-name').innerHTML;
+        var xhttp = new XMLHttpRequest();
+        xhttp.open('GET', './_save.php?id='+id+'&part='+part+'&seat='+seat+'&name='+name, false);
+        xhttp.send();
+        alert(xhttp.responseText);
+      }
+    </script>
   </body>
 </html>

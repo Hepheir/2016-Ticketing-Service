@@ -1,0 +1,391 @@
+@charset "UTF-8";
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html, body, div.page {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Debuging tools */
+#test {
+  width: 48px;
+  height: 48px;
+  border: 1px solid lightgray;
+  border-radius: 50%;
+  cursor: pointer;
+
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 10;
+}
+
+.form-wrap {
+  width: 100%;
+  height: 100%;
+  padding: 64px 16px 72px 16px;
+  display: block;
+  text-align: center;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 4;
+
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.form {
+  width: 100%;
+  max-width: 640px;
+  height: 100%;
+  overflow-y: auto;
+  display: inline-block;
+  border-radius: 4px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
+  background-color: #FAFAFA;
+
+  position: relative;
+}
+
+.form__logo {
+  width: 100%;
+  height: 100%;
+  min-height: 240px;
+  position: relative;
+  background-color: #FAFAFA;
+  background-image: url('../bgImg.jpg');
+  background-size: cover;
+}
+.form__logo::before {
+  content: 'UNIT & MMC';
+  width: 240px;
+  height: 48px;
+  padding-top: 8px;
+  font-size: 32px;
+  line-height: 32px;
+  color: white;
+  background: rgba(0, 0, 0, .5);
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -128px;
+  margin-left: -120px;
+}
+
+.form__login {
+  width: 100%;
+  height: 224px;
+  padding: 32px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  background: rgba(0, 0, 0, .7);
+}
+
+.form__login input {
+  display: block;
+  width: 240px;
+  height: 34px;
+  padding: 6px 8px;
+  border: none;
+  border-bottom: 2px solid;
+  border-color: gray;
+  background: transparent;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  line-height: 1;
+  float: left;
+
+  transition: border-color .3s cubic-bezier(0,0,.3,1);
+}
+.form__login input[placeholder] { color: lightgray;}
+.form__login input:hover, .form__login input:focus {
+  border-color: white;
+}
+.form__login button {
+  width: auto;
+  height: 36px;
+  padding: 8px 16px;
+  font-size: 20px;
+  line-height: 20px;
+  background: deepskyblue;
+  color: white;
+  border-radius: 3px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+
+  float: right;
+}
+.form__login button:hover {
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+}
+
+
+/* Header */
+header {
+  width: 100%;
+  height: 112px;
+  border-bottom: 1px solid lightgray;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+
+  transition: height .3s cubic-bezier(0,0,0.3,1);
+}
+header.wide_screen {
+  height: 56px;
+}
+
+.header__title {
+  width: 100%;
+  height: 56px;
+  padding: 16px;
+}
+
+
+.part-container {
+  width: 100%;
+  height: 56px;
+
+  display: flex;
+  flex-direction: row;
+}
+
+.part-container__item {
+  width: 200px;
+  height: 100%;
+  padding: 16px;
+  border-bottom: 4px solid transparent;
+  text-align: center;
+  cursor: pointer;
+  border-bottom: 1px solid lightgray;
+
+  display: inline-block;
+
+  transition: border-color .2s ease;
+}
+
+.part-container__item:hover {
+  border-bottom: 4px solid;
+  border-color: gray;
+}
+
+.part-container__item.selected {
+  border-bottom: 4px solid;
+  border-color: gray;
+}
+
+
+/* Content */
+
+content {
+  width: 100%;
+  /* full height takeaway header height */
+  height: 100%;
+  padding-top: 112px;
+  padding-bottom: 56px;
+  display: block;
+
+  transition: padding .3s cubic-bezier(0,0,0.3,1);
+}
+content.wide_screen {
+  padding-top: 56px;
+  padding-right: 320px;
+  padding-bottom: 0px;
+}
+
+/* Aside */
+
+/* 모바일 : 화면 하단에서 위로 올라오는 슬라이드 애니메이션 / 데스크탑 : 화면 우측 사이드바 */
+
+aside {
+  width: 100%;
+  height: 100%;
+  display: block;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
+
+  position: fixed;
+  top: 0;
+  right: 0;
+  transform: translateY(calc(100% - 56px));
+  z-index: 1;
+
+  transition: transform .3s cubic-bezier(0,0,0.3,1);
+}
+aside.wide_screen {
+  width: 320px;
+  transform: none;
+}
+aside.visible{
+  transform: none;
+}
+
+.bottom_bar {
+  width: 100%;
+  height: 56px;
+  padding: 16px;
+  color: black;
+  cursor: pointer;
+}
+.bottom_bar__selected_seat {
+  display: block;
+  float: left;
+  margin-right: 16px;
+}
+
+.aside__selected_seat {
+  width: 100%;
+  height: 48px;
+  padding-bottom: 16px;
+}
+
+.aside__content {
+  width: 100%;
+  min-width: 288px;
+  height: auto;
+  padding: 16px;
+}
+
+/* 저장 버튼 */
+.save_seat {
+  width: 64px;
+  height: 64px;
+  padding: 16px;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+
+  background-color: #FFF;
+  position: fixed;
+  bottom: 24px;
+  right: 16px;
+  z-index: 3;
+
+  transition: box-shadow,bottom,right,background-color .3s cubic-bezier(0,0,.3,1);
+}
+.save_seat.wide_screen {
+  bottom: 16px;
+  right: 336px;
+}
+.save_seat:hover { box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5); }
+
+.save_seat icon {
+  width: 32px;
+  height: 32px;
+  font-size: 32px;
+  color: lightgray;
+
+  transition: color .3s cubic-bezier(0,0,.3,1);
+}
+.save_seat.activated { background-color: #66BB6A; }
+.save_seat.activated icon { color: white; }
+
+/* 좌석표 */
+
+.seat_table-wrap {
+  width: 100%;
+  height: 100%;
+  padding: 16px;
+  overflow: hidden;
+  text-align: center;
+  /* 상단의 저장 버튼의 위치 지정 */
+  position: relative;
+}
+
+.table {
+  width: 104%;
+  height: calc(100% - 24px);
+  padding: 0 2%;
+  margin-left: -2%;
+  overflow: auto;
+  text-align: center;
+}
+
+/* Adjusting font style */
+.row-chr, .col, .col-unselectable, .col-booked, .caption {
+  padding: 8px 0;
+  text-align: center;
+  font-size: 16px;
+  line-height: 16px;
+}
+
+.caption {
+  width: 100%;
+  max-width: 672px;
+  height: 32px;
+  margin-bottom: 8px;
+  background: #FFF;
+  border-radius: 3px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  display: inline-block;
+}
+
+.row {
+  width: auto;
+  height: 40px;
+  padding: 4px 0;
+  list-style: none;
+
+  display: inline-flex;
+  flex-direction: row;
+}
+
+.row-chr {
+  width: 28px;
+  height: 32px;
+  min-width: 28px;
+  margin: 0 2px;
+  border-top: 2px solid gray;
+}
+
+/* Basic Cell Layout */
+
+.col, .col-empty, .col-unselectable, .col-booked {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  margin-left: 8px;
+  border-radius: 3px;
+}
+
+.col {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  background-color: #FFF;
+
+  transition: box-shadow .3s cubic-bezier(0,0,.3,1);
+}
+.col:hover { box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); }
+
+.col-empty {
+  background: transparent;
+}
+
+.col-unselectable{
+  background-color: #9E9E9E;
+  color: #FFF;
+}
+
+.col-booked{
+  background-color: #9E9E9E;
+  color: #FFF;
+}
+
+.col.selected {
+  background-color: deepskyblue;
+  box-shadow: none;
+  color: #FFF;
+}
