@@ -54,6 +54,9 @@
         width: 32px;
         height: 32px;
         font-size: 0;
+        margin: 0;
+        padding: 0;
+        border: 0;
       }
       input[type=submit]{
         float: right;
@@ -69,6 +72,22 @@
       input[type=submit]:hover{
         background: #ffffff;
         color: #2D9475;
+        box-shadow: 0px 0px 32px gray;
+      }
+      input[type=button]{
+        float: left;
+        font-size: 20px;
+        font-weight: bold;
+        padding: 8px 12px 8px 12px;
+        border: none;
+        border-radius: 2px;
+        background: #7f7f7f;
+        color: #ffffff;
+        cursor: pointer;
+      }
+      input[type=button]:hover{
+        background: #ffffff;
+        color: #7f7f7f;
         box-shadow: 0px 0px 32px gray;
       }
     </style>
@@ -118,9 +137,12 @@
         echo '</div>';
         echo '<br>';
         echo '<input type="hidden" name="step" value="2">';
-        echo '<input type="submit" value="다음으로">';
-        echo '</form>';
       ?>
+        <div class="console">
+          <input type="submit" value="다음으로">
+          <input type="button" value="홈으로" onclick="window.location.replace('../')">
+        </div>
+      </form>
     </div>
     <script type="text/javascript">
       document.getElementById("part_select").onchange = function(){

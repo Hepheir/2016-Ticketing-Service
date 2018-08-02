@@ -5,15 +5,18 @@ td#disabled{
 }
 td#vip{
  background: purple;
- opacity: .2;
+ opacity: .1;
+ cursor: not-allowed;
 }
 td#booked{
- background: #FF242C;
+ background: red;
  opacity: .2;
+ cursor: not-allowed;
 }
 td#selected{
- background: #FF242C;
- opacity: .7;
+ background: red;
+ opacity: .2;
+ cursor: not-allowed;
 }
 label#choosable{
  background: gray;

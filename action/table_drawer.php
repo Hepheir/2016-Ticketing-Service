@@ -1,6 +1,6 @@
 <?php
   $TABLE_INFO = file($toROOT.'data/config/seat_table/table_info');
-  #[0]cols ,[1]rows ,[2]:hall
+  #[0]cols ,[1]rows ,[2]:hall, [3]:좌석 보호 지속시간
   #내부에서 샤용되는 변수나 이름은 소문자, 외부에서 사용될 수 있는 변수명이나 불러온 파일에 해당하는 변수명, 클래스 이름은 대문자로
 //    $TABLE_INFO[0] = str_replace(chr(13).chr(10), '', $TABLE_INFO[0]);
 //    $TABLE_INFO[1] = str_replace(chr(13).chr(10), '', $TABLE_INFO[1]);
@@ -10,9 +10,15 @@
   $rows = str_replace(chr(13).chr(10), '',$TABLE_INFO[1]);
   $hall = str_replace(chr(13).chr(10), '',$TABLE_INFO[2]);
 
+  date_default_timezone_set("Asia/Seoul");
+  if (date('a') == 'am'){$record_time = date('m').date('d').date('h').date('i');}
+  else {$record_time = date('m').date('d').(date('h') + 12).date('i');}
+
+
   function default_table($PART) {
     global $toROOT;
     global $TABLE_INFO;
+    global $record_time;
     echo '<table class="default" style="display:inline-table;text-transform:uppercase">';
     echo '<caption class="default">screen</caption>';
     for ($rows=1; $rows <= $TABLE_INFO[1]; $rows++) {
@@ -24,14 +30,23 @@
           echo '<td id="disabled" class="default"></td>';
           $cols_shift++;
         }
-        elseif (file_exists($toROOT.'data/config/seat_table/vip/part_'.$PART.'/'.$rows_char.($cols-$cols_shift))) {
+        elseif (file_exists($toROOT.'data/config/seat_table/part_'.$PART.'/vip\/'.$rows_char.($cols-$cols_shift))) {
           echo '<td id="vip" class="default">vip<br><span class="default">'.$rows_char.($cols-$cols_shift).'</span></td>';
         }
         elseif (file_exists($toROOT.'data/config/seat_table/part_'.$PART.'/booked\/'.$rows_char.($cols-$cols_shift))) {
           echo '<td id="booked" class="default">x<br><span class="default">'.$rows_char.($cols-$cols_shift).'</span></td>';
         }
         elseif (file_exists($toROOT.'data/config/seat_table/part_'.$PART.'/selected\/'.$rows_char.($cols-$cols_shift))) {
-          echo '<td id="selected" class="default">!<br><span class="default">'.$rows_char.($cols-$cols_shift).'</span></td>';
+          $theFile = fopen($toROOT.'data/config/seat_table/part_'.$PART.'/selected\/'.$rows_char.($cols-$cols_shift), "r");
+          if (fgets($theFile) < ($record_time - $TABLE_INFO[3])){
+            fclose($theFile);
+            unlink($toROOT.'data/config/seat_table/part_'.$PART.'/selected\/'.$rows_char.($cols-$cols_shift));
+            echo '<td id="choosable" class="default">'.$rows_char.($cols-$cols_shift).'</td>';
+          }
+          else {
+            fclose($theFile);
+            echo '<td id="selected" class="default">!<br><span class="default">'.$rows_char.($cols-$cols_shift).'</span></td>';
+          }
         }
         else{
           echo '<td id="choosable" class="default">'.$rows_char.($cols-$cols_shift).'</td>';
@@ -78,6 +93,7 @@
   function input_table($PART) {
     global $toROOT;
     global $TABLE_INFO;
+    global $record_time;
     echo '<table class="input" style="display:inline-table;text-transform:uppercase">';
     echo '<caption class="input">screen</caption>';
     for ($rows=1; $rows <= $TABLE_INFO[1]; $rows++) {
@@ -89,14 +105,26 @@
           echo '<td id="disabled" class="input"></td>';
           $cols_shift++;
         }
-        elseif (file_exists($toROOT.'data/config/seat_table/vip/part_'.$PART.'/'.$rows_char.($cols-$cols_shift))) {
+        elseif (file_exists($toROOT.'data/config/seat_table/part_'.$PART.'/vip\/'.$rows_char.($cols-$cols_shift))) {
           echo '<td id="vip" class="input">vip<br><span class="input">'.$rows_char.($cols-$cols_shift).'</span></td>';
         }
         elseif (file_exists($toROOT.'data/config/seat_table/part_'.$PART.'/booked\/'.$rows_char.($cols-$cols_shift))) {
           echo '<td id="booked" class="input">x<br><span class="input">'.$rows_char.($cols-$cols_shift).'</span></td>';
         }
         elseif (file_exists($toROOT.'data/config/seat_table/part_'.$PART.'/selected\/'.$rows_char.($cols-$cols_shift))) {
-          echo '<td id="selected" class="input">!<br><span class="input">'.$rows_char.($cols-$cols_shift).'</span></td>';
+          $theFile = fopen($toROOT.'data/config/seat_table/part_'.$PART.'/selected\/'.$rows_char.($cols-$cols_shift), "r");
+          if (fgets($theFile) < ($record_time - $TABLE_INFO[3])){
+            fclose($theFile);
+            unlink($toROOT.'data/config/seat_table/part_'.$PART.'/selected\/'.$rows_char.($cols-$cols_shift));
+            echo '<td id="choosable" class="input" style="padding:0;">
+            <input id="input_'.$rows_char.($cols-$cols_shift).'" type="radio" name="seat" value="'.$rows_char.($cols-$cols_shift).'" style="display:none">
+            <label id="choosable" for="input_'.$rows_char.($cols-$cols_shift).'" style="display:block;width:100%;height:100%;margin:0;">'.$rows_char.($cols-$cols_shift).'</label>
+            </td>';
+          }
+          else {
+            fclose($theFile);
+            echo '<td id="selected" class="input">!<br><span class="input">'.$rows_char.($cols-$cols_shift).'</span></td>';
+          }
         }
         else{
           echo '<td id="choosable" class="input" style="padding:0;">
@@ -123,7 +151,7 @@
         if (file_exists($toROOT.'data/config/seat_table/disabled/'.$rows_char.$cols)) {
           continue;
         }
-        elseif (file_exists($toROOT.'data/config/seat_table/vip/part_'.$PART.'/'.$rows_char.$cols)) {
+        elseif (file_exists($toROOT.'data/config/seat_table/part_'.$PART.'/vip\/'.$rows_char.$cols)) {
           continue;
         }
         elseif (file_exists($toROOT.'data/config/seat_table/part_'.$PART.'/booked\/'.$rows_char.$cols)) {

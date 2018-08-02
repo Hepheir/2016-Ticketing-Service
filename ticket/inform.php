@@ -86,11 +86,27 @@
         color: #2D9475;
         box-shadow: 0px 0px 32px gray;
       }
+      input[type=button]{
+        float: left;
+        font-size: 20px;
+        font-weight: bold;
+        padding: 8px 12px 8px 12px;
+        border: none;
+        border-radius: 2px;
+        background: #3ABF97;
+        color: #ffffff;
+        cursor: pointer;
+      }
+      input[type=button]:hover{
+        background: #ffffff;
+        color: #3ABF97;
+        box-shadow: 0px 0px 32px gray;
+      }
       #alertbox{
         margin: 8px;
         padding: 4px 4px 4px 8px;
         border: 2px solid lightgray;
-        background-color: #F2FF7C;
+        background-color: #FFFBAC;
         color: #6f6f6f;
         font-weight: bold;
         border-radius: 8px;
@@ -105,17 +121,18 @@
       </div>
     </nav>
     <div id="body_wrap">
-      <div id="alertbox">주의 : 중복 예약을 막기위한 좌석 보호는 5분간만 지속됩니다.</div>
-      <form action="./result/" method="post">
-        <?php
-          echo '<h2 style="margin:0;">선택하신 좌석은 '.$_POST['part'].'부 '.$_POST['seat'].'입니다.</h2>';
-          echo '<hr>';
-          echo '<input type="hidden" name="part" value="'.$_POST['part'].'">';
-          echo '<input type="hidden" name="seat" value="'.$_POST['seat'].'">';
-          echo '<div id="table_container">';
-          point_table($_POST['part'],$_POST['seat']);
-          echo '</div>';
-        ?>
+      <?php
+        echo '<div id="alertbox">주의 : 중복 예약을 막기위한 좌석 보호는 '.$TABLE_INFO[3].'분간만 지속됩니다.</div>';
+        echo '<form action="./result/" method="post">';
+
+        echo '<h2 style="margin:0;">선택하신 좌석은 '.$_POST['part'].'부 '.$_POST['seat'].'입니다.</h2>';
+        echo '<hr>';
+        echo '<input type="hidden" name="part" value="'.$_POST['part'].'">';
+        echo '<input type="hidden" name="seat" value="'.$_POST['seat'].'">';
+        echo '<div id="table_container">';
+        point_table($_POST['part'],$_POST['seat']);
+        echo '</div>';
+      ?>
         <hr>
         <h2 style="margin:0;">예매자 정보를 입력해주세요.</h2>
         <div id="inform">
@@ -129,17 +146,26 @@
           <input id="name" type="text" name="name">
           <br>
           <br>
-          <label for="pw">비밀번호</label>
+          <label for="pw">비밀번호<br>(예매조회, 예매취소시 본인확인용)</label>
           <br>
-          <input id="pw" type="password" name="pw">
-          <br>
-          <br>
-          <input type="submit" value="다음으로">
+          <input id="pw" type="password" name="password">
           <br>
           <br>
-          <br>
-          <input type="hidden" name="step" value="3">
         </div>
+        <div class="console">
+          <input type="submit" value="다음으로">
+          <input type="button" value="이전으로" onclick="document.getElementById("cancel").submit();">
+        </div>
+        <br>
+        <br>
+        <br>
+      </form>
+      <form id="cancel" method="post">
+        <input type="hidden" name="cancel" value="1">
+        <?php
+          echo '<input type="hidden" name="part" value="'.$_POST['part'].'">';
+          echo '<input type="hidden" name="seat" value="'.$_POST['seat'].'">';
+        ?>
       </form>
     </div>
   </body>
