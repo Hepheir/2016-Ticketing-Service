@@ -73,6 +73,9 @@
 ![](/images/admin-page.png)
 ![](/images/admin-page_empty.png)
 
+# Acknowledgements
+
+콜라보 작업을 흔쾌히 수락해주시고 디자인에 대한 다양한 의견 및 영상자료를 제공해주신 MMC 부원들께 진심으로 감사드립니다. 또한 이 프로젝트를 묵묵히 지켜봐주시고 아낌없이 지원해주신 선생님들께 진심으로 감사드립니다.
 
 # Read more
 
