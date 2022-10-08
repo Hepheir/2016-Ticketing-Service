@@ -1,4 +1,4 @@
-# Ticketing Service by UNIT (ICW. MMC)
+# MMC Ticketing Service
 
 > A collaborative project of the team UNIT with club MMC.
 
