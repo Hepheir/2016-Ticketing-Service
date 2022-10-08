@@ -2,7 +2,7 @@
 
 > A collaborative project of the team UNIT with club MMC.
 
-- 참여자: 김동주 <<hepheir@gmail.com>>, 박종훈, 이현오, 김법기
+- 참여자: 김동주 <<hepheir@gmail.com>>, 박종운<<dfc7936@naver.com>>, 이현오, 김법기
 - 단체명: 자율동아리 UNIT - (연극영화부동아리 MMC와 콜라보)
 - 소속: [보정고등학교](https://bojeong.hs.kr/)
 - 기간: 2016-04-19[^properties-1] ~ 2016-12-18[^properties-2]
