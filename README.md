@@ -5,7 +5,10 @@
 - 참여자: 김동주 <<hepheir@gmail.com>>, 박종훈, 이현오, 김법기
 - 단체명: 자율동아리 UNIT - (연극영화부동아리 MMC와 콜라보)
 - 소속: [보정고등학교](https://bojeong.hs.kr/)
-- 기간: 2016-05-25 ~ 2016-08-11
+- 기간: 2016-04-19[^properties-1] ~ 2016-12-18[^properties-2]
+
+[^properties-1]: 정확한 최초 날짜 미상. [페이스북 개시글](https://www.facebook.com/hepheir/posts/pfbid02t7s3kHEhXNUrsEtCtJTZc1p7bm6Ve4nZCSJQeSgQr7RL8aiGDaER2z23if9XSN7sl)을 통해 추정됨.
+[^properties-2]: 정확한 날짜 미상. [페이스북 개시글](https://www.facebook.com/hepheir/posts/pfbid02uDRYYEVXqWVW196RYH4SqynBTBAGwhsEYJV8y9BrF5fCMami3LAuHLqhAhzUpAHal)을 통해 추정됨.
 
 # Summary
 
