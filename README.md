@@ -5,11 +5,11 @@
 - 참여자: 김동주 <<hepheir@gmail.com>>, 박종운<<dfc7936@naver.com>>, 이현오, 김법기
 - 단체명: 자율동아리 UNIT - (연극영화부동아리 MMC[^mmc-stands-for]와 콜라보)
 - 소속: [보정고등학교](https://bojeong.hs.kr/)
-- 기간: 2016-04-19[^properties-1] ~ 2016-12-18[^properties-2]
+- 기간: 2016-03-29[^properties-1] ~ 2016-12-18[^properties-2]
 
 [^mmc-stands-for]: Movie Manufacturing Club
 
-[^properties-1]: 정확한 최초 날짜 미상. [페이스북 개시글](https://www.facebook.com/hepheir/posts/pfbid02t7s3kHEhXNUrsEtCtJTZc1p7bm6Ve4nZCSJQeSgQr7RL8aiGDaER2z23if9XSN7sl)을 통해 추정됨.
+[^properties-1]: [UNIT 4월 중 활동 내용 보고서](https://project-unit.tistory.com/8)에서 파악됨.
 [^properties-2]: 정확한 날짜 미상. [페이스북 개시글](https://www.facebook.com/hepheir/posts/pfbid02uDRYYEVXqWVW196RYH4SqynBTBAGwhsEYJV8y9BrF5fCMami3LAuHLqhAhzUpAHal)을 통해 추정됨.
 
 # Summary
