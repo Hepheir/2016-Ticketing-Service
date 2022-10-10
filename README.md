@@ -75,6 +75,46 @@
 ![](/images/admin-page.png)
 ![](/images/admin-page_empty.png)
 
+# Architecture
+
+```text
+root/
+│
+├── admin/              # 관리자 페이지
+│   ├── _apply.php          # 관리자 페이지 Controller
+│   ├── index.php           # 관리자 페이지 View
+│   └── style.css
+│
+├── css/
+│   ├── color.css
+│   ├── layout.css
+│   └── xml.css
+│
+├── data/               # 데이터 베이스
+│   ├── empty_cell/         # 빈 좌석 정보
+│   │   └── {seat_id}           # {seat_id} 파일이 존재하면 해당 좌석은 빈 칸인 것
+│   │
+│   ├── part{pard_id}/      # 공연 회차 별 좌석 정보
+│   │   └── {seat_id}           # {part_id}회차의 {seat_id}좌석의 <좌석 상태 (0: 예매불가 / 1: 예매가능 / 2: 예매 됨) / [예매한 학생의 학번]>
+│   │
+│   ├── user/               # 사용자 정보
+│   │   └── {user_id}           # {user_id}학번을 사용하는 학생의 <이름 / [예매한 회차 / 예매한 좌석]>
+│   │
+│   ├── part_available      # 공연 정보 <공연 회차 수>
+│   └── table_setting       # 좌석 정보 <좌석 칸(가로) 개수 / 좌석 열(세로) 개수>
+│
+├── index.html          # 랜딩 페이지 (로그인 & 좌석 선택)
+├── _login.php              # 로그인 Controller (회원 가입 or 로그인 승인)
+├── _part_selector.php      # 좌석 선택 - 회차 View (회차를 표시하기 위한 html 일부를 생성)
+├── _table_drawer.php       # 좌석 선택 - 좌석 View (좌석을 표시하기 위한 html 일부를 생성)
+├── _save.php               # 좌석 선택 Controller (선택한 좌석을 데이터베이스에 적용)
+│
+├── login_log.txt       # 사용자 접속 기록
+├── bgImg.jpg
+│
+└── UPDATE.txt
+```
+
 # Acknowledgements
 
 콜라보 작업을 흔쾌히 수락해주시고 디자인에 대한 다양한 의견 및 영상자료를 제공해주신 MMC 부원들께 진심으로 감사드립니다. 또한 이 프로젝트를 묵묵히 지켜봐주시고 아낌없이 지원해주신 선생님들께 진심으로 감사드립니다.
