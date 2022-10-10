@@ -1,5 +1,8 @@
 # MMC Ticketing Service
 
+![](https://img.shields.io/badge/PHP-777BB4?logo=php&logoColor=white)
+![](https://img.shields.io/badge/Apache-D22128?logo=apache&logoColor=white)
+
 > A collaborative project of the team UNIT with club MMC.
 
 - 참여자: 김동주 <<hepheir@gmail.com>>, 박종운<<dfc7936@naver.com>>, 이현오, 김법기
