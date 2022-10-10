@@ -115,6 +115,22 @@ root/
 └── UPDATE.txt
 ```
 
+## 실행 방법
+
+Apache와 PHP를 설치하고, 본 레포지토리의 모든 파일을 Apache 서비스의 루트 디렉터리로 옮겨 사용할 수 있습니다.
+
+### Using GitHub Codespace (or Visual Studio Code)
+
+개발 편의를 위해 `.devcontainer` 설정을 추가해두었습니다.
+
+Visual Studio Code 혹은 GitHub Codespace 상에서 [Microsoft - Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack) 확장을 설치하여 Apache2와 PHP가 설치된 컨테이너를 손쉽게 생성할 수 있습니다. `Dev Containers: Open Folder Container` 명령을 통해 컨테이너를 생성한 후, 다음의 명령을 터미널에 입력하여 Apache 서비스를 활성화 시킵니다:
+
+```bash
+sudo service apache2 start
+```
+
+이후 80번 포트가 활성화 되어있는지 확인하고, 포트포워딩을 통해 접속 후 결과물을 확인하면 됩니다.
+
 # Acknowledgements
 
 콜라보 작업을 흔쾌히 수락해주시고 디자인에 대한 다양한 의견 및 영상자료를 제공해주신 MMC 부원들께 진심으로 감사드립니다. 또한 이 프로젝트를 묵묵히 지켜봐주시고 아낌없이 지원해주신 선생님들께 진심으로 감사드립니다.
